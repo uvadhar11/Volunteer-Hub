@@ -24,6 +24,10 @@
     height: 3.1rem;
     width: 100%;
   }
+
+  .top-bar div {
+    width: 10em;
+  }
   
   .volunteer-hub-logo-text {
     display: flex;
