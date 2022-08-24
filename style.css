@@ -50,6 +50,16 @@
     background-color: transparent;
     font-family: "Poppins", sans-serif;
   }
+
+  .SU-log-in-btn {
+    display: flex;
+    align-self: right;
+  }
+
+  .LI-sign-up-btn {
+    display: flex;
+    align-self: right;
+  }
   
   .sign-up-btn {
     /* border: none; */
