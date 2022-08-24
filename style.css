@@ -42,10 +42,10 @@
   .sign-up-log-in-btns {
     display: flex;
     align-self: right;
-    width: 10rem;
+    padding: 2em;
     justify-content: space-between;
     align-items: center;
-    margin-right: 3rem;
+    margin-right: 3em;
     /* this will align all the items in the center of the buttons div */
     background-color: transparent;
     font-family: "Poppins", sans-serif;
