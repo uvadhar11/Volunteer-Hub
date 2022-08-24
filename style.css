@@ -43,7 +43,7 @@
     display: flex;
     align-self: right;
     width: 10rem;
-    justify-content: space-between;
+    justify-content: space-between, right;
     align-items: center;
     margin-right: 3rem;
     /* this will align all the items in the center of the buttons div */
