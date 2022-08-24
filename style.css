@@ -35,7 +35,8 @@
     display: flex;
     width: 10rem;
     justify-content: space-between;
-    align-items: center;
+    align-items: right;
+    margin-right: 3rem;
     /* this will align all the items in the center of the buttons div */
     background-color: transparent;
     font-family: "Poppins", sans-serif;
