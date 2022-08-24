@@ -41,17 +41,15 @@
 
   .sign-up-log-in-btns {
     display: flex;
-    align-self: right;
-    padding: 2em;
+    padding: 5em;
     justify-content: space-between;
     align-items: center;
-    margin-right: 3em;
     /* this will align all the items in the center of the buttons div */
     background-color: transparent;
     font-family: "Poppins", sans-serif;
   }
 
-  .SU-log-in-btn {
+  /* .SU-log-in-btn {
     display: flex;
     align-self: right;
   }
@@ -59,7 +57,7 @@
   .LI-sign-up-btn {
     display: flex;
     align-self: right;
-  }
+  } */
   
   .sign-up-btn {
     /* border: none; */
