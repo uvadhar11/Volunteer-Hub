@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width" />
     <title>volunteer.org</title>
     <link href="../style.css" rel="stylesheet" type="text/css" />
-    <script src="script.js" defer></script>
+    <!-- ../ in file paths means the parent directory path. So you can access the files one directory/folder before the current one -->
+    <script src="../script.js" defer></script>
     <!-- defer makes the JS load after the content.-->
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -21,9 +22,11 @@
     <nav class="top-bar">
       <img src="../logo.png" class="logo" />
       <div class="sign-up-log-in-btns">
-        <a href="sign-up.html" class="sign-up-btn">Sign Up</a>
+        <a href="/log-in" class="log-in-btn">Log In</a>
       </div>
     </nav>
+
+    
 
     <footer class="footer">
       <!-- Maybe put some stuff in here -->
