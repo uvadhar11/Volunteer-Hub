@@ -41,8 +41,7 @@
 
   .sign-up-log-in-btns {
     display: flex;
-    /* padding: 5em; */
-    width: 10em;
+    width: 10em; 
     margin-right: 3em;
     justify-content: space-between;
     align-items: center;
@@ -51,15 +50,16 @@
     font-family: "Poppins", sans-serif;
   }
 
-  /* .SU-log-in-btn {
+  .SU-log-in-btn {
     display: flex;
     align-self: right;
+    justify-content: right;
   }
 
   .LI-sign-up-btn {
     display: flex;
     align-self: right;
-  } */
+  }
   
   .sign-up-btn {
     /* border: none; */
