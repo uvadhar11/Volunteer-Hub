@@ -50,21 +50,14 @@
     font-family: "Poppins", sans-serif;
   }
 
-  /* .sign-up-or-log-in-btn {
-    display: flex;
-    width: 5em !important; 
-    /* !important at end makes things take precendence. */
-    /* margin-right: 3em;
-    justify-content: space-between;
-    justify-content: right;
-    align-items: center;
-    /* this will align all the items in the center of the buttons div */
-    /* background-color: transparent;
-    font-family: "Poppins", sans-serif; */
-  /* }  */
-
   .SU-log-in-btn {
     width: 5em !important;
+    margin-right: 3em;
+  }
+
+  .LI-sign-up-btn {
+    width: 5em !important;
+    margin-right: 3em;
   }
   
   .sign-up-btn {
