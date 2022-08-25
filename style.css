@@ -51,14 +51,13 @@
   }
 
   .SU-log-in-btn {
-    display: flex;
-    align-self: right;
+    width: 5em;
     justify-content: right;
   }
 
   .LI-sign-up-btn {
-    display: flex;
-    align-self: right;
+    width: 5em;
+    justify-content: right;
   }
   
   .sign-up-btn {
