@@ -51,8 +51,15 @@
   }
 
   .SU-log-in-btn {
-    width: 5em;
+    display: flex;
+    width: 5em; 
+    margin-right: 3em;
+    justify-content: space-between;
     justify-content: right;
+    align-items: center;
+    /* this will align all the items in the center of the buttons div */
+    background-color: transparent;
+    font-family: "Poppins", sans-serif;
   }
 
   .LI-sign-up-btn {
