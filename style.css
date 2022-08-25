@@ -63,7 +63,7 @@
   .sign-up-btn {
     /* border: none; */
     /* boder: none gets rid of the border and u can use an anchor tag/element instead of the btn tag/element */
-    margin-left: 0.5rem;
+    /* margin-left: 0.5rem; */
     width: 4rem;
     height: 2.5rem;
     font-size: 1rem;
