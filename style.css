@@ -227,3 +227,7 @@
   .account-creation-form p {
     font-size: small;
   }
+
+  .account-creation-form input {
+    width: 20%;
+  }
