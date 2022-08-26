@@ -233,11 +233,10 @@
     width: 20%;
   }
 
-  .account-creation-name-div {
-    /* width: 25%; */
-    /* height: 14%; */
+  .account-creation-items-style {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: left;
+    margin-bottom: 1em;
   }
