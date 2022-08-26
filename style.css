@@ -216,7 +216,8 @@
     display: flex;
     flex-direction: column;
     align-content: center;
-    justify-content: center;
+    justify-content: space-between;
+    margin-top: 1em;
     margin-left: 1.5em;
   }
 
@@ -230,4 +231,11 @@
 
   .account-creation-form input {
     width: 20%;
+  }
+
+  .account-creation-name-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
   }
