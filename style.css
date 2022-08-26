@@ -248,6 +248,6 @@
   .account-creation-form-submit-btn {
     margin-top: 1rem;
     color: rgba(168, 181, 197, 0.918);
-    width: 7%;
+    width: 7% !important;
     color: black;
   }
