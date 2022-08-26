@@ -240,3 +240,11 @@
     align-items: left;
     margin-bottom: 1em;
   }
+
+  .account-creation-form label {
+    color: rgba(168, 181, 197, 0.918);
+  }
+
+  .account-creation-form p {
+    color: rgba(168, 181, 197, 0.918);
+  }
