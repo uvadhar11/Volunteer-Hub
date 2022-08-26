@@ -245,10 +245,9 @@
     color: rgba(168, 181, 197, 0.918);
   }
 
-  /* .account-creation-form p {
-    color: rgba(168, 181, 197, 0.918);
-  } */
-
   .account-creation-form-submit-btn {
+    margin-top: 1rem;
     color: rgba(168, 181, 197, 0.918);
+    width: 7%;
+    color: black;
   }
