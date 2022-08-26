@@ -241,10 +241,14 @@
     margin-bottom: 1em;
   }
 
-  .account-creation-form label {
+  .account-creation-form label p h1 {
     color: rgba(168, 181, 197, 0.918);
   }
 
-  .account-creation-form p {
+  /* .account-creation-form p {
+    color: rgba(168, 181, 197, 0.918);
+  } */
+
+  .account-creation-form-submit-btn {
     color: rgba(168, 181, 197, 0.918);
   }
