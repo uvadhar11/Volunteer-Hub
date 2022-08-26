@@ -209,3 +209,21 @@
     display: flex;
     margin-top: 20rem;
   }
+
+
+  /* Sign-up Page Styles */
+  .account-creation-form {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    margin-left: 1.5em;
+  }
+
+  .account-creation-form label {
+    font-size: medium;
+  }
+
+  .account-creation-form p {
+    font-size: small;
+  }
