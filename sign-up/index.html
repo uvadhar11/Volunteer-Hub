@@ -38,29 +38,56 @@
       <!-- Name Div -->
       <div class="account-creation-items-style" class="account-creation-name-div">
         <label>First Name</label>
-        <input>
+        <input required>
         <label>Last Name</label>
-        <input>
+        <input required>
         <p> <i>* Please be accurate; this will go on volunteer hour certificates/other awards and will be your username.</i> </p>
       </div>
 
-      <!-- Date of birth div -->
-      <div class="account-creation-items-style" class="account-creation-DOB-div">
-        <label>Date of Birth</label>
-        <input>
-        <p> <i>* Please be accurate; this will be used for determining volunteer opportunity eligibility.</i> </p>
-      </div>  
+      <!-- Email Div -->
+      <div class="account-creation-items-style" class="account-creation-email-div">
+        <label>Email</label>
+        <input required>
+        <p> <i>* This will be used to send email notifications, volunteer opportunity communications, used in log in, and for account changes/recovery.</i></p>
+      </div>
 
-      <!-- Adding datalist to the DOB field. Need to add dropdowns for MM/DD/YYYY (one per, 3 total) -->
+      <!-- Contact Information -->
+      <div class="account-creation-items-style">
+        <h2>Contact Information (besides email)</h2>
+        <label>Phone Number (if applicable),</label>
+        <input type="number" min="0" max="9">
+
+        <label>Discord</label>
+        <input>
+
+        <label>Whatsapp</label>
+        <input>
+
+        <label>Facebook</label>
+        <input>
+
+        <label>Snapchat</label>
+        <input>
+
+        <label>Instagram</label>
+        <input>
+
+        <label>Twitter</label>
+        <input>
+        
+        <p> <i>* This and email will be shown to other users for communication regarding volunteer opportunities.</i> </p>
+      </div>
+
+      <!-- Date of Birth Div -->
       <div class="account-creation-items-style" class="account-creation-DOB-div">
         <label>Date of Birth</label>
-        <input type="date">
+        <input type="date" required>
         <p> <i>* Please be accurate; this will be used for determining volunteer opportunity eligibility.</i> </p>
       </div>
 
       <div class="account-creation-items-style" class="account-creation-grade-level-div">
         <label>Grade Level</label>
-        <input list="Grade Level"> <!--name="Grade Level" id="Grade Level"-->
+        <input list="Grade Level" required>
         <datalist id="Grade Level">
           <option>Not started school yet (before preschool)</option>
           <option>Preschool</option>
@@ -88,10 +115,10 @@
       <!-- Password Div -->
       <div class="account-creation-items-style" class="account-creation-password-div">
         <label>Password</label>
-        <input>
+        <input required>
 
         <label>Re-confirm Password</label>
-        <input>
+        <input required>
       </div>
 
       <!-- submit form button -->
