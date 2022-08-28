@@ -267,6 +267,10 @@
     color: rgba(168, 181, 197, 0.918);
   }
 
+  .log-in-form h1{
+    color: rgba(168, 181, 197, 0.918);
+  }
+
   .log-in-form input {
     width: 20%;
     margin-bottom: 1em;
@@ -275,11 +279,12 @@
   .log-in-form-submit-btn {
     margin-top: 1rem;
     color: rgba(168, 181, 197, 0.918);
-    width: 7% !important;
+    width: 4% !important;
     color: black;
   }
 
   .log-in-forgot-password-btn {
     margin-top: 1rem;
     color: black;
+    margin-left: 1.5em;
   }
