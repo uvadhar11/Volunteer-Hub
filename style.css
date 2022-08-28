@@ -252,10 +252,13 @@
     color: black;
   }
 
-  .log-in-items-style {
+
+  /* Log in Page Styles */
+  .log-in-form {
     display: flex;
     flex-direction: column;
+    align-content: center;
     justify-content: space-between;
-    align-items: left;
-    margin-left: 1em;
+    margin-top: 1em;
+    margin-left: 1.5em;
   }
