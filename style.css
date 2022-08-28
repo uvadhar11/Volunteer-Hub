@@ -251,3 +251,11 @@
     width: 7% !important;
     color: black;
   }
+
+  .log-in-items-style {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: left;
+    margin-left: 1em;
+  }
