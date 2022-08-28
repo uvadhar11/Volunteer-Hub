@@ -267,3 +267,7 @@
     font-size: medium;
     color: rgba(168, 181, 197, 0.918)
   }
+
+  .log-in-form input {
+    width: 20%
+  }
