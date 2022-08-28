@@ -262,3 +262,8 @@
     margin-top: 1em;
     margin-left: 1.5em;
   }
+
+  .log-in-form label {
+    font-size: medium;
+    color: rgba(168, 181, 197, 0.918)
+  }
