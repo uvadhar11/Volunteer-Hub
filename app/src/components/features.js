@@ -3,7 +3,7 @@ function Features() {
     <div>
       <nav className="top-bar">
         <div>
-          <img src="logo.png" className="logo" />
+          <img src="app\src\logo.png" alt="logo" className="logo" />
           <h3 className="volunteer-hub-logo-text">Volunteer Hub</h3>
         </div>
         <div className="sign-up-log-in-btns">
@@ -32,11 +32,11 @@ function Features() {
             Find and post volunteer opportunities in your community and globally
             by location and other search tags
           </h1>
-          <img src="logo.png" alt="" />
+          <img src="app\src\logo.png" alt="logo" />
         </div>
 
         <div className="earn-hours">
-          <img src="logo.png" alt="" />
+          <img src="app\src\logo.png" alt="logo" />
           <h1 className="earn-hours-h1">Earn community service hours</h1>
         </div>
 
@@ -44,7 +44,7 @@ function Features() {
           <h1 className="message-others-h1">
             Communicate with those in your volunteer opportunities
           </h1>
-          <img src="logo.png" alt="" />
+          <img src="app\src\logo.png" alt="logo" />
         </div>
 
         <div className="sign-up-today">

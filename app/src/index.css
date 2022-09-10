@@ -1,4 +1,4 @@
-body {
+/* body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -10,4 +10,295 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+} */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  inset: 0;
+}
+/* the star above is for the browser and applies each thing to each element individually and makes
+  sure the browser doesn't add any inset, etc by default. */
+
+body {
+  background-color: #545454;
+  font-family: "Poppins", sans-serif;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.top-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: whitesmoke;
+  height: 3.1rem;
+  width: 100%;
+}
+
+.top-bar div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.volunteer-hub-logo-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 3rem;
+}
+
+.sign-up-log-in-btns {
+  display: flex;
+  width: 10em;
+  margin-right: 3em;
+  justify-content: space-between;
+  align-items: center;
+  /* this will align all the items in the center of the buttons div */
+  background-color: transparent;
+  font-family: "Poppins", sans-serif;
+}
+
+.SU-log-in-btn {
+  display: flex;
+  width: 5em;
+  margin-right: 3em;
+  justify-content: space-between;
+  align-items: center;
+  /* this will align all the items in the center of the buttons div */
+  background-color: transparent;
+  font-family: "Poppins", sans-serif;
+}
+
+.LI-sign-up-btn {
+  display: flex;
+  width: 5em;
+  margin-right: 3em;
+  justify-content: space-between;
+  align-items: center;
+  /* this will align all the items in the center of the buttons div */
+  background-color: transparent;
+  font-family: "Poppins", sans-serif;
+}
+
+.sign-up-btn {
+  /* border: none; */
+  /* boder: none gets rid of the border and u can use an anchor tag/element instead of the btn tag/element */
+  /* margin-left: 0.5rem; */
+  width: 4rem;
+  height: 2.5rem;
+  font-size: 1rem;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  text-decoration: none;
+  color: #4f2981;
+}
+
+.log-in-btn {
+  width: 4rem;
+  height: 2.5rem;
+  font-size: 1rem;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  text-decoration: none;
+  color: #4f2981;
+}
+
+.volunteer-hub-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 25rem;
+  background-color: #545454;
+}
+
+.volunteer-hub-text {
+  display: flex;
+  justify-content: center;
+  color: rgba(168, 181, 197, 0.918);
+  font-size: 400%;
+}
+
+.volunteer-hub-description {
+  display: flex;
+  justify-content: center;
+  color: rgba(246, 246, 246, 0.918);
+  font-size: 120%;
+}
+
+.logo {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* set the default styling for content - which is a big div that has all the features in it */
+/* enable flex box, set direction to column, content justified to center, align items in it in center */
+.features-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /*justify content - align on main axis -> this code says center on main axis  */
+  align-items: center;
+  /*align items - align on cross axis -> this code says center on cross axis  */
+}
+
+/* Select all the div containers in the content div. */
+.features-content div {
+  /* margin-top: 10em; */
+  display: flex;
+  align-items: center;
+}
+
+/* Find volunteer feature information */
+.find-volunteer {
+  background-color: #211e1e;
+}
+
+.find-volunteer-h1 {
+  margin-left: 3rem;
+  color: rgba(168, 181, 197, 0.918);
+}
+
+/* Earn hours feature information */
+.earn-hours {
+  background-color: #171731d9;
+  width: 100%;
+}
+
+.earn-hours-h1 {
+  color: rgba(168, 181, 197, 0.918);
+}
+
+/* Message others feature information */
+.message-others {
+  background-color: #211e1e;
+  width: 100%;
+}
+
+.message-others-h1 {
+  margin-left: 3rem;
+  color: rgba(168, 181, 197, 0.918);
+}
+
+/* Sign up today feature information */
+.sign-up-today {
+  /* margin-top: 20rem; */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: #545454;
+}
+
+.sign-up-today-h1 {
+  color: rgba(168, 181, 197, 0.918);
+}
+
+.sign-up-today-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  border-style: solid;
+  border-color: whitesmoke;
+  margin-top: 1rem;
+  width: 7rem;
+  height: 2.5rem;
+  background-color: #4d4bd0;
+  border-color: whitesmoke;
+  color: whitesmoke;
+  font-size: 1rem;
+}
+
+/* Footer Content */
+.footer {
+  display: flex;
+  margin-top: 20rem;
+}
+
+/* Sign-up Page Styles */
+.account-creation-form {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: space-between;
+  margin-top: 1em;
+  margin-left: 1.5em;
+}
+
+.account-creation-form label {
+  font-size: medium;
+}
+
+.account-creation-form p {
+  font-size: small;
+}
+
+.account-creation-form input {
+  width: 20%;
+}
+
+.account-creation-items-style {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: left;
+  margin-bottom: 1em;
+}
+
+.account-creation-form label,
+p,
+h1 {
+  color: rgba(168, 181, 197, 0.918);
+}
+
+.account-creation-form-submit-btn {
+  margin-top: 1rem;
+  width: 7% !important;
+  color: black;
+}
+
+/* Log in Page Styles */
+.log-in-form {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: space-between;
+  margin-top: 1em;
+  margin-left: 1.5em;
+}
+
+.log-in-form label {
+  font-size: medium;
+  color: rgba(168, 181, 197, 0.918);
+}
+
+.log-in-form h1 {
+  color: rgba(168, 181, 197, 0.918);
+}
+
+.log-in-form input {
+  width: 20%;
+  margin-bottom: 1em;
+}
+
+.log-in-form-submit-btn {
+  margin-top: 1rem;
+  color: rgba(168, 181, 197, 0.918);
+  width: 4% !important;
+  color: black;
+}
+
+.log-in-forgot-password-btn {
+  margin-top: 0.5rem;
+  color: black;
+  margin-left: 1.5em;
 }

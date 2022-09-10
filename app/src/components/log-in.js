@@ -3,7 +3,7 @@ function LogIn() {
     <div>
       <nav className="top-bar">
         <div>
-          <img src="../logo.png" className="logo" />
+          <img src="app\src\logo.png" alt="logo" className="logo" />
           <h3 className="volunteer-hub-logo-text">Volunteer Hub</h3>
         </div>
         <div className="LI-sign-up-btn">

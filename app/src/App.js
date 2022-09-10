@@ -1,8 +1,8 @@
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
-import Features from "../components/features";
-import Home from "../components/home";
-import LogIn from "../components/log-in";
-import SignUp from "../components/sign-up";
+import Features from "./components/features";
+import Home from "./components/home";
+import LogIn from "./components/log-in";
+import SignUp from "./components/sign-up";
 
 function App() {
   return (
