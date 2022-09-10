@@ -1,4 +1,4 @@
-function Home() {
+function Features() {
   return (
     <div>
       <nav className="top-bar">
@@ -64,4 +64,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Features;
