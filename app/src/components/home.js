@@ -1,4 +1,4 @@
-import { Box, Flex, IconButton } from "@chakra-ui/react";
+import { Box, Flex, IconButton, VStack } from "@chakra-ui/react";
 import React from "react";
 import {
   FaBars,
@@ -6,19 +6,48 @@ import {
   FaMoon,
   FaBell,
   FaQuestionCircle,
+  FaGrinAlt,
 } from "react-icons/fa";
+import Logo from "./logo";
 
 function Home() {
   return (
-    <Box bg="blackAlpha.800">
-      <Flex>
-        <IconButton aria-label="Menu" icon={<FaBars />}></IconButton>
-        <IconButton aria-label="Menu" icon={<FaSun />}></IconButton>
-        <IconButton aria-label="Menu" icon={<FaBell />}></IconButton>
-        <IconButton aria-label="Menu" icon={<FaQuestionCircle />}></IconButton>
-        <IconButton aria-label="Menu" icon={<FaMoon />}></IconButton>
+    <VStack>
+      <Flex w="100%" h="3em" bg="blackAlpha.600" pl="2" align="center">
+        <IconButton
+          aria-label="Menu Button"
+          colorScheme="facebook"
+          icon={<FaBars />}
+        ></IconButton>
+        <Logo />
+        <IconButton
+          aria-label="Help Button"
+          colorScheme="facebook"
+          ml="1000"
+          icon={<FaQuestionCircle />}
+        ></IconButton>
+        <IconButton
+          aria-label="Notification Bell"
+          colorScheme="facebook"
+          ml="2"
+          icon={<FaBell />}
+        ></IconButton>
+
+        <IconButton
+          aria-label="Theme Change"
+          colorScheme="facebook"
+          ml="2"
+          icon={<FaMoon />}
+        ></IconButton>
+
+        <IconButton
+          aria-label="Profile"
+          colorScheme="facebook"
+          ml="2"
+          icon={<FaGrinAlt />}
+        ></IconButton>
       </Flex>
-    </Box>
+    </VStack>
   );
 }
 
