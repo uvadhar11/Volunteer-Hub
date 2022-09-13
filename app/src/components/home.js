@@ -5,6 +5,8 @@ import {
   useColorMode,
   Spacer,
   HStack,
+  Button,
+  Text,
 } from "@chakra-ui/react";
 import React from "react";
 import {
@@ -94,8 +96,20 @@ function Home() {
         </VStack>
 
         {/* side side bar (like channel bar) */}
-        <VStack bg="red" width="10em" height="100%">
-          <text>Channels</text>
+        <VStack width="10em" height="100%">
+          <Text fontSize="1xl">Channels</Text>
+          <Button colorScheme={"facebook"} size="sm">
+            Dashboard
+          </Button>
+          <Button colorScheme={"facebook"} size="sm">
+            Search
+          </Button>
+          <Button colorScheme={"facebook"} size="sm">
+            Your Stats
+          </Button>
+          <Button colorScheme={"facebook"} size="sm">
+            Your Awards
+          </Button>
         </VStack>
       </HStack>
     </VStack>
