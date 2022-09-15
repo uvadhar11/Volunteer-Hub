@@ -124,12 +124,16 @@ function Home() {
               Search
             </Button>
           </Link>
-          <Button colorScheme={"facebook"} size="sm">
-            Your Stats
-          </Button>
-          <Button colorScheme={"facebook"} size="sm">
-            Your Awards
-          </Button>
+          <Link to="your-stats">
+            <Button colorScheme={"facebook"} size="sm">
+              Your Stats
+            </Button>
+          </Link>
+          <Link to="your-awards">
+            <Button colorScheme={"facebook"} size="sm">
+              Your Awards
+            </Button>
+          </Link>
         </VStack>
         {/* content stuff */}
         <Outlet />
