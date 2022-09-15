@@ -126,7 +126,7 @@ function Home() {
         </VStack> */}
         <Outlet /> {/*This outlet is for the channels sidebar. */}
         {/* content stuff */}
-        <Outlet />
+        {/* <Outlet /> */}
       </HStack>
     </VStack>
   );
