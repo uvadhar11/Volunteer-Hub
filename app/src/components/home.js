@@ -20,23 +20,12 @@ import {
   FaHome,
   FaGrinTears,
 } from "react-icons/fa";
-// import { useRouteMatch } from "react-router-dom";
-import Search from "./search";
-import Dashboard from "./dashboard";
 import Logo from "./logo";
-import { domAnimation } from "framer-motion";
-
-function changeURL(path, url, str) {
-  // const {path, url } = useRouteMatch();
-  path = path / str;
-  // naviagator.push
-}
 
 function Home() {
   const { colorMode, toggleColorMode } = useColorMode();
   const isDark = colorMode === "dark"; // the value is this boolean expression so the value technically doesn;t change but the evaluation
   // true/false doesn't change.
-  // const { path, url } = useRouteMatch(); // get the url and the path.
 
   return (
     <VStack w="100%" h="100vh">
@@ -94,28 +83,28 @@ function Home() {
           alignSelf={"flex-start"}
           gap="1"
         >
-          <IconButton
-            mt="2"
-            aria-label="Home Button"
-            colorScheme="facebook"
-            icon={<FaHome />}
-          ></IconButton>
+          <Link to="home-sidebar">
+            <IconButton
+              mt="2"
+              aria-label="Home Button"
+              colorScheme="facebook"
+              icon={<FaHome />}
+            ></IconButton>
+          </Link>
 
-          <IconButton
-            aria-label="Volunteer Opportunity"
-            colorScheme="facebook"
-            icon={<FaGrinTears />}
-          />
+          <Link to="volunteer-op-sidebar">
+            <IconButton
+              aria-label="Volunteer Opportunity"
+              colorScheme="facebook"
+              icon={<FaGrinTears />}
+            ></IconButton>
+          </Link>
         </VStack>
-        {/* side side bar (like channel bar) */}
-        <VStack width="10em" height="100%" bg="red.100">
+        {/* side side bar / sidebar 2 (like channel bar) */}
+        {/* <VStack width="10em" height="100%" bg="red.100">
           <Text fontSize="1xl">Channels</Text>
           <Link to="dashboard">
-            <Button
-              colorScheme={"facebook"}
-              size="sm"
-              // onClick={changeURL(path, url, "dashboard")}
-            >
+            <Button colorScheme={"facebook"} size="sm">
               Dashboard
             </Button>{" "}
           </Link>
@@ -134,7 +123,8 @@ function Home() {
               Your Awards
             </Button>
           </Link>
-        </VStack>
+        </VStack> */}
+        <Outlet /> {/*This outlet is for the channels sidebar. */}
         {/* content stuff */}
         <Outlet />
       </HStack>
