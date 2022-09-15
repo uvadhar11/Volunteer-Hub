@@ -9,6 +9,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React from "react";
+// import { Outlet } from "react-router-dom";
 import {
   FaBars,
   FaSun,
@@ -19,12 +20,24 @@ import {
   FaHome,
   FaGrinTears,
 } from "react-icons/fa";
+// import { useRouteMatch } from "react-router-dom";
+import Search from "./search";
+import Dashboard from "./dashboard";
 import Logo from "./logo";
+import { domAnimation } from "framer-motion";
+
+function changeURL(path, url, str) {
+  // const {path, url } = useRouteMatch();
+  path = path / str;
+  // naviagator.push
+}
 
 function Home() {
   const { colorMode, toggleColorMode } = useColorMode();
   const isDark = colorMode === "dark"; // the value is this boolean expression so the value technically doesn;t change but the evaluation
   // true/false doesn't change.
+  // const { path, url } = useRouteMatch(); // get the url and the path.
+
   return (
     <VStack w="100%" h="100vh">
       {/* nav bar */}
@@ -94,11 +107,14 @@ function Home() {
             icon={<FaGrinTears />}
           />
         </VStack>
-
         {/* side side bar (like channel bar) */}
-        <VStack width="10em" height="100%">
+        <VStack width="10em" height="100%" bg="red.100">
           <Text fontSize="1xl">Channels</Text>
-          <Button colorScheme={"facebook"} size="sm">
+          <Button
+            colorScheme={"facebook"}
+            size="sm"
+            // onClick={changeURL(path, url, "dashboard")}
+          >
             Dashboard
           </Button>
           <Button colorScheme={"facebook"} size="sm">
@@ -111,6 +127,7 @@ function Home() {
             Your Awards
           </Button>
         </VStack>
+        {/* content stuff */}
       </HStack>
     </VStack>
   );

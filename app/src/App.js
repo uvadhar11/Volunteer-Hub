@@ -1,19 +1,23 @@
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { Route, BrowserRouter, Routes } from "react-router-dom";
+import Dashboard from "./components/dashboard";
 import Features from "./components/features";
 import Home from "./components/home";
 import LogIn from "./components/log-in";
 import SignUp from "./components/sign-up";
+import Search from "./components/search";
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={Features} />
-        <Route exact path="/home" component={Home} />
-        <Route exact path="/sign-up" component={SignUp} />
-        <Route exact path="/log-in" component={LogIn} />
-      </Switch>
-    </Router>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Features />} />
+        <Route path="home" element={<Home />} />
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="search" element={<Search />} />
+        <Route path="sign-up" element={<SignUp />} />
+        <Route path="log-in" element={<LogIn />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
