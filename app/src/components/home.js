@@ -9,7 +9,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React from "react";
-// import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import {
   FaBars,
   FaSun,
@@ -110,16 +110,20 @@ function Home() {
         {/* side side bar (like channel bar) */}
         <VStack width="10em" height="100%" bg="red.100">
           <Text fontSize="1xl">Channels</Text>
-          <Button
-            colorScheme={"facebook"}
-            size="sm"
-            // onClick={changeURL(path, url, "dashboard")}
-          >
-            Dashboard
-          </Button>
-          <Button colorScheme={"facebook"} size="sm">
-            Search
-          </Button>
+          <Link to="dashboard">
+            <Button
+              colorScheme={"facebook"}
+              size="sm"
+              // onClick={changeURL(path, url, "dashboard")}
+            >
+              Dashboard
+            </Button>{" "}
+          </Link>
+          <Link to="search">
+            <Button colorScheme={"facebook"} size="sm">
+              Search
+            </Button>
+          </Link>
           <Button colorScheme={"facebook"} size="sm">
             Your Stats
           </Button>
@@ -128,6 +132,7 @@ function Home() {
           </Button>
         </VStack>
         {/* content stuff */}
+        <Outlet />
       </HStack>
     </VStack>
   );
