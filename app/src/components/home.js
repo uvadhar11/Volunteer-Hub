@@ -5,8 +5,6 @@ import {
   useColorMode,
   Spacer,
   HStack,
-  Button,
-  Text,
 } from "@chakra-ui/react";
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
@@ -21,6 +19,11 @@ import {
   FaGrinTears,
 } from "react-icons/fa";
 import Logo from "./logo";
+
+let homeClicked = true;
+function switchHomeClicked() {
+  homeClicked = !homeClicked;
+}
 
 function Home() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -67,7 +70,7 @@ function Home() {
 
       {/* side bar */}
 
-      {/* side bar */}
+      {/* Icons Side Bar */}
       <HStack
         width="100%"
         height="100vh"
@@ -83,11 +86,14 @@ function Home() {
           alignSelf={"flex-start"}
           gap="1"
         >
-          <Link to="home-sidebar">
+          <Link to={homeClicked ? "home-sidebar" : "home"}>
+            {" "}
+            {/*embed JS example. Old: "home-sidebar*/}
             <IconButton
               mt="2"
               aria-label="Home Button"
               colorScheme="facebook"
+              onClick={switchHomeClicked}
               icon={<FaHome />}
             ></IconButton>
           </Link>
