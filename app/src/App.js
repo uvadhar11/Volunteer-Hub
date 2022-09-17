@@ -7,7 +7,7 @@ import SignUp from "./components/sign-up";
 import Search from "./components/search";
 import YourStats from "./components/your-stats";
 import YourAwards from "./components/your-awards";
-import HomeSidebar from "./components/home-sidebar";
+// import HomeSidebar from "./components/home-sidebar";
 
 function App() {
   return (
@@ -15,12 +15,12 @@ function App() {
       <Routes>
         <Route path="/" element={<Features />} />
         <Route path="home" element={<Home />}>
-          <Route path="home-sidebar" element={<HomeSidebar />}>
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="search" element={<Search />} />
-            <Route path="your-stats" element={<YourStats />}></Route>
-            <Route path="your-awards" element={<YourAwards />}></Route>
-          </Route>
+          {/* <Route path="home-sidebar" element={<HomeSidebar />}> */}
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="search" element={<Search />} />
+          <Route path="your-stats" element={<YourStats />}></Route>
+          <Route path="your-awards" element={<YourAwards />}></Route>
+          {/* </Route> */}
           {/* Add the volunteer opportunity sidebar here */}
         </Route>
         <Route path="sign-up" element={<SignUp />} />

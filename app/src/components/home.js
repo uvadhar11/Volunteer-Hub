@@ -5,8 +5,10 @@ import {
   useColorMode,
   Spacer,
   HStack,
+  Button,
+  Text,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import {
   FaBars,
@@ -20,15 +22,31 @@ import {
 } from "react-icons/fa";
 import Logo from "./logo";
 
-let homeClicked = true;
-function switchHomeClicked() {
-  homeClicked = !homeClicked;
-}
+// let homeClicked = true;
+// function switchHomeClicked() {
+//   // homeClicked = !homeClicked;
+//   // console.log(homeClicked);
+
+//   // const [count, ]
+//   setButtonState(true);
+// }
+
+// function example() {}
 
 function Home() {
   const { colorMode, toggleColorMode } = useColorMode();
   const isDark = colorMode === "dark"; // the value is this boolean expression so the value technically doesn;t change but the evaluation
   // true/false doesn't change.
+  const [buttonState, setButtonState] = useState(false);
+
+  let homeClicked = true;
+  function switchHomeClicked() {
+    // homeClicked = !homeClicked;
+    // console.log(homeClicked);
+
+    // const [count, ]
+    setButtonState(!buttonState);
+  }
 
   return (
     <VStack w="100%" h="100vh">
@@ -86,14 +104,14 @@ function Home() {
           alignSelf={"flex-start"}
           gap="1"
         >
-          <Link to={homeClicked ? "home-sidebar" : "home"}>
+          <Link to="dashboard">
             {" "}
             {/*embed JS example. Old: "home-sidebar*/}
             <IconButton
               mt="2"
               aria-label="Home Button"
               colorScheme="facebook"
-              onClick={switchHomeClicked}
+              // onClick={switchHomeClicked}
               icon={<FaHome />}
             ></IconButton>
           </Link>
@@ -106,8 +124,9 @@ function Home() {
             ></IconButton>
           </Link>
         </VStack>
+
         {/* side side bar / sidebar 2 (like channel bar) */}
-        {/* <VStack width="10em" height="100%" bg="red.100">
+        <VStack width="10em" height="100%" bg="red.100">
           <Text fontSize="1xl">Channels</Text>
           <Link to="dashboard">
             <Button colorScheme={"facebook"} size="sm">
@@ -129,8 +148,8 @@ function Home() {
               Your Awards
             </Button>
           </Link>
-        </VStack> */}
-        <Outlet /> {/*This outlet is for the channels sidebar. */}
+        </VStack>
+        <Outlet />
         {/* content stuff */}
         {/* <Outlet /> */}
       </HStack>
