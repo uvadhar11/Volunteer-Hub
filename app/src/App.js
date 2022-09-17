@@ -1,12 +1,13 @@
 import { Route, BrowserRouter, Routes } from "react-router-dom";
-import Dashboard from "./components/dashboard";
+import Dashboard from "./components/home/dashboard";
 import Features from "./components/features";
-import Home from "./components/home";
+import Home from "./components/home/home";
 import LogIn from "./components/log-in";
 import SignUp from "./components/sign-up";
-import Search from "./components/search";
-import YourStats from "./components/your-stats";
-import YourAwards from "./components/your-awards";
+import Search from "./components/home/search";
+import YourStats from "./components/home/your-stats";
+import YourAwards from "./components/home/your-awards";
+import VolunteerOpportunity from "./components/volunteer-opportunity";
 // import HomeSidebar from "./components/home-sidebar";
 
 function App() {
@@ -23,6 +24,10 @@ function App() {
           {/* </Route> */}
           {/* Add the volunteer opportunity sidebar here */}
         </Route>
+        <Route
+          path="volunteer-opportunity"
+          element={<VolunteerOpportunity />}
+        ></Route>
         <Route path="sign-up" element={<SignUp />} />
         <Route path="log-in" element={<LogIn />} />
       </Routes>
