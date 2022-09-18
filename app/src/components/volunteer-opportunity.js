@@ -39,7 +39,7 @@ function VolunteerOpportunity() {
           <IconButton
             aria-label="Volunteer Opportunity"
             colorScheme="facebook"
-            // onClick={() => navigate("/volunteer-op-sidebar")}
+            onClick={() => navigate("/volunteer-opportunity/dashboard")}
             icon={<FaGrinTears />}
           ></IconButton>
         </VStack>

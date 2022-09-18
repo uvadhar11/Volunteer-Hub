@@ -8,6 +8,10 @@ import Search from "./components/home/search";
 import YourStats from "./components/home/your-stats";
 import YourAwards from "./components/home/your-awards";
 import VolunteerOpportunity from "./components/volunteer-opportunity";
+import VODashboard from "./components/volunteer-opportunity/vo-dashboard";
+import VOToDo from "./components/volunteer-opportunity/vo-to-do";
+import VOAnnouncements from "./components/volunteer-opportunity/vo-announcements";
+import VOMessages from "./components/volunteer-opportunity/vo-messages";
 // import HomeSidebar from "./components/home-sidebar";
 
 function App() {
@@ -22,12 +26,13 @@ function App() {
           <Route path="your-stats" element={<YourStats />}></Route>
           <Route path="your-awards" element={<YourAwards />}></Route>
           {/* </Route> */}
-          {/* Add the volunteer opportunity sidebar here */}
         </Route>
-        <Route
-          path="volunteer-opportunity"
-          element={<VolunteerOpportunity />}
-        ></Route>
+        <Route path="volunteer-opportunity" element={<VolunteerOpportunity />}>
+          <Route path="dashboard" element={<VODashboard />} />
+          <Route path="to-do" element={<VOToDo />} />
+          <Route path="announcements" element={<VOAnnouncements />} />
+          <Route path="messages" element={<VOMessages />} />
+        </Route>
         <Route path="sign-up" element={<SignUp />} />
         <Route path="log-in" element={<LogIn />} />
       </Routes>

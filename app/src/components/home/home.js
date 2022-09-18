@@ -43,7 +43,7 @@ function Home() {
           <IconButton
             aria-label="Volunteer Opportunity"
             colorScheme="facebook"
-            onClick={() => navigate("/volunteer-opportunity")}
+            onClick={() => navigate("/volunteer-opportunity/dashboard")}
             icon={<FaGrinTears />}
           ></IconButton>
         </VStack>
