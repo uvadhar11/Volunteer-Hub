@@ -44,28 +44,29 @@ function VolunteerOpportunity() {
           ></IconButton>
         </VStack>
 
-        {/* For good refaactoring - make a sidebar compoenent then pass an object into it for information to show. And use map method to make it show up (map inside of the sidebar component.) */}
+        {/* For good refactoring - make a sidebar compoenent then pass an object into it for information to show. And use map method to make it show up (map inside of the sidebar component.) */}
         {/* side side bar / sidebar 2 (like channel bar) */}
         <VStack width="10em" height="100%" bg="red.100">
-          <Text fontSize="1xl">Channels</Text>
+          <Text fontSize="1xl">Volunteer Opportunity</Text>
           <Link to="dashboard">
             <Button colorScheme={"facebook"} size="sm">
               Dashboard
             </Button>{" "}
           </Link>
-          <Link to="search">
+          <Link to="announcements">
             <Button colorScheme={"facebook"} size="sm">
-              Search
+              Announcements
             </Button>
           </Link>
-          <Link to="your-stats">
+          <Link to="to-do">
             <Button colorScheme={"facebook"} size="sm">
-              Your Stats
+              To-Do
             </Button>
           </Link>
-          <Link to="your-awards">
+          {/* Messages here will probably have a ton of sub components which are the different channels you can make (private channels, etc - maybe could add roles later) */}
+          <Link to="messages">
             <Button colorScheme={"facebook"} size="sm">
-              Your Awards
+              Messages
             </Button>
           </Link>
         </VStack>
