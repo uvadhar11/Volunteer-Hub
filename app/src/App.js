@@ -13,6 +13,8 @@ import VOToDo from "./components/volunteer-opportunity/vo-to-do";
 import VOAnnouncements from "./components/volunteer-opportunity/vo-announcements";
 import VOMessages from "./components/volunteer-opportunity/vo-messages";
 import ErrorPage from "./components/error-page";
+import Help from "./components/help";
+import AccountSettings from "./components/account-settings";
 // import HomeSidebar from "./components/home-sidebar";
 
 function App() {
@@ -36,6 +38,8 @@ function App() {
         </Route>
         <Route path="sign-up" element={<SignUp />} />
         <Route path="log-in" element={<LogIn />} />
+        <Route path="help" element={<Help />} />
+        <Route path="account-settings" element={<AccountSettings />} />
         <Route path="*" element={<ErrorPage />} />{" "}
         {/* This error page route needs to be the last route!!! Star basically means all others*/}
       </Routes>
