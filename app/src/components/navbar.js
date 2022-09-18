@@ -28,12 +28,6 @@ function NavBar() {
   return (
     <Flex w="100%" h="3em" bg="blackAlpha.600" pl="2" align="center">
       {/* Menu Button */}
-      {/* <IconButton
-        aria-label="Menu Button"
-        colorScheme="facebook"
-        icon={<FaBars />}
-      ></IconButton> */}
-
       <Menu>
         <MenuButton
           as={IconButton}
@@ -57,6 +51,7 @@ function NavBar() {
       <IconButton
         aria-label="Help Button"
         colorScheme="facebook"
+        onClick={() => navigate("/help")}
         icon={<FaQuestionCircle />}
       ></IconButton>
 
