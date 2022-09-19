@@ -84,7 +84,7 @@ function LogIn() {
               OR
             </Text>
             <Button size="md" ml="5" w="-webkit-fit-content" mr="12" mt="0.5">
-              Sign in with google
+              Log in with google
             </Button>
           </Flex>
         </HStack>

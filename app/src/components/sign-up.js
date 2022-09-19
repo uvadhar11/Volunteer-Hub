@@ -177,7 +177,7 @@ function SignUp() {
           {/* Sign Up text */}
           <Flex justify="left" align="left" flexDirection="column">
             <Text ml="6" mt="1.5" fontSize="3xl">
-              Log In
+              Sign Up
             </Text>
 
             {/* Email */}
@@ -206,17 +206,9 @@ function SignUp() {
                 // mt="2"
                 ml="6"
               ></Input>
-              <Button
-                size="xs"
-                w="-webkit-fit-content"
-                variant="link"
-                ml="6"
-                onClick={() => navigate("/forgot-password")}
-              >
-                Forgot Password?
-              </Button>
+
               <Spacer />
-              {/* Log in button */}
+              {/* Sign Up Button */}
               <Button
                 type="submit"
                 mt="4"
@@ -236,7 +228,7 @@ function SignUp() {
               OR
             </Text>
             <Button size="md" ml="5" w="-webkit-fit-content" mr="12" mt="0.5">
-              Sign in with google
+              Sign up with google
             </Button>
           </Flex>
         </HStack>
