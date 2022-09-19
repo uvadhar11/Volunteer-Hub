@@ -19,7 +19,7 @@ function LogIn() {
 
   return (
     <VStack>
-      <NavBar />
+      <NavBar signUp="true" />
       <Center w="100%" h="30em">
         <HStack w="45%" h="22.3em" bg="whiteAlpha.200">
           {/* Sign Up text */}

@@ -171,36 +171,42 @@ function SignUp() {
     //   </footer>
     // </div>
     <VStack>
-      <NavBar />
-      <Center w="100%" h="30em">
-        <HStack w="45%" h="22.3em" bg="whiteAlpha.200">
+      <NavBar logIn="true" />
+      <Center w="100%" h="60em">
+        <HStack w="45%" h="50em" bg="whiteAlpha.200">
           {/* Sign Up text */}
           <Flex justify="left" align="left" flexDirection="column">
             <Text ml="6" mt="1.5" fontSize="3xl">
               Sign Up
             </Text>
 
-            {/* Email */}
+            {/* First Name */}
             <FormControl>
               <FormLabel ml="6" mt="4" fontSize="xl">
-                Email
+                First Name
+              </FormLabel>
+              <Input placeholder="First Name" size="md" w="20em" ml="6"></Input>
+
+              {/* Last Name */}
+              <FormLabel ml="6" mt="4" fontSize="xl">
+                Last Name
               </FormLabel>
               <Input
-                type="email"
-                placeholder="Email"
+                type="name"
+                placeholder="Last Name"
                 size="md"
                 w="20em"
                 // mt="2"
                 ml="6"
               ></Input>
 
-              {/* Password */}
+              {/* Email */}
               <FormLabel ml="6" mt="4" fontSize="xl">
-                Password
+                Email
               </FormLabel>
               <Input
-                type="password"
-                placeholder="Password"
+                type="email"
+                placeholder="Email"
                 size="md"
                 w="20em"
                 // mt="2"

@@ -8,7 +8,7 @@ function Features() {
 
   return (
     <VStack>
-      <NavBar />
+      <NavBar signUp="true" logIn="true" />
       <Text fontSize="6xl">Volunteer Hub</Text>
       <Text fontSize="3xl">Changing the world, 1 volunteer at a time.</Text>
       <Spacer />

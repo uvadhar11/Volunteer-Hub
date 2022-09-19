@@ -8,6 +8,7 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  Button,
 } from "@chakra-ui/react";
 import {
   FaBars,
@@ -20,7 +21,7 @@ import {
 import Logo from "./logo";
 import { useNavigate } from "react-router-dom";
 
-function NavBar() {
+function NavBar(props) {
   const { colorMode, toggleColorMode } = useColorMode();
   const isDark = colorMode === "dark"; // the value is this boolean expression so the value technically doesn't change but the evaluation true/false doesn't change.
   let navigate = useNavigate();
@@ -49,6 +50,26 @@ function NavBar() {
       <Spacer />
 
       {/* would dynamically load the elements in here. */}
+      {props.signUp === "true" ? (
+        <Button
+          mr="3"
+          size="md"
+          colorScheme="facebook"
+          onClick={() => navigate("/sign-up")}
+        >
+          Sign Up
+        </Button>
+      ) : null}
+      {props.logIn === "true" ? (
+        <Button
+          colorScheme="facebook"
+          size="md"
+          onClick={() => navigate("/log-in")}
+          mr="3"
+        >
+          Log In
+        </Button>
+      ) : null}
 
       <IconButton
         aria-label="Help Button"
