@@ -21,18 +21,18 @@ function LogIn() {
         <HStack w="45%" h="21em" bg="whiteAlpha.200">
           {/* Log in text */}
           <Flex justify="left" align="left" flexDirection="column">
-            <Text ml="3" mt="1.5" fontSize="3xl">
+            <Text ml="6" mt="1.5" fontSize="3xl">
               Log-In
             </Text>
 
             {/* Email */}
-            <Text ml="3" mt="4" fontSize="xl">
+            <Text ml="6" mt="4" fontSize="xl">
               Email
             </Text>
-            <Input placeholder="Email" size="md" w="20em" mt="2" ml="3"></Input>
+            <Input placeholder="Email" size="md" w="20em" mt="2" ml="6"></Input>
 
             {/* Password */}
-            <Text ml="3" mt="4" fontSize="xl">
+            <Text ml="6" mt="4" fontSize="xl">
               Password
             </Text>
             <Input
@@ -40,14 +40,14 @@ function LogIn() {
               size="md"
               w="20em"
               mt="2"
-              ml="3"
+              ml="6"
             ></Input>
             <Button
               size="xs"
               w="-webkit-fit-content"
               variant="link"
               mt="1"
-              ml="3"
+              ml="6"
               onClick={() => navigate("/forgot-password")}
             >
               Forgot Password?
@@ -56,7 +56,7 @@ function LogIn() {
             {/* Log in button */}
             <Button
               mt="4"
-              ml="3"
+              ml="6"
               size="md"
               colorScheme="facebook"
               w="-webkit-fit-content"
