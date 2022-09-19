@@ -13,6 +13,7 @@ import {
 import React from "react";
 import NavBar from "./navbar";
 import { useNavigate } from "react-router-dom";
+import Fields from "./fields";
 
 function SignUp() {
   let navigate = useNavigate();
@@ -182,10 +183,7 @@ function SignUp() {
 
             {/* First Name */}
             <FormControl>
-              <FormLabel ml="6" mt="4" fontSize="xl">
-                First Name
-              </FormLabel>
-              <Input placeholder="First Name" size="md" w="20em" ml="6"></Input>
+              <Fields name="First Name" />
 
               {/* Last Name */}
               <FormLabel ml="6" mt="4" fontSize="xl">
