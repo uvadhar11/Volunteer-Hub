@@ -48,6 +48,8 @@ function NavBar() {
       <Logo />
       <Spacer />
 
+      {/* would dynamically load the elements in here. */}
+
       <IconButton
         aria-label="Help Button"
         colorScheme="facebook"
