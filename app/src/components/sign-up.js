@@ -186,30 +186,12 @@ function SignUp() {
               <Fields name="First Name" />
 
               {/* Last Name */}
-              <FormLabel ml="6" mt="4" fontSize="xl">
-                Last Name
-              </FormLabel>
-              <Input
-                type="name"
-                placeholder="Last Name"
-                size="md"
-                w="20em"
-                // mt="2"
-                ml="6"
-              ></Input>
+              <Fields name="Last Name" />
 
               {/* Email */}
-              <FormLabel ml="6" mt="4" fontSize="xl">
-                Email
-              </FormLabel>
-              <Input
-                type="email"
-                placeholder="Email"
-                size="md"
-                w="20em"
-                // mt="2"
-                ml="6"
-              ></Input>
+              <Fields name="Email" type="email" />
+
+              {/* Socials and Phone Number stuff */}
 
               <Spacer />
               {/* Sign Up Button */}
