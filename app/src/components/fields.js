@@ -12,6 +12,7 @@ function Fields(props) {
         size="md"
         w="20em"
         ml="6"
+        // required={props.req === "true" ? true : false}
         type={props.type} // setting it to props.type and looks like if type isn't specified, it still works fine!
       ></Input>
     </>

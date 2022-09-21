@@ -9,6 +9,11 @@ import {
   FormControl,
   FormLabel,
   Spacer,
+  FormHelperText,
+  FormErrorMessage,
+  InputRightElement,
+  InputGroup,
+  InputLeftElement,
 } from "@chakra-ui/react";
 import React from "react";
 import NavBar from "./navbar";
@@ -17,164 +22,17 @@ import Fields from "./fields";
 
 function SignUp() {
   let navigate = useNavigate();
+  const [show, setShow] = React.useState(false);
+  const handleClick = () => setShow(!show);
+
+  const [showConfirm, setShowConfirm] = React.useState(false);
+  const handleClickConfirm = () => setShowConfirm(!showConfirm);
 
   return (
-    // <div>
-    //   <nav className="top-bar">
-    //     <div>
-    //       <img src="app\src\logo.png" alt="logo" className="logo" />
-    //       <h3 className="volunteer-hub-logo-text">Volunteer Hub</h3>
-    //     </div>
-    //     <div className="SU-log-in-btn">
-    //       <a href="/log-in" className="log-in-btn">
-    //         Log In
-    //       </a>
-    //     </div>
-    //   </nav>
-
-    //   {/* <!-- Account Creation Form --> */}
-    //   <form className="account-creation-form">
-    //     {/* <!-- Account Creation Title --> */}
-    //     <h1 className="account-creation-text">Account Creation</h1>
-
-    //     {/* <!-- Name Div --> */}
-    //     <div className="account-creation-items-style account-creation-name-div">
-    //       <label>First Name</label>
-    //       <input required />
-    //       <label>Last Name</label>
-    //       <input required />
-    //       <p>
-    //         {" "}
-    //         <i>
-    //           * Please be accurate; this will go on volunteer hour
-    //           certificates/other awards and will be your username.
-    //         </i>{" "}
-    //       </p>
-    //     </div>
-
-    //     {/* <!-- Email Div --> */}
-    //     <div className="account-creation-items-style account-creation-email-div">
-    //       <label>Email</label>
-    //       <input required />
-    //       <p>
-    //         {" "}
-    //         <i>
-    //           * This will be used to send email notifications, volunteer
-    //           opportunity communications, used in log in, and for account
-    //           changes/recovery.
-    //         </i>
-    //       </p>
-    //     </div>
-
-    //     {/* <!-- Contact Information --> */}
-    //     <div className="account-creation-items-style">
-    //       <label>
-    //         <b>
-    //           All of the following <u>contact information fields</u> are not
-    //           required but good to have if applicable.
-    //         </b>
-    //       </label>
-    //       <label>Phone Number</label>
-    //       <input type="number" min="0" max="9" />
-
-    //       <label>Discord</label>
-    //       <input />
-
-    //       <label>Whatsapp</label>
-    //       <input />
-
-    //       <label>Facebook</label>
-    //       <input />
-
-    //       <label>Snapchat</label>
-    //       <input />
-
-    //       <label>Instagram</label>
-    //       <input />
-
-    //       <label>Twitter</label>
-    //       <input />
-
-    //       <p>
-    //         {" "}
-    //         <i>
-    //           * This and email will be shown to other users for communication
-    //           regarding volunteer opportunities.
-    //         </i>{" "}
-    //       </p>
-    //     </div>
-
-    //     {/* <!-- Date of Birth Div --> */}
-    //     <div className="account-creation-items-style account-creation-DOB-div">
-    //       <label>Date of Birth</label>
-    //       <input type="date" required />
-    //       <p>
-    //         {" "}
-    //         <i>
-    //           * Please be accurate; this will be used for determining volunteer
-    //           opportunity eligibility.
-    //         </i>{" "}
-    //       </p>
-    //     </div>
-
-    //     <div className="account-creation-items-style account-creation-grade-level-div">
-    //       <label>Grade Level</label>
-    //       <input list="Grade Level" required />
-    //       <datalist id="Grade Level">
-    //         <option>Not started school yet (before preschool)</option>
-    //         <option>Preschool</option>
-    //         <option>TK (Transitional Kindergarten)</option>
-    //         <option>Kindergarten</option>
-    //         <option>1st grade</option>
-    //         <option>2nd grade</option>
-    //         <option>3rd grade</option>
-    //         <option>4th grade</option>
-    //         <option>5th grade</option>
-    //         <option>6th grade</option>
-    //         <option>7th grade</option>
-    //         <option>8th grade</option>
-    //         <option>9th grade</option>
-    //         <option>10th grade</option>
-    //         <option>11th grade</option>
-    //         <option>12th grade</option>
-    //         <option>College/University</option>
-    //         <option>Out of school</option>
-    //       </datalist>
-    //       <p>
-    //         {" "}
-    //         <i>
-    //           * Please be accurate; this will be used for determining volunteer
-    //           opportunity eligibility.
-    //         </i>{" "}
-    //       </p>
-    //     </div>
-
-    //     {/* <!-- Password Div --> */}
-    //     <div className="account-creation-items-style account-creation-password-div">
-    //       <label>Password</label>
-    //       <input type="password" required />
-
-    //       <label>Re-confirm Password</label>
-    //       <input type="password" required />
-    //     </div>
-
-    //     {/* <!-- submit form button --> */}
-    //     <input
-    //       className="account-creation-form-submit-btn"
-    //       type="submit"
-    //       value="Create Account"
-    //     />
-    //   </form>
-
-    //   <footer className="footer">
-    //     {/* <!-- Maybe put some stuff in here --> */}
-    //     <h1>Footer</h1>
-    //   </footer>
-    // </div>
     <VStack>
       <NavBar logIn="true" />
-      <Center w="100%" h="60em">
-        <HStack w="45%" h="50em" bg="whiteAlpha.200">
+      <Center w="100%" h="80em">
+        <HStack w="45%" h="70em" bg="whiteAlpha.200">
           {/* Sign Up text */}
           <Flex justify="left" align="left" flexDirection="column">
             <Text ml="6" mt="1.5" fontSize="3xl">
@@ -182,16 +40,91 @@ function SignUp() {
             </Text>
 
             {/* First Name */}
-            <FormControl>
-              <Fields name="First Name" />
+            <FormControl isRequired>
+              <Fields name="First Name" req="true" />
+              <FormErrorMessage>First Name is required/</FormErrorMessage>
 
               {/* Last Name */}
               <Fields name="Last Name" />
+              <FormHelperText ml="6">
+                Your first and last name will be your username and the name on
+                awards.
+              </FormHelperText>
+              <FormErrorMessage>Last Name is required.</FormErrorMessage>
 
               {/* Email */}
               <Fields name="Email" type="email" />
+              <FormHelperText ml="6">
+                This will be used to send email notifications, volunteer
+                opportunity communications, used for log in, and for account
+                changes/recovery.
+              </FormHelperText>
+              <FormErrorMessage>Email is required.</FormErrorMessage>
 
-              {/* Socials and Phone Number stuff */}
+              {/* Grade Level */}
+              <Fields name="Grade Level" type="" />
+
+              {/* Date of Birth */}
+              <Fields name="Date of Birth" type="date" />
+              <FormHelperText ml="6">
+                Please be accurate; this will be used for determining volunteer
+                opportunity eligibility.
+              </FormHelperText>
+              <FormErrorMessage>Date of birth is required.</FormErrorMessage>
+
+              {/* Password */}
+              <FormLabel ml="6" mt="4" fontSize="xl">
+                Password
+              </FormLabel>
+              <InputGroup>
+                <Input
+                  placeholder="Password"
+                  size="md"
+                  w="20em"
+                  ml="6"
+                  type={show ? "text" : "password"}
+                ></Input>
+                <InputRightElement w="4.5rem">
+                  <Button
+                    h="1.75rem"
+                    size="md"
+                    pl="1.65em"
+                    pr="1.65em"
+                    onClick={handleClick}
+                    ml="685"
+                  >
+                    {show ? "Hide" : "Show"}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+              <FormErrorMessage>Password is required.</FormErrorMessage>
+
+              {/* Confirm Password */}
+              <FormLabel ml="6" mt="4" fontSize="xl">
+                Confirm Password
+              </FormLabel>
+              <InputGroup>
+                <Input
+                  placeholder="Password"
+                  size="md"
+                  w="20em"
+                  ml="6"
+                  type={showConfirm ? "text" : "password"}
+                ></Input>
+                <InputRightElement w="4.5rem">
+                  <Button
+                    h="1.75rem"
+                    size="md"
+                    pl="1.65em"
+                    pr="1.65em"
+                    onClick={handleClickConfirm}
+                    ml="685"
+                  >
+                    {showConfirm ? "Hide" : "Show"}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+              <FormErrorMessage>Confirm Password is required.</FormErrorMessage>
 
               <Spacer />
               {/* Sign Up Button */}
