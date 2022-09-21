@@ -14,6 +14,7 @@ import {
   InputRightElement,
   InputGroup,
   InputLeftElement,
+  Select,
 } from "@chakra-ui/react";
 import React from "react";
 import NavBar from "./navbar";
@@ -62,7 +63,23 @@ function SignUp() {
               <FormErrorMessage>Email is required.</FormErrorMessage>
 
               {/* Grade Level */}
-              <Fields name="Grade Level" type="" />
+              <FormLabel ml="6" mt="4" fontSize="xl">
+                Grade Level
+              </FormLabel>
+              <Select
+                placeholder="Select Your Grade Level"
+                size="md"
+                w="20em"
+                ml="6"
+                type="dr"
+              >
+                <option>Before Elementary School</option>
+                <option>Elementary School</option>
+                <option>Middle School</option>
+                <option>High School</option>
+                <option>College/University/Graduate School</option>
+                <option>Not in school/other options don't apply</option>
+              </Select>
 
               {/* Date of Birth */}
               <Fields name="Date of Birth" type="date" />
