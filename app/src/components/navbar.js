@@ -78,12 +78,31 @@ function NavBar(props) {
         icon={<FaQuestionCircle />}
       ></IconButton>
 
-      <IconButton
+      <Menu>
+        <MenuButton
+          as={IconButton}
+          aria-label="Notification Bell"
+          colorScheme="facebook"
+          ml="2"
+          icon={<FaBell />}
+        />
+        <MenuList>
+          <MenuItem onClick={() => navigate("/notifications")}>
+            <u>Notifications Page</u>
+          </MenuItem>
+          {/* On click for these Menu items and direct them to the volunteer opportunities and say the info. Also notification page to see all these things in big. */}
+          <MenuItem>Notification 1</MenuItem>
+          <MenuItem>You got scammed.</MenuItem>
+          <MenuItem>New announcement in "Boy Scouts"</MenuItem>
+        </MenuList>
+      </Menu>
+
+      {/* <IconButton
         aria-label="Notification Bell"
         colorScheme="facebook"
         ml="2"
         icon={<FaBell />}
-      ></IconButton>
+      ></IconButton> */}
 
       <IconButton
         aria-label="Theme Change"

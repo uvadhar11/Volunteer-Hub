@@ -80,6 +80,9 @@ function SignUp() {
                 <option>College/University/Graduate School</option>
                 <option>Not in school/other options don't apply</option>
               </Select>
+              <FormHelperText ml="6">
+                This will be used for volunteer opportunity eligibility.
+              </FormHelperText>
 
               {/* Date of Birth */}
               <Fields name="Date of Birth" type="date" />
