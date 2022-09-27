@@ -34,15 +34,15 @@ const firestore = getAuth(app);
 const auth = getAuth(app);
 connectAuthEmulator(auth, "http://localhost:3000");
 
-const loginEmailPassword = async (auth, loginEmail, loginPassword) => {
+export const loginEmailPassword = async (auth, loginEmail, loginPassword) => {
   // const loginEmail =
   // const loginPassword =
 
-  const userCredential = await signInWithEmailAndPassword(
-    auth,
-    loginEmail,
-    loginPassword
-  );
+  // const userCredential = await signInWithEmailAndPassword(
+  //   auth,
+  //   loginEmail,
+  //   loginPassword
+  // );
 
   try {
     const userCredential = await signInWithEmailAndPassword(
@@ -58,15 +58,15 @@ const loginEmailPassword = async (auth, loginEmail, loginPassword) => {
   }
 };
 
-const createAccount = async (auth, loginEmail, loginPassword) => {
-  const userCredential = await signInWithEmailAndPassword(
-    auth,
-    loginEmail,
-    loginPassword
-  );
+export const createAccount = async (auth, loginEmail, loginPassword) => {
+  // const userCredential = await signInWithEmailAndPassword(
+  //   auth,
+  //   loginEmail,
+  //   loginPassword
+  // );
 
   try {
-    const userCredential = await signInWithEmailAndPassword(
+    const userCredential = await createUserWithEmailAndPassword(
       auth,
       loginEmail,
       loginPassword
@@ -95,7 +95,7 @@ const createAccount = async (auth, loginEmail, loginPassword) => {
 //   return cityList;
 // }
 
-const monitorAuthState = async () => {
+export const monitorAuthState = async () => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       console.log(user);
@@ -106,7 +106,7 @@ const monitorAuthState = async () => {
   });
 };
 
-const logout = async () => {
+export const logout = async () => {
   await signOut(auth);
 };
 
