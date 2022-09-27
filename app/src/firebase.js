@@ -5,6 +5,9 @@ import {
   getAuth,
   connectAuthEmulator,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
 } from "firebase/auth";
 import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -31,6 +34,51 @@ const firestore = getAuth(app);
 const auth = getAuth(app);
 connectAuthEmulator(auth, "http://localhost:3000");
 
+const loginEmailPassword = async (auth, loginEmail, loginPassword) => {
+  // const loginEmail =
+  // const loginPassword =
+
+  const userCredential = await signInWithEmailAndPassword(
+    auth,
+    loginEmail,
+    loginPassword
+  );
+
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      loginEmail,
+      loginPassword
+    );
+    console.log(userCredential.user);
+  } catch (error) {
+    console.log(error);
+    // showLogInError(error);
+    console.log("Wrong pass.");
+  }
+};
+
+const createAccount = async (auth, loginEmail, loginPassword) => {
+  const userCredential = await signInWithEmailAndPassword(
+    auth,
+    loginEmail,
+    loginPassword
+  );
+
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      loginEmail,
+      loginPassword
+    );
+    console.log(userCredential.user);
+  } catch (error) {
+    console.log(error);
+    // showLogInError(error);
+    console.log("Wrong pass.");
+  }
+};
+
 // Detect Authentication State
 // onAuthStateChanged(auth, (user) => {
 //   if (user != null) {
@@ -46,5 +94,20 @@ connectAuthEmulator(auth, "http://localhost:3000");
 //   const cityList = citySnapshot.docs.map((doc) => doc.data());
 //   return cityList;
 // }
+
+const monitorAuthState = async () => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log(user);
+      // tell user is logged in and stuff (go to home)
+    } else {
+      console.log("Not logged in");
+    }
+  });
+};
+
+const logout = async () => {
+  await signOut(auth);
+};
 
 export default app;
