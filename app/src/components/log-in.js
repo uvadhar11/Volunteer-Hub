@@ -13,10 +13,13 @@ import {
 import React from "react";
 import NavBar from "./navbar";
 import { useNavigate } from "react-router-dom";
+import app, { loginEmailPassword } from "../firebase";
+import { getAuth } from "firebase/auth";
 
 function LogIn() {
   let navigate = useNavigate();
-
+  const auth = getAuth(app);
+  // {.firebase-emulator-warning {display: none}}
   return (
     <VStack>
       <NavBar signUp="true" />
@@ -35,6 +38,7 @@ function LogIn() {
               </FormLabel>
               <Input
                 type="email"
+                className="log-in-email"
                 placeholder="Email"
                 size="md"
                 w="20em"
@@ -48,6 +52,7 @@ function LogIn() {
               </FormLabel>
               <Input
                 type="password"
+                className="log-in-pass"
                 placeholder="Password"
                 size="md"
                 w="20em"
@@ -72,6 +77,11 @@ function LogIn() {
                 size="md"
                 colorScheme="facebook"
                 w="-webkit-fit-content"
+                onClick={loginEmailPassword(
+                  auth,
+                  document.querySelector(".log-in-email"),
+                  document.querySelector(".log-in-pass")
+                )}
               >
                 Log in
               </Button>
