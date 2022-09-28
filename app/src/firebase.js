@@ -32,6 +32,7 @@ const firestore = getAuth(app);
 
 // firebase stuff
 const auth = getAuth(app);
+// Connect the authentication emulator. Without this, it will probably use the real app stuff. (take it out, MIGHT have to add something else though.)
 connectAuthEmulator(auth, "http://localhost:3000");
 
 export const loginEmailPassword = async (auth, loginEmail, loginPassword) => {
