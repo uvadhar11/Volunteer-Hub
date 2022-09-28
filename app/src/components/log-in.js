@@ -71,20 +71,27 @@ function LogIn() {
               <Spacer />
               {/* Log in button */}
               <Button
+                class="log-in-btn"
                 type="submit"
                 mt="4"
                 ml="6"
                 size="md"
                 colorScheme="facebook"
                 w="-webkit-fit-content"
-                onClick={loginEmailPassword(
-                  auth,
-                  document.querySelector(".log-in-email"),
-                  document.querySelector(".log-in-pass")
-                )}
               >
                 Log in
               </Button>
+              {/* Code below breaks app */}
+              {/* {document
+                .querySelector(".log-in-btn")
+                .addEventListener(
+                  "click",
+                  loginEmailPassword(
+                    auth,
+                    document.querySelector(".log-in-email"),
+                    document.querySelector(".log-in-pass")
+                  )
+                )} */}
             </FormControl>
           </Flex>
 
