@@ -45,7 +45,6 @@ function LogIn() {
                 // mt="2"
                 ml="6"
               ></Input>
-
               {/* Password */}
               <FormLabel ml="6" mt="4" fontSize="xl">
                 Password
@@ -71,7 +70,7 @@ function LogIn() {
               <Spacer />
               {/* Log in button */}
               <Button
-                class="log-in-btn"
+                className="log-in-btn"
                 type="submit"
                 mt="4"
                 ml="6"
@@ -82,7 +81,7 @@ function LogIn() {
                 Log in
               </Button>
               {/* Code below breaks app */}
-              {/* {document
+              {document
                 .querySelector(".log-in-btn")
                 .addEventListener(
                   "click",
@@ -91,7 +90,7 @@ function LogIn() {
                     document.querySelector(".log-in-email"),
                     document.querySelector(".log-in-pass")
                   )
-                )} */}
+                )}
             </FormControl>
           </Flex>
 
