@@ -10,7 +10,7 @@ import {
   FormLabel,
   Spacer,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import NavBar from "./navbar";
 import { useNavigate } from "react-router-dom";
 import app, { loginEmailPassword } from "../firebase";
@@ -19,7 +19,32 @@ import { getAuth } from "firebase/auth";
 function LogIn() {
   let navigate = useNavigate();
   const auth = getAuth(app);
-  // {.firebase-emulator-warning {display: none}}
+
+  useEffect(
+    () =>
+      document
+        .querySelector(".log-in-btn")
+        .addEventListener(
+          "click",
+          loginEmailPassword(
+            auth,
+            document.querySelector(".log-in-email").ariaValueText,
+            document.querySelector(".log-in-pass").ariaValueText
+          )
+        ),
+    [auth]
+  );
+  // document
+  //   .querySelector(".log-in-btn")
+  //   .addEventListener(
+  //     "click",
+  //     loginEmailPassword(
+  //       auth,
+  //       document.querySelector(".log-in-email").ariaValueText,
+  //       document.querySelector(".log-in-pass").ariaValueText
+  //     )
+  //   );
+
   return (
     <VStack>
       <NavBar signUp="true" />
@@ -81,16 +106,16 @@ function LogIn() {
                 Log in
               </Button>
               {/* Code below breaks app */}
-              {document
+              {/* {document
                 .querySelector(".log-in-btn")
                 .addEventListener(
                   "click",
                   loginEmailPassword(
                     auth,
-                    document.querySelector(".log-in-email"),
-                    document.querySelector(".log-in-pass")
+                    document.querySelector(".log-in-email").ariaValueText,
+                    document.querySelector(".log-in-pass").ariaValueText
                   )
-                )}
+                )} */}
             </FormControl>
           </Flex>
 
