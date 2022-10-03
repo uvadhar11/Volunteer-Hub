@@ -1,3 +1,4 @@
+import React, { useRef, useEffect } from "react";
 import {
   VStack,
   Text,
@@ -10,7 +11,7 @@ import {
   FormLabel,
   Spacer,
 } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+// import React, { useEffect } from "react";
 import NavBar from "./navbar";
 import { useNavigate } from "react-router-dom";
 
@@ -39,14 +40,18 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 
 function LogIn() {
-  const loginEmailPassword = async (auth, loginEmail, loginPassword) => {
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+
+  const loginEmailPassword = async () => {
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
-        loginEmail,
-        loginPassword
+        emailRef.current.value,
+        passwordRef.current.value
       );
       console.log(userCredential.user);
+      console.log("WORKS");
     } catch (error) {
       console.log(error);
       // showLogInError(error);
@@ -57,19 +62,6 @@ function LogIn() {
   // const app = initializeApp(firebaseConfig);
   let navigate = useNavigate();
   // const auth = getAuth(app);
-
-  useEffect(() =>
-    document
-      .querySelector(".log-in-btn")
-      .addEventListener(
-        "click",
-        loginEmailPassword(
-          auth,
-          document.querySelector(".log-in-email").ariaValueText,
-          document.querySelector(".log-in-pass").ariaValueText
-        )
-      )
-  );
 
   return (
     <VStack>
@@ -89,6 +81,7 @@ function LogIn() {
               </FormLabel>
               <Input
                 type="email"
+                ref={emailRef}
                 className="log-in-email"
                 placeholder="Email"
                 size="md"
@@ -101,6 +94,7 @@ function LogIn() {
                 Password
               </FormLabel>
               <Input
+                ref={passwordRef}
                 type="password"
                 className="log-in-pass"
                 placeholder="Password"
@@ -128,20 +122,10 @@ function LogIn() {
                 size="md"
                 colorScheme="facebook"
                 w="-webkit-fit-content"
+                onClick={loginEmailPassword}
               >
                 Log in
               </Button>
-              {/* Code below breaks app */}
-              {/* {document
-                .querySelector(".log-in-btn")
-                .addEventListener(
-                  "click",
-                  loginEmailPassword(
-                    auth,
-                    document.querySelector(".log-in-email").ariaValueText,
-                    document.querySelector(".log-in-pass").ariaValueText
-                  )
-                )} */}
             </FormControl>
           </Flex>
 
