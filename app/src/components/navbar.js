@@ -9,6 +9,7 @@ import {
   MenuList,
   MenuItem,
   Button,
+  Avatar,
 } from "@chakra-ui/react";
 import {
   FaBars,
@@ -112,13 +113,6 @@ function NavBar(props) {
         </MenuList>
       </Menu>
 
-      {/* <IconButton
-        aria-label="Notification Bell"
-        colorScheme="facebook"
-        ml="2"
-        icon={<FaBell />}
-      ></IconButton> */}
-
       <IconButton
         aria-label="Theme Change"
         colorScheme="facebook"
@@ -129,14 +123,27 @@ function NavBar(props) {
 
       {/* Account Settings/Profile Button */}
       <Menu>
-        <MenuButton
+        {/* Profile Picture/Profile Button */}
+        {/* <MenuButton
           as={IconButton}
           aria-label="Profile"
           icon={<FaGrinAlt />}
           ml="2"
           mr="2"
           colorScheme="facebook"
+        /> */}
+        <MenuButton
+          as={Avatar}
+          aria-label="Profile"
+          name="John Doe"
+          icon={<FaGrinAlt />}
+          src="https://bit.ly/dan-abramov"
+          ml="2"
+          mr="2"
+          colorScheme="facebook"
         />
+
+        {/* Menu Selections */}
         <MenuList>
           <MenuItem onClick={() => navigate("/account-settings")}>
             Account Settings
