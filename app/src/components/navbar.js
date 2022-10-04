@@ -20,11 +20,26 @@ import {
 } from "react-icons/fa";
 import Logo from "./logo";
 import { useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
 
 function NavBar(props) {
   const { colorMode, toggleColorMode } = useColorMode();
   const isDark = colorMode === "dark"; // the value is this boolean expression so the value technically doesn't change but the evaluation true/false doesn't change.
   let navigate = useNavigate();
+
+  const logOut = () => {
+    signOut(auth)
+      .then(() => {
+        // sign out successful
+        console.log("Sign out successful!");
+        navigate("/log-in");
+      })
+      .catch((error) => {
+        // Error occured when signing out
+        console.log("An Error occured when signing out.");
+      });
+  };
 
   return (
     <Flex w="100%" h="3em" bg="blackAlpha.600" pl="2" align="center">
@@ -127,7 +142,8 @@ function NavBar(props) {
             Account Settings
           </MenuItem>
           <MenuItem onClick={() => navigate("/help")}>Help</MenuItem>
-          <MenuItem onClick={() => navigate("/log-in")}>Log Out</MenuItem>{" "}
+          <MenuItem onClick={logOut}>Log Out</MenuItem>{" "}
+          {/*onClick={() => navigate("/log-in")} */}
           {/* sign them out then send to log in page */}
         </MenuList>
       </Menu>
