@@ -111,7 +111,7 @@ function SignUp() {
                     pl="1.65em"
                     pr="1.65em"
                     onClick={handleClick}
-                    ml="685"
+                    ml="100"
                   >
                     {show ? "Hide" : "Show"}
                   </Button>
@@ -138,7 +138,7 @@ function SignUp() {
                     pl="1.65em"
                     pr="1.65em"
                     onClick={handleClickConfirm}
-                    ml="685"
+                    ml="100"
                   >
                     {showConfirm ? "Hide" : "Show"}
                   </Button>
