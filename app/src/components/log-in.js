@@ -15,7 +15,24 @@ import {
 import NavBar from "./navbar";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+
+// const UserContext = React.createContext();
+// const UserProvider = UserContext.Provider;
+// const UserConsumer = UserContext.Consumer;
+
+// export { UserProvider, UserConsumer };
+
+// const [user, setUser] = React.useState(null);
+
+// onAuthStateChanged(auth, (user) => {
+//   if (user) {
+//     // user is signed in
+//     setUser(user);
+//   } else {
+//     setUser(null);
+//   }
+// });
 
 function LogIn() {
   const emailRef = useRef(null);

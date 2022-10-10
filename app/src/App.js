@@ -20,32 +20,37 @@ import Notifications from "./components/notifications";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Features />} />
-        <Route path="home" element={<Home />}>
-          {/* <Route path="home-sidebar" element={<HomeSidebar />}> */}
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="search" element={<Search />} />
-          <Route path="your-stats" element={<YourStats />}></Route>
-          <Route path="your-awards" element={<YourAwards />}></Route>
-          {/* </Route> */}
-        </Route>
-        <Route path="volunteer-opportunity" element={<VolunteerOpportunity />}>
-          <Route path="dashboard" element={<VODashboard />} />
-          <Route path="to-do" element={<VOToDo />} />
-          <Route path="announcements" element={<VOAnnouncements />} />
-          <Route path="messages" element={<VOMessages />} />
-        </Route>
-        <Route path="sign-up" element={<SignUp />} />
-        <Route path="log-in" element={<LogIn />} />
-        <Route path="help" element={<Help />} />
-        <Route path="account-settings" element={<AccountSettings />} />
-        <Route path="notifications" element={<Notifications />} />
-        <Route path="*" element={<ErrorPage />} />{" "}
-        {/* This error page route needs to be the last route!!! Star basically means all others*/}
-      </Routes>
-    </BrowserRouter>
+    <UserProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Features />} />
+          <Route path="home" element={<Home />}>
+            {/* <Route path="home-sidebar" element={<HomeSidebar />}> */}
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="search" element={<Search />} />
+            <Route path="your-stats" element={<YourStats />}></Route>
+            <Route path="your-awards" element={<YourAwards />}></Route>
+            {/* </Route> */}
+          </Route>
+          <Route
+            path="volunteer-opportunity"
+            element={<VolunteerOpportunity />}
+          >
+            <Route path="dashboard" element={<VODashboard />} />
+            <Route path="to-do" element={<VOToDo />} />
+            <Route path="announcements" element={<VOAnnouncements />} />
+            <Route path="messages" element={<VOMessages />} />
+          </Route>
+          <Route path="sign-up" element={<SignUp />} />
+          <Route path="log-in" element={<LogIn />} />
+          <Route path="help" element={<Help />} />
+          <Route path="account-settings" element={<AccountSettings />} />
+          <Route path="notifications" element={<Notifications />} />
+          <Route path="*" element={<ErrorPage />} />{" "}
+          {/* This error page route needs to be the last route!!! Star basically means all others*/}
+        </Routes>
+      </BrowserRouter>
+    </UserProvider>
   );
 }
 
