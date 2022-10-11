@@ -1,3 +1,4 @@
+import React from "react";
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Dashboard from "./components/home/dashboard";
 import Features from "./components/features";
@@ -16,11 +17,29 @@ import ErrorPage from "./components/error-page";
 import Help from "./components/help";
 import AccountSettings from "./components/account-settings";
 import Notifications from "./components/notifications";
+import { UserContext, UserProvider } from "./components/context";
+import { auth } from "./firebase";
+import { onAuthStateChanged } from "firebase/auth";
 // import HomeSidebar from "./components/home-sidebar";
 
 function App() {
+  // context
+  const [user, setUser] = React.useState(null);
+
+  // get the current user value here so we can pass to context. Use a state with context.
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // user is signed in
+      setUser(user);
+    } else {
+      // user is not signed in
+      setUser(null);
+    }
+  });
+
   return (
-    <UserProvider>
+    <UserContext.Provider value={user}>
+      {/* <UserProvider value={user}> */}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Features />} />
@@ -50,7 +69,8 @@ function App() {
           {/* This error page route needs to be the last route!!! Star basically means all others*/}
         </Routes>
       </BrowserRouter>
-    </UserProvider>
+      {/* </UserProvider> */}
+    </UserContext.Provider>
   );
 }
 

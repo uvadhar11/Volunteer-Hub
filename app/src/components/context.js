@@ -5,27 +5,29 @@ import { auth } from "../firebase";
 // This file holds all the contexts.
 
 // user object context
-export const UserContext = React.createContext();
-export const UserProvider = UserContext.Provider;
-export const UserConsumer = UserContext.Consumer;
+const UserContext = React.createContext();
+const UserProvider = UserContext.Provider;
+const UserConsumer = UserContext.Consumer;
 
-function Context() {
-  // authentication contexts
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // user is signed in
-      setUser(user);
-    } else {
-      // user is not signed in
-      setUser(null);
-    }
-  });
+export { UserContext, UserProvider, UserConsumer };
 
-  return (
-    <>
-      <UserConsumer></UserConsumer>
-    </>
-  );
-}
+// function Context() {
+//   // authentication contexts
+//   onAuthStateChanged(auth, (user) => {
+//     if (user) {
+//       // user is signed in
+//       setUser(user);
+//     } else {
+//       // user is not signed in
+//       setUser(null);
+//     }
+//   });
 
-export default Context;
+//   return (
+//     <>
+//       <UserConsumer></UserConsumer>
+//     </>
+//   );
+// }
+
+// export default Context;

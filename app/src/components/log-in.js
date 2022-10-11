@@ -16,6 +16,7 @@ import NavBar from "./navbar";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import { UserConsumer } from "./context";
 
 // const UserContext = React.createContext();
 // const UserProvider = UserContext.Provider;
@@ -47,6 +48,13 @@ function LogIn() {
       );
       console.log(userCredential.user);
       console.log("WORKS");
+      // navigate to homepage after logging in
+      navigate("/home");
+      // <UserConsumer>
+      //   {(username) => {
+      //     return <Text>Hello {username}!</Text>;
+      //   }}
+      // </UserConsumer>;
     } catch (error) {
       console.log(error);
       // showLogInError(error);

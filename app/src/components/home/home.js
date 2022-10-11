@@ -3,6 +3,7 @@ import React from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { FaHome, FaGrinTears } from "react-icons/fa";
 import NavBar from "../navbar";
+import { UserConsumer, UserContext } from "../context";
 
 function Home() {
   let navigate = useNavigate();
@@ -47,7 +48,6 @@ function Home() {
             icon={<FaGrinTears />}
           ></IconButton>
         </VStack>
-
         {/* side side bar / sidebar 2 (like channel bar) */}
         <VStack width="10em" height="100%" bg="red.100">
           <Text fontSize="1xl">Channels</Text>
@@ -72,9 +72,20 @@ function Home() {
             </Button>
           </Link>
         </VStack>
+        <UserContext.Consumer>
+          {(username) => {
+            <Text>Hello {username}!</Text>;
+          }}
+        </UserContext.Consumer>
+        ;
         <Outlet />
         {/* content stuff */}
-        {/* <Outlet /> */}
+        {/* <UserContext.Consumer>
+          {(username) => {
+            <Text>Hello {username}!</Text>;
+          }}
+        </UserContext.Consumer>
+        ;<Outlet /> */}
       </HStack>
     </VStack>
   );
