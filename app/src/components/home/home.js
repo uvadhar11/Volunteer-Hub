@@ -73,8 +73,8 @@ function Home() {
           </Link>
         </VStack>
         <UserContext.Consumer>
-          {(username) => {
-            <Text>Hello {username}!</Text>;
+          {(user) => {
+            <Text>Hello {user.email}!</Text>;
           }}
         </UserContext.Consumer>
         ;
