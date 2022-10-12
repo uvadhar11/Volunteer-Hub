@@ -74,7 +74,8 @@ function Home() {
         </VStack>
         <UserContext.Consumer>
           {(user) => {
-            <Text>Hello {user.email}!</Text>;
+            console.log(user.email);
+            return <Text>Hello {user.email}!</Text>;
           }}
         </UserContext.Consumer>
         ;
