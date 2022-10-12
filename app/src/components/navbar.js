@@ -23,6 +23,7 @@ import Logo from "./logo";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
+import { UserContext } from "./context";
 
 function NavBar(props) {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -41,6 +42,11 @@ function NavBar(props) {
         console.log("An Error occured when signing out.");
       });
   };
+
+  // state for the current user.
+  const [userState, setUserState] = React.useState(null);
+
+  <UserContext.Consumer>{(user) => setUserState(user)}</UserContext.Consumer>;
 
   return (
     <Flex w="100%" h="3em" bg="blackAlpha.600" pl="2" align="center">
@@ -132,10 +138,16 @@ function NavBar(props) {
           mr="2"
           colorScheme="facebook"
         /> */}
+        {/* <UserContext.Consumer>
+          {(user) => {
+            userVar = user;
+          }}
+        </UserContext.Consumer> */}
         <MenuButton
           as={Avatar}
           aria-label="Profile"
-          name="John Doe"
+          // name="John Doe"
+          name={userState.name}
           icon={<FaGrinAlt />}
           src="https://bit.ly/dan-abramov"
           ml="2"
