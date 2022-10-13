@@ -10,6 +10,8 @@ import {
   MenuItem,
   Button,
   Avatar,
+  Wrap,
+  WrapItem,
 } from "@chakra-ui/react";
 import {
   FaBars,
@@ -29,6 +31,7 @@ function NavBar(props) {
   const user = auth.currentUser;
   console.log(user);
   console.log(user.email);
+  user.displayName = "John Doe";
   // console.log(user.displayName);
   const { colorMode, toggleColorMode } = useColorMode();
   const isDark = colorMode === "dark"; // the value is this boolean expression so the value technically doesn't change but the evaluation true/false doesn't change.
@@ -174,13 +177,7 @@ function NavBar(props) {
         <MenuButton
           as={Avatar}
           aria-label="Profile"
-          name={user.email}
-          // name="John Doe"
-          // name={user.name} //!= null && name != undefined ? null : name
-          // src="https://bit.ly/broken-link"
-          // src={name ? "https://bit.ly/dan-abramov" : null}
-          // icon={<FaGrinAlt />}
-          // src="https://bit.ly/dan-abramov"
+          name={user.displayName}
           ml="2"
           mr="2"
           colorScheme="facebook"
