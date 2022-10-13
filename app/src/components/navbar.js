@@ -45,12 +45,32 @@ function NavBar(props) {
 
   // state for the current user.
   const [userState, setUserState] = React.useState(null);
+  console.log(userState);
 
   <UserContext.Consumer>
-    {(user) => setUserState(user.name)}
+    {(user) => {
+      // console.log(user);
+      setUserState(user.name);
+    }}
   </UserContext.Consumer>;
+  // console.log(userState.name);
 
   // now update the state/context. - maybe use auth state changed and put UserContext.Consumer inside there.
+
+  // auth then can refactor with context later
+  let name;
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      name = user.name;
+      // ...
+    } else {
+      // User is signed out
+      // ...
+      name = null;
+    }
+  });
 
   return (
     <Flex w="100%" h="3em" bg="blackAlpha.600" pl="2" align="center">
@@ -151,7 +171,8 @@ function NavBar(props) {
           as={Avatar}
           aria-label="Profile"
           // name="John Doe"
-          name={userState}
+          name={name} //!= null && name != undefined ? null : name
+          src={name ? "https://bit.ly/dan-abramov" : null}
           // icon={<FaGrinAlt />}
           // src="https://bit.ly/dan-abramov"
           ml="2"
