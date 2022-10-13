@@ -26,6 +26,10 @@ import { auth } from "../firebase";
 import { UserContext } from "./context";
 
 function NavBar(props) {
+  const user = auth.currentUser;
+  console.log(user);
+  console.log(user.email);
+  // console.log(user.displayName);
   const { colorMode, toggleColorMode } = useColorMode();
   const isDark = colorMode === "dark"; // the value is this boolean expression so the value technically doesn't change but the evaluation true/false doesn't change.
   let navigate = useNavigate();
@@ -44,33 +48,33 @@ function NavBar(props) {
   };
 
   // state for the current user.
-  const [userState, setUserState] = React.useState(null);
-  console.log(userState);
+  // const [userState, setUserState] = React.useState(null);
+  // console.log(userState);
 
-  <UserContext.Consumer>
-    {(user) => {
-      // console.log(user);
-      setUserState(user.name);
-    }}
-  </UserContext.Consumer>;
+  // <UserContext.Consumer>
+  //   {(user) => {
+  //     // console.log(user);
+  //     setUserState(user.name);
+  //   }}
+  // </UserContext.Consumer>;
   // console.log(userState.name);
 
   // now update the state/context. - maybe use auth state changed and put UserContext.Consumer inside there.
 
   // auth then can refactor with context later
-  let name;
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      name = user.name;
-      // ...
-    } else {
-      // User is signed out
-      // ...
-      name = null;
-    }
-  });
+  // let name;
+  // onAuthStateChanged(auth, (user) => {
+  //   if (user) {
+  //     // User is signed in, see docs for a list of available properties
+  //     // https://firebase.google.com/docs/reference/js/firebase.User
+  //     name = user.name;
+  //     // ...
+  //   } else {
+  //     // User is signed out
+  //     // ...
+  //     name = null;
+  //   }
+  // });
 
   return (
     <Flex w="100%" h="3em" bg="blackAlpha.600" pl="2" align="center">
@@ -170,9 +174,11 @@ function NavBar(props) {
         <MenuButton
           as={Avatar}
           aria-label="Profile"
+          name={user.email}
           // name="John Doe"
-          name={name} //!= null && name != undefined ? null : name
-          src={name ? "https://bit.ly/dan-abramov" : null}
+          // name={user.name} //!= null && name != undefined ? null : name
+          // src="https://bit.ly/broken-link"
+          // src={name ? "https://bit.ly/dan-abramov" : null}
           // icon={<FaGrinAlt />}
           // src="https://bit.ly/dan-abramov"
           ml="2"
