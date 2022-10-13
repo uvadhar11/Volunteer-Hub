@@ -21,7 +21,7 @@ import {
 } from "react-icons/fa";
 import Logo from "./logo";
 import { useNavigate } from "react-router-dom";
-import { signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { UserContext } from "./context";
 
@@ -46,7 +46,11 @@ function NavBar(props) {
   // state for the current user.
   const [userState, setUserState] = React.useState(null);
 
-  <UserContext.Consumer>{(user) => setUserState(user)}</UserContext.Consumer>;
+  <UserContext.Consumer>
+    {(user) => setUserState(user.name)}
+  </UserContext.Consumer>;
+
+  // now update the state/context. - maybe use auth state changed and put UserContext.Consumer inside there.
 
   return (
     <Flex w="100%" h="3em" bg="blackAlpha.600" pl="2" align="center">
@@ -147,9 +151,9 @@ function NavBar(props) {
           as={Avatar}
           aria-label="Profile"
           // name="John Doe"
-          name={userState.name}
-          icon={<FaGrinAlt />}
-          src="https://bit.ly/dan-abramov"
+          name={userState}
+          // icon={<FaGrinAlt />}
+          // src="https://bit.ly/dan-abramov"
           ml="2"
           mr="2"
           colorScheme="facebook"
