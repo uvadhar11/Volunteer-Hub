@@ -16,10 +16,12 @@ import {
   InputLeftElement,
   Select,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useRef } from "react";
 import NavBar from "./navbar";
 import { useNavigate } from "react-router-dom";
 import Fields from "./fields";
+import { auth } from "../firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 function SignUp() {
   let navigate = useNavigate();
@@ -28,6 +30,59 @@ function SignUp() {
 
   const [showConfirm, setShowConfirm] = React.useState(false);
   const handleClickConfirm = () => setShowConfirm(!showConfirm);
+
+  // refs for input fields
+  const firstNameRef = useRef(null);
+  const lastNameRef = useRef(null);
+  const emailRef = useRef(null);
+  const gradeLevelRef = useRef(null);
+  const dobRef = useRef(null);
+  const passwordRef = useRef(null);
+  const confirmPasswordRef = useRef(null);
+
+  // sign up code with firebase
+  // createUserWithEmailAndPassword(
+  //   auth,
+  //   emailRef.current.value,
+  //   passwordRef.current.value
+  // )
+  //   .then((userCredential) => {
+  //     // signed in
+  //     const user = userCredential.user;
+  //   })
+  //   .catch((error) => {
+  //     const errorCode = error.code;
+  //     const errorMessage = error.message;
+  //     // ...
+  //   });
+
+  function handleSignUp() {
+    // check if password and confirm password are the same
+    if (passwordRef.current.value === confirmPasswordRef.current.value) {
+      // firebase create user code
+      // might also want to add a check so you can't make a new account with an already existing user.
+      // also will need to save the other information to the firebase account.
+      createUserWithEmailAndPassword(
+        auth,
+        emailRef.current.value,
+        passwordRef.current.value
+      )
+        .then((userCredential) => {
+          // signed in
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // ...
+        });
+    } else {
+      // if password and confirm password aren't the same then probably display a message.
+      // alerting as a placeholder for now
+      alert("Make sure password and confirm password are the same!");
+    }
+  }
 
   return (
     <VStack>
@@ -42,11 +97,11 @@ function SignUp() {
 
             {/* First Name */}
             <FormControl isRequired>
-              <Fields name="First Name" req="true" />
+              <Fields name="First Name" req="true" ref={firstNameRef} />
               <FormErrorMessage>First Name is required/</FormErrorMessage>
 
               {/* Last Name */}
-              <Fields name="Last Name" />
+              <Fields name="Last Name" ref={lastNameRef} />
               <FormHelperText ml="6">
                 Your first and last name will be your username and the name on
                 awards.
@@ -54,7 +109,7 @@ function SignUp() {
               <FormErrorMessage>Last Name is required.</FormErrorMessage>
 
               {/* Email */}
-              <Fields name="Email" type="email" />
+              <Fields name="Email" type="email" ref={emailRef} />
               <FormHelperText ml="6">
                 This will be used to send email notifications, volunteer
                 opportunity communications, used for log in, and for account
@@ -72,6 +127,7 @@ function SignUp() {
                 w="20em"
                 ml="6"
                 type="dr"
+                ref={gradeLevelRef}
               >
                 <option>Before Elementary School</option>
                 <option>Elementary School</option>
@@ -85,7 +141,7 @@ function SignUp() {
               </FormHelperText>
 
               {/* Date of Birth */}
-              <Fields name="Date of Birth" type="date" />
+              <Fields name="Date of Birth" type="date" ref={dobRef} />
               <FormHelperText ml="6">
                 Please be accurate; this will be used for determining volunteer
                 opportunity eligibility.
@@ -102,6 +158,7 @@ function SignUp() {
                   size="md"
                   w="20em"
                   ml="6"
+                  ref={passwordRef}
                   type={show ? "text" : "password"}
                 ></Input>
                 <InputRightElement w="4.5rem">
@@ -125,6 +182,7 @@ function SignUp() {
               </FormLabel>
               <InputGroup>
                 <Input
+                  ref={confirmPasswordRef}
                   placeholder="Password"
                   size="md"
                   w="20em"
@@ -155,6 +213,7 @@ function SignUp() {
                 size="md"
                 colorScheme="facebook"
                 w="-webkit-fit-content"
+                onClick={handleSignUp}
               >
                 Log in
               </Button>

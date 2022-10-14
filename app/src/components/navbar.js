@@ -31,8 +31,6 @@ function NavBar(props) {
   const user = auth.currentUser;
   console.log(user);
   console.log(user?.email);
-  // user.displayName = "John Doe";
-  // console.log(user.displayName);
 
   // set display name to see if it works - it does and now the pfp shows when logged in and no when not logged in
   if (user) {
