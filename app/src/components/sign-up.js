@@ -16,7 +16,7 @@ import {
   InputLeftElement,
   Select,
 } from "@chakra-ui/react";
-import React, { useRef } from "react";
+import React, { createRef, useRef } from "react";
 import NavBar from "./navbar";
 import { useNavigate } from "react-router-dom";
 import Fields from "./fields";
@@ -56,33 +56,68 @@ function SignUp() {
   //     // ...
   //   });
 
-  function handleSignUp() {
+  const handleSignUp = async () => {
     // check if password and confirm password are the same
     if (passwordRef.current.value === confirmPasswordRef.current.value) {
+      console.log(passwordRef.current.value);
+      console.log(confirmPasswordRef.current.value);
       // firebase create user code
       // might also want to add a check so you can't make a new account with an already existing user.
       // also will need to save the other information to the firebase account.
-      createUserWithEmailAndPassword(
-        auth,
-        emailRef.current.value,
-        passwordRef.current.value
-      )
-        .then((userCredential) => {
-          // signed in
-          const user = userCredential.user;
-          console.log(user);
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          // ...
-        });
+      console.log(emailRef.current.value);
+      console.log(passwordRef.current.value);
+      // createUserWithEmailAndPassword(
+      //   auth,
+      //   emailRef.current.value,
+      //   passwordRef.current.value
+      // )
+      //   .then((userCredential) => {
+      //     // signed in
+      //     const user = userCredential.user;
+      //     console.log(user);
+      //   })
+      //   .catch((error) => {
+      //     const errorCode = error.code;
+      //     const errorMessage = error.message;
+      //     // ...
+      //   });
+      try {
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          emailRef.current.value,
+          passwordRef.current.value
+        );
+        console.log(userCredential.user);
+        alert("User created!");
+        // console.log("WORKS");
+        // navigate to homepage after logging in
+        // navigate("/home");
+        // <UserConsumer>
+        //   {(username) => {
+        //     return <Text>Hello {username}!</Text>;
+        //   }}
+        // </UserConsumer>;
+      } catch (error) {
+        console.log(error);
+        // showLogInError(error);
+        console.log("User could not be created.");
+      }
     } else {
       // if password and confirm password aren't the same then probably display a message.
       // alerting as a placeholder for now
       alert("Make sure password and confirm password are the same!");
     }
-  }
+  };
+
+  // forward ref
+  // const emailField = React.forwardRef((props, ref) => {
+  //   <Fields
+  //     name="Email"
+  //     type="email"
+  //     ref={ref}
+  //     className="emailField"
+  //   ></Fields>;
+  // });
 
   return (
     <VStack>
@@ -215,7 +250,7 @@ function SignUp() {
                 w="-webkit-fit-content"
                 onClick={handleSignUp}
               >
-                Log in
+                Sign Up
               </Button>
             </FormControl>
           </Flex>
