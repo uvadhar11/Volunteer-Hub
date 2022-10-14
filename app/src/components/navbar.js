@@ -30,9 +30,15 @@ import { UserContext } from "./context";
 function NavBar(props) {
   const user = auth.currentUser;
   console.log(user);
-  console.log(user.email);
-  user.displayName = "John Doe";
+  console.log(user?.email);
+  // user.displayName = "John Doe";
   // console.log(user.displayName);
+
+  // set display name to see if it works - it does and now the pfp shows when logged in and no when not logged in
+  if (user) {
+    user.displayName = "John Doe";
+  }
+
   const { colorMode, toggleColorMode } = useColorMode();
   const isDark = colorMode === "dark"; // the value is this boolean expression so the value technically doesn't change but the evaluation true/false doesn't change.
   let navigate = useNavigate();
@@ -177,7 +183,7 @@ function NavBar(props) {
         <MenuButton
           as={Avatar}
           aria-label="Profile"
-          name={user.displayName}
+          name={user ? user.displayName : null}
           ml="2"
           mr="2"
           colorScheme="facebook"
