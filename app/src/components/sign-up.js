@@ -22,6 +22,8 @@ import { useNavigate } from "react-router-dom";
 import Fields from "./fields";
 import { auth } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { collection, addDoc } from "firebase/firestore";
+import db from "../firebase";
 
 function SignUp() {
   let navigate = useNavigate();
@@ -53,6 +55,20 @@ function SignUp() {
         );
         console.log(userCredential.user);
         alert("User created!");
+        // save the other information to the user - firestore stuff
+        try {
+          const docRef = await addDoc(collection(db, "users"), {
+            userID: userCredential.user.uid,
+            firstName: firstNameRef.current.value,
+            lastName: lastNameRef.current.value,
+            email: emailRef.current.value,
+            grade: gradeLevelRef.current.value,
+            dob: dobRef.current.value,
+          });
+          console.log("Document written with ID: ", docRef.id);
+        } catch (error) {
+          console.log("Error adding document: ", error);
+        }
       } catch (error) {
         console.log(error);
         console.log("User could not be created.");
