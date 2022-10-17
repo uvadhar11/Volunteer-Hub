@@ -20,10 +20,9 @@ import React, { createRef, useRef } from "react";
 import NavBar from "./navbar";
 import { useNavigate } from "react-router-dom";
 import Fields from "./fields";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { collection, addDoc } from "firebase/firestore";
-import db from "../firebase";
 
 function SignUp() {
   let navigate = useNavigate();
