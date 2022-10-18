@@ -14,9 +14,10 @@ import {
 // import React, { useEffect } from "react";
 import NavBar from "./navbar";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { UserConsumer } from "./context";
+import { collection, getDocs, queryEqual } from "firebase/firestore";
 
 // const UserContext = React.createContext();
 // const UserProvider = UserContext.Provider;
@@ -35,7 +36,25 @@ import { UserConsumer } from "./context";
 //   }
 // });
 
+async function getQuerySnapshot() {
+  // return await getDocs(collection(db, "users"));
+  const querySnapshot = await getDocs(collection(db, "users"));
+  querySnapshot.forEach((doc) => {
+    console.log(doc.data());
+  });
+}
+
 function LogIn() {
+  // load data testing
+  // const querySnapshot = getDocs(collection(db, "users"));
+  // querySnapshot.forEach((doc) => {
+  // console.log(`${doc.id} => ${doc.data()}`);
+  // const querySnapshot = getQuerySnapshot();
+  // console.log(querySnapshot[0]);
+  // console.log(querySnapshot[1]);
+  // });
+  // getQuerySnapshot();
+
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
@@ -55,6 +74,7 @@ function LogIn() {
       //     return <Text>Hello {username}!</Text>;
       //   }}
       // </UserConsumer>;
+      getQuerySnapshot();
     } catch (error) {
       console.log(error);
       // showLogInError(error);

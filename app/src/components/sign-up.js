@@ -60,6 +60,7 @@ function SignUp() {
             userID: userCredential.user.uid,
             firstName: firstNameRef.current.value,
             lastName: lastNameRef.current.value,
+            // username: firstNameRef.current.value + lastNameRef.current.value, // maybe this will work idk - check later
             email: emailRef.current.value,
             grade: gradeLevelRef.current.value,
             dob: dobRef.current.value,
