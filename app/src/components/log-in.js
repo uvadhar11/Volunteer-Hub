@@ -17,7 +17,13 @@ import { useNavigate } from "react-router-dom";
 import { auth, db } from "../firebase";
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { UserConsumer } from "./context";
-import { collection, getDocs, queryEqual } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  queryEqual,
+} from "firebase/firestore";
 
 // const UserContext = React.createContext();
 // const UserProvider = UserContext.Provider;
@@ -42,6 +48,10 @@ async function getQuerySnapshot() {
   querySnapshot.forEach((doc) => {
     console.log(doc.data());
   });
+  // console.log(querySnapshot.data().firstName);
+  console.log(querySnapshot);
+  console.log(querySnapshot.docs);
+  console.log(querySnapshot.docs[0]);
 }
 
 function LogIn() {
@@ -75,6 +85,11 @@ function LogIn() {
       //   }}
       // </UserConsumer>;
       getQuerySnapshot();
+
+      // getting a single document
+      const docRef = doc(db, "users", userCredential.user.uid);
+      const docSnap = await getDoc(docRef);
+      console.log(docSnap);
     } catch (error) {
       console.log(error);
       // showLogInError(error);
