@@ -23,6 +23,7 @@ import {
   getDoc,
   getDocs,
   queryEqual,
+  updateDoc,
 } from "firebase/firestore";
 
 // const UserContext = React.createContext();
@@ -46,8 +47,12 @@ async function getQuerySnapshot() {
   // return await getDocs(collection(db, "users"));
   const querySnapshot = await getDocs(collection(db, "users"));
   querySnapshot.forEach((doc) => {
-    console.log(doc.data());
+    console.log(doc.data().firstName); // access the first name property of the doc.data()
   });
+  // await updateDoc(querySnapshot, {
+  //   firstName: "John Doe",
+  // });
+  const usersRef = doc(db, "users", "");
   // console.log(querySnapshot.data().firstName);
   console.log(querySnapshot);
   console.log(querySnapshot.docs);
