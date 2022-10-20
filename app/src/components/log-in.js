@@ -22,54 +22,27 @@ import {
   doc,
   getDoc,
   getDocs,
+  query,
   queryEqual,
   updateDoc,
+  where,
 } from "firebase/firestore";
 
-// const UserContext = React.createContext();
-// const UserProvider = UserContext.Provider;
-// const UserConsumer = UserContext.Consumer;
-
-// export { UserProvider, UserConsumer };
-
-// const [user, setUser] = React.useState(null);
-
-// onAuthStateChanged(auth, (user) => {
-//   if (user) {
-//     // user is signed in
-//     setUser(user);
-//   } else {
-//     setUser(null);
-//   }
-// });
-
 async function getQuerySnapshot() {
-  // return await getDocs(collection(db, "users"));
-  const querySnapshot = await getDocs(collection(db, "users"));
-  querySnapshot.forEach((doc) => {
-    console.log(doc.data().firstName); // access the first name property of the doc.data()
+  // current user
+  const user = auth.currentUser;
+
+  // getting from child - better time wise, doing a check.
+  const usersRef = collection(db, "users");
+  const q = query(usersRef, where("userID", "==", user.uid)); // property, equals, value
+
+  const qs = await getDocs(q);
+  qs.forEach((doc) => {
+    console.log(doc.id + ": " + doc.data().firstName);
   });
-  // await updateDoc(querySnapshot, {
-  //   firstName: "John Doe",
-  // });
-  const usersRef = doc(db, "users", "");
-  // console.log(querySnapshot.data().firstName);
-  console.log(querySnapshot);
-  console.log(querySnapshot.docs);
-  console.log(querySnapshot.docs[0]);
 }
 
 function LogIn() {
-  // load data testing
-  // const querySnapshot = getDocs(collection(db, "users"));
-  // querySnapshot.forEach((doc) => {
-  // console.log(`${doc.id} => ${doc.data()}`);
-  // const querySnapshot = getQuerySnapshot();
-  // console.log(querySnapshot[0]);
-  // console.log(querySnapshot[1]);
-  // });
-  // getQuerySnapshot();
-
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
@@ -84,12 +57,8 @@ function LogIn() {
       console.log("WORKS");
       // navigate to homepage after logging in
       navigate("/home");
-      // <UserConsumer>
-      //   {(username) => {
-      //     return <Text>Hello {username}!</Text>;
-      //   }}
-      // </UserConsumer>;
-      getQuerySnapshot();
+
+      getQuerySnapshot(); // function that does the test load data.
 
       // getting a single document
       const docRef = doc(db, "users", userCredential.user.uid);
