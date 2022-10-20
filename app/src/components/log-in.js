@@ -40,6 +40,12 @@ async function getQuerySnapshot() {
   qs.forEach((doc) => {
     console.log(doc.id + ": " + doc.data().firstName);
   });
+
+  // trying to update a document - works but know get document id with the query
+  const usersRef1 = doc(db, "users", "pN3YMENxSHbp38gcsZ1e"); // database, collection, document id
+  await updateDoc(usersRef1, {
+    firstName: "John Doe",
+  });
 }
 
 function LogIn() {
