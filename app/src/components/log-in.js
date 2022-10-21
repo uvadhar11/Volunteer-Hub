@@ -44,6 +44,7 @@ async function getQuerySnapshot() {
   });
 
   const usersRef1 = doc(db, "users", qs.docs[0].id); // database, collection, document id -> reference and qs.docs[0].id gets id of document since qs.docs is an array. And one object in it since only one matches the query/parameters.
+  console.log(qs.docs[0].data().firstName); // this data printing works
   // updates document
   await updateDoc(usersRef1, {
     firstName: "John Doe1", // field to update: new value
