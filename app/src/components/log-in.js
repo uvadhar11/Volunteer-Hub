@@ -35,16 +35,24 @@ async function getQuerySnapshot() {
   // getting from child - better time wise, doing a check.
   const usersRef = collection(db, "users");
   const q = query(usersRef, where("userID", "==", user.uid)); // property, equals, value
+  console.log(q);
 
   const qs = await getDocs(q);
+  console.log(qs);
   qs.forEach((doc) => {
     console.log(doc.id + ": " + doc.data().firstName);
-  });
 
-  // trying to update a document - works but know get document id with the query
-  const usersRef1 = doc(db, "users", "pN3YMENxSHbp38gcsZ1e"); // database, collection, document id
+    // updating a document with the query inside the loop since access to doc
+    // const usersRef1 = doc(db, "users", "pN3YMENxSHbp38gcsZ1e"); // database, collection, document id, 3rd param old:
+    // updateDoc(usersRef1, {
+    //   firstName: "John Doe",
+    // });
+  });
+  console.log(qs.docs[0].id);
+  // trying to update a document - works but now get document id with the query
+  const usersRef1 = doc(db, "users", user.uid); // database, collection, document id, 3rd param old: "pN3YMENxSHbp38gcsZ1e"
   await updateDoc(usersRef1, {
-    firstName: "John Doe",
+    firstName: "John Doe1",
   });
 }
 
