@@ -29,30 +29,24 @@ import {
 } from "firebase/firestore";
 
 async function getQuerySnapshot() {
-  // current user
+  // get current user
   const user = auth.currentUser;
 
   // getting from child - better time wise, doing a check.
-  const usersRef = collection(db, "users");
-  const q = query(usersRef, where("userID", "==", user.uid)); // property, equals, value
-  console.log(q);
+  const usersRef = collection(db, "users"); // get collection (users is a collection) and db is firestore
+  const q = query(usersRef, where("userID", "==", user.uid)); // property, equals, value -> makes query
+  // console.log(q);
 
-  const qs = await getDocs(q);
-  console.log(qs);
+  const qs = await getDocs(q); // gets documents matching query (parameters) and await = wait till get it
+  // console.log(qs);
   qs.forEach((doc) => {
     console.log(doc.id + ": " + doc.data().firstName);
-
-    // updating a document with the query inside the loop since access to doc
-    // const usersRef1 = doc(db, "users", "pN3YMENxSHbp38gcsZ1e"); // database, collection, document id, 3rd param old:
-    // updateDoc(usersRef1, {
-    //   firstName: "John Doe",
-    // });
   });
-  console.log(qs.docs[0].id);
-  // trying to update a document - works but now get document id with the query
-  const usersRef1 = doc(db, "users", user.uid); // database, collection, document id, 3rd param old: "pN3YMENxSHbp38gcsZ1e"
+
+  const usersRef1 = doc(db, "users", qs.docs[0].id); // database, collection, document id -> reference and qs.docs[0].id gets id of document since qs.docs is an array. And one object in it since only one matches the query/parameters.
+  // updates document
   await updateDoc(usersRef1, {
-    firstName: "John Doe1",
+    firstName: "John Doe1", // field to update: new value
   });
 }
 
