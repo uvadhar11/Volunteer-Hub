@@ -48,12 +48,6 @@ function NavBar(props) {
 
   getCurrentUserData();
 
-  // set display name to see if it works - it does and now the pfp shows when logged in and no when not logged in
-  // if (user) {
-  //   // user.displayName = "John Doe";
-  //   user.displayName = "John Doe";
-  // }
-
   const { colorMode, toggleColorMode } = useColorMode();
   const isDark = colorMode === "dark"; // the value is this boolean expression so the value technically doesn't change but the evaluation true/false doesn't change.
   let navigate = useNavigate();
@@ -70,35 +64,6 @@ function NavBar(props) {
         console.log("An Error occured when signing out.");
       });
   };
-
-  // state for the current user.
-  // const [userState, setUserState] = React.useState(null);
-  // console.log(userState);
-
-  // <UserContext.Consumer>
-  //   {(user) => {
-  //     // console.log(user);
-  //     setUserState(user.name);
-  //   }}
-  // </UserContext.Consumer>;
-  // console.log(userState.name);
-
-  // now update the state/context. - maybe use auth state changed and put UserContext.Consumer inside there.
-
-  // auth then can refactor with context later
-  // let name;
-  // onAuthStateChanged(auth, (user) => {
-  //   if (user) {
-  //     // User is signed in, see docs for a list of available properties
-  //     // https://firebase.google.com/docs/reference/js/firebase.User
-  //     name = user.name;
-  //     // ...
-  //   } else {
-  //     // User is signed out
-  //     // ...
-  //     name = null;
-  //   }
-  // });
 
   return (
     <Flex w="100%" h="3em" bg="blackAlpha.600" pl="2" align="center">
@@ -182,19 +147,6 @@ function NavBar(props) {
       {/* Account Settings/Profile Button */}
       <Menu>
         {/* Profile Picture/Profile Button */}
-        {/* <MenuButton
-          as={IconButton}
-          aria-label="Profile"
-          icon={<FaGrinAlt />}
-          ml="2"
-          mr="2"
-          colorScheme="facebook"
-        /> */}
-        {/* <UserContext.Consumer>
-          {(user) => {
-            userVar = user;
-          }}
-        </UserContext.Consumer> */}
         <MenuButton
           as={Avatar}
           aria-label="Profile"
