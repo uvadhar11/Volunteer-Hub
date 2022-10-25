@@ -61,11 +61,13 @@ function SignUp() {
             firstName: firstNameRef.current.value,
             lastName: lastNameRef.current.value,
             username:
-              firstNameRef.current.value + " " + lastNameRef.current.value, // maybe this will work idk - check later
+              firstNameRef.current.value + " " + lastNameRef.current.value,
             email: emailRef.current.value,
             grade: gradeLevelRef.current.value,
             dob: dobRef.current.value,
           });
+          userCredential.user.displayName =
+            firstNameRef.current.value + " " + lastNameRef.current.value;
           console.log("Document written with ID: ", docRef.id);
         } catch (error) {
           console.log("Error adding document: ", error);

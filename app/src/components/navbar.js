@@ -24,18 +24,35 @@ import {
 import Logo from "./logo";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import { UserContext } from "./context";
+import { collection, getDoc, getDocs, query, where } from "firebase/firestore";
+
+async function getCurrentUserData() {
+  const user = auth.currentUser;
+  if (user) {
+    // if user exists -> isn't undefined/there is one logged in
+    const usersRef = collection(db, "users"); // get collection (users is a collection) and db is firestore
+    const q = query(usersRef, where("userID", "==", user.uid)); // property, equals, value -> makes query
+    const qs = await getDocs(q); // gets documents matching query (parameters) and await = wait till get it
+    // qs.forEach((doc) => {
+    //   console.log(doc.id + ": " + doc.data().firstName);
+    // });
+  }
+}
 
 function NavBar(props) {
   const user = auth.currentUser;
-  console.log(user);
-  console.log(user?.email);
+  // console.log(user);
+  // console.log(user?.email);
+
+  getCurrentUserData();
 
   // set display name to see if it works - it does and now the pfp shows when logged in and no when not logged in
-  if (user) {
-    user.displayName = "John Doe";
-  }
+  // if (user) {
+  //   // user.displayName = "John Doe";
+  //   user.displayName = "John Doe";
+  // }
 
   const { colorMode, toggleColorMode } = useColorMode();
   const isDark = colorMode === "dark"; // the value is this boolean expression so the value technically doesn't change but the evaluation true/false doesn't change.
@@ -181,7 +198,7 @@ function NavBar(props) {
         <MenuButton
           as={Avatar}
           aria-label="Profile"
-          name={user ? user.displayName : null}
+          name={user ? user.displayName : null} // maybe use the user data in firestore instead of display name in auth.
           ml="2"
           mr="2"
           colorScheme="facebook"

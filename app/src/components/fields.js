@@ -1,25 +1,6 @@
 import React from "react";
 import { FormLabel, Input } from "@chakra-ui/react";
 
-// function Fields(props) {
-//   return (
-//     <>
-//       <FormLabel ml="6" mt="4" fontSize="xl">
-//         {props.name}
-//       </FormLabel>
-//       <Input
-//         placeholder={props.name}
-//         size="md"
-//         w="20em"
-//         ml="6"
-//         ref={props.ref}
-//         // required={props.req === "true" ? true : false}
-//         type={props.type} // setting it to props.type and looks like if type isn't specified, it still works fine!
-//       ></Input>
-//     </>
-//   );
-// }
-
 const Fields = React.forwardRef((props, ref) => {
   return (
     <>
