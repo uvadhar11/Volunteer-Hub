@@ -7,9 +7,9 @@ function AccountSettings() {
     <VStack w="100%" h="100vh">
       <NavBar />
       <Text fontSize="6xl">Account Settings</Text>
-      <HStack w="90%" pt="1%">
+      <HStack w="90%" pt="1%" alignItems="start">
         {/* Buttons */}
-        <VStack w="17%" align="flex-start" justify="top">
+        <VStack w="17%">
           <Button>Hello</Button>
           <Button>Hello again</Button>
         </VStack>
@@ -25,7 +25,7 @@ function AccountSettings() {
         >
           {/*padding -> padding the content in a div*/}
           <Text>Content</Text>
-          <Text w="100%">
+          <Text w="95%">
             Hello this is a filler content that we are going to be using to
             write an essay. Lorem Ipsum Fill in balnk stuff. GAMMAMMAMMAJFojdfp
             afpapsdifpasdifasdfpisadfpoasdufoasjdfo
