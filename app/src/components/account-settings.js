@@ -9,9 +9,10 @@ function AccountSettings() {
       <Text fontSize="6xl">Account Settings</Text>
       <HStack w="90%" pt="1%" alignItems="start">
         {/* Buttons */}
-        <VStack w="17%">
-          <Button>Hello</Button>
-          <Button>Hello again</Button>
+        <VStack w="13%">
+          <Button w="120%">Your Account</Button>
+          <Button w="120%">Notifications</Button>
+          <Button w="120%">Delete Account</Button>
         </VStack>
 
         {/* Content */}
@@ -24,17 +25,11 @@ function AccountSettings() {
           overflowWrap={"break-word"}
         >
           {/*padding -> padding the content in a div*/}
-          <Text>Content</Text>
-          <Text w="95%">
-            Hello this is a filler content that we are going to be using to
-            write an essay. Lorem Ipsum Fill in balnk stuff. GAMMAMMAMMAJFojdfp
-            afpapsdifpasdifasdfpisadfpoasdufoasjdfo
-            jasdfjasasjdfasjdfajsd;lfjadfl;asjdflasjdf
-            adpfweij-viwqenprv[weutpvbuwq[jvuwrtveyrwv]] SDKf flexDirection
-            flexDirectiona;sljdf;lsajdfl;ajsdlf;jal;sdjfl;asdjfl;ajsdfl;asjdfljasdl;fjasl;dfjal;sdjfl;asjdfl;asjdfl;sjadfl;asjdfl;jsad;lfjasl;dfjlas;djfls;adjfl;asjdf;lsajdfl;asjdfl;jasdfl;jsad;lfjasl;dfja;ljfwaoejmrf0wier0wivn04tuuownuejldfjsladjfl;asjdfl;jasfl;sjaldf;jas;Hello
-            guys
-            jfqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
-          </Text>
+          <Text>Profile Picture</Text>
+          <Text>Username</Text>
+          <Text>Email</Text>
+          <Text>Reset Password</Text>
+          {/* maybe a show password */}
         </VStack>
       </HStack>
     </VStack>
