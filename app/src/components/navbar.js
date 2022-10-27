@@ -20,6 +20,7 @@ import {
   FaBell,
   FaQuestionCircle,
   FaGrinAlt,
+  FaHome,
 } from "react-icons/fa";
 import Logo from "./logo";
 import { useNavigate } from "react-router-dom";
@@ -118,8 +119,18 @@ function NavBar(props) {
       <IconButton
         aria-label="Help Button"
         colorScheme="facebook"
-        onClick={() => navigate("/help")}
-        icon={<FaQuestionCircle />}
+        onClick={() =>
+          window.location.pathname == "/help"
+            ? navigate("/")
+            : navigate("/help")
+        }
+        icon={
+          window.location.pathname == "/help" ? (
+            <FaHome />
+          ) : (
+            <FaQuestionCircle />
+          )
+        }
       ></IconButton>
 
       <Menu>
