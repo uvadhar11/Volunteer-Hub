@@ -75,14 +75,19 @@ function NavBar(props) {
           colorScheme="facebook"
           icon={<FaBars />}
         />
-        <MenuList>
-          <MenuItem onClick={() => navigate("/home/dashboard")}>Home</MenuItem>
-          <MenuItem
-            onClick={() => navigate("/volunteer-opportunity/dashboard")}
-          >
-            Volunteer Opportunity
-          </MenuItem>
-        </MenuList>
+        {/* only show up if user exists */}
+        {user ? (
+          <MenuList>
+            <MenuItem onClick={() => navigate("/home/dashboard")}>
+              Home
+            </MenuItem>
+            <MenuItem
+              onClick={() => navigate("/volunteer-opportunity/dashboard")}
+            >
+              Volunteer Opportunity
+            </MenuItem>
+          </MenuList>
+        ) : null}
       </Menu>
 
       <Logo />
@@ -125,15 +130,18 @@ function NavBar(props) {
           ml="2"
           icon={<FaBell />}
         />
-        <MenuList>
-          <MenuItem onClick={() => navigate("/notifications")}>
-            <u>Notifications Page</u>
-          </MenuItem>
-          {/* On click for these Menu items and direct them to the volunteer opportunities and say the info. Also notification page to see all these things in big. */}
-          <MenuItem>Notification 1</MenuItem>
-          <MenuItem>You got scammed.</MenuItem>
-          <MenuItem>New announcement in "Boy Scouts"</MenuItem>
-        </MenuList>
+
+        {user ? (
+          <MenuList>
+            <MenuItem onClick={() => navigate("/notifications")}>
+              <u>Notifications Page</u>
+            </MenuItem>
+            {/* On click for these Menu items and direct them to the volunteer opportunities and say the info. Also notification page to see all these things in big. */}
+            <MenuItem>Notification 1</MenuItem>
+            <MenuItem>You got scammed.</MenuItem>
+            <MenuItem>New announcement in "Boy Scouts"</MenuItem>
+          </MenuList>
+        ) : null}
       </Menu>
 
       <IconButton
@@ -158,15 +166,17 @@ function NavBar(props) {
         />
 
         {/* Menu Selections */}
-        <MenuList>
-          <MenuItem onClick={() => navigate("/account-settings")}>
-            Account Settings
-          </MenuItem>
-          <MenuItem onClick={() => navigate("/help")}>Help</MenuItem>
-          <MenuItem onClick={logOut}>Log Out</MenuItem>{" "}
-          {/*onClick={() => navigate("/log-in")} */}
-          {/* sign them out then send to log in page */}
-        </MenuList>
+        {user ? (
+          <MenuList>
+            <MenuItem onClick={() => navigate("/account-settings")}>
+              Account Settings
+            </MenuItem>
+            <MenuItem onClick={() => navigate("/help")}>Help</MenuItem>
+            <MenuItem onClick={logOut}>Log Out</MenuItem>{" "}
+            {/*onClick={() => navigate("/log-in")} */}
+            {/* sign them out then send to log in page */}
+          </MenuList>
+        ) : null}
       </Menu>
     </Flex>
   );
