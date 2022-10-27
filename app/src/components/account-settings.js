@@ -19,17 +19,17 @@ function AccountSettings() {
   const emailRef = React.useRef(null);
   let navigate = useNavigate();
 
-  async function getUserDocument(field, value) {
-    const usersRef = collection(db, "users"); // get collection (users is a collection) and db is firestore
-    const q = query(usersRef, where("userID", "==", user.uid));
-    const qs = await getDocs(q); // gets documents matching query (parameters) and await = wait till get it
-    const usersRef1 = doc(db, "users", qs.docs[0].id); // database, collection, document id -> reference and qs.docs[0].id gets id of document since qs.docs is an array. And one object in it since only one matches the query/parameters.
-    console.log(qs.docs[0].data().firstName); // this data printing works
-    // updates document
-    await updateDoc(usersRef1, {
-      field: value, // field to update: new value
-    });
-  }
+  // async function getUserDocument(field, value) {
+  //   const usersRef = collection(db, "users"); // get collection (users is a collection) and db is firestore
+  //   const q = query(usersRef, where("userID", "==", user.uid));
+  //   const qs = await getDocs(q); // gets documents matching query (parameters) and await = wait till get it
+  //   const usersRef1 = doc(db, "users", qs.docs[0].id); // database, collection, document id -> reference and qs.docs[0].id gets id of document since qs.docs is an array. And one object in it since only one matches the query/parameters.
+  //   console.log(qs.docs[0].data().firstName); // this data printing works
+  //   // updates document
+  //   await updateDoc(usersRef1, {
+  //     field: value, // field to update: new value
+  //   });
+  // }
 
   const handleImageChange = (e) => {
     if (e.target.files[0]) {
@@ -37,17 +37,35 @@ function AccountSettings() {
     }
   };
 
-  const usernameChange = () => {
-    getUserDocument("username", usernameRef.current.value);
+  async function usernameChange() {
+    const usersRef = collection(db, "users"); // get collection (users is a collection) and db is firestore
+    const q = query(usersRef, where("userID", "==", user.uid));
+    const qs = await getDocs(q); // gets documents matching query (parameters) and await = wait till get it
+    const usersRef1 = doc(db, "users", qs.docs[0].id); // database, collection, document id -> reference and qs.docs[0].id gets id of document since qs.docs is an array. And one object in it since only one matches the query/parameters.
+    console.log(qs.docs[0].data().firstName); // this data printing works
+    // updates document
+    await updateDoc(usersRef1, {
+      username: usernameRef.current.value, // field to update: new value
+    });
+
     // change firebase displayname
     user.displayName = usernameRef.current.value;
-  };
+  }
 
-  const emailChange = () => {
-    getUserDocument("email", emailRef.current.value);
+  async function emailChange() {
+    const usersRef = collection(db, "users"); // get collection (users is a collection) and db is firestore
+    const q = query(usersRef, where("userID", "==", user.uid));
+    const qs = await getDocs(q); // gets documents matching query (parameters) and await = wait till get it
+    const usersRef1 = doc(db, "users", qs.docs[0].id); // database, collection, document id -> reference and qs.docs[0].id gets id of document since qs.docs is an array. And one object in it since only one matches the query/parameters.
+    console.log(qs.docs[0].data().firstName); // this data printing works
+    // updates document
+    await updateDoc(usersRef1, {
+      email: emailRef.current.value, // field to update: new value
+    });
+
     // can change firebase property too
     user.email = emailRef.current.value;
-  };
+  }
 
   console.log(image);
   return (
@@ -74,19 +92,20 @@ function AccountSettings() {
           {/*padding -> padding the content in a div*/}
           {/* change profile picture */}
           <Text>Profile Picture</Text>
-          <input type="file" onClick={handleImageChange}></input>
+          <input type="file"></input>
+          <Button onClick={handleImageChange}>Change Picture</Button>
 
           {/* change username */}
           <Text>Username</Text>
           <Text>Current username: {user.displayName}</Text>
-          <Input onClick={usernameChange}></Input>
-          <Button>Change</Button>
+          <Input ref={usernameRef}></Input>
+          <Button onClick={usernameChange}>Change</Button>
 
           {/* change email */}
           <Text>Email</Text>
           <Text>Current Email: {user.email}</Text>
-          <Input onClick={emailChange}></Input>
-          <Button>Change</Button>
+          <Input ref={emailRef}></Input>
+          <Button onClick={emailChange}>Change</Button>
 
           <Text>Reset Password</Text>
         </VStack>
