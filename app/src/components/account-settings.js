@@ -1,5 +1,12 @@
 import { VStack, Text, HStack, Button, Divider, Input } from "@chakra-ui/react";
 import {
+  EmailAuthCredential,
+  EmailAuthProvider,
+  reauthenticateWithCredential,
+  signOut,
+  updateEmail,
+} from "firebase/auth";
+import {
   collection,
   doc,
   getDocs,
@@ -18,6 +25,8 @@ function AccountSettings() {
   const usernameRef = React.useRef(null);
   const emailRef = React.useRef(null);
   let navigate = useNavigate();
+  const [username, setUsername] = React.useState(null);
+  const [email, setEmail] = React.useState(null);
 
   // async function getUserDocument(field, value) {
   //   const usersRef = collection(db, "users"); // get collection (users is a collection) and db is firestore
@@ -50,6 +59,18 @@ function AccountSettings() {
 
     // change firebase displayname
     user.displayName = usernameRef.current.value;
+    setUsername(user.displayName);
+
+    // tell them it is successful
+    alert(
+      "Username change successful. Your new username is: " + user.displayName
+    );
+
+    // now sign them out.
+    signOut(auth);
+
+    // redirect them to log-in
+    navigate("/log-in");
   }
 
   async function emailChange() {
@@ -63,8 +84,25 @@ function AccountSettings() {
       email: emailRef.current.value, // field to update: new value
     });
 
-    // can change firebase property too
-    user.email = emailRef.current.value;
+    // need to reauthenticate user to get their credential in order to change their email.
+    // reauthenticate user credential with prompts
+    const reAuthPassword = prompt("Enter current password: ");
+    const credential = EmailAuthProvider.credential(user.email, reAuthPassword);
+    const result = await reauthenticateWithCredential(user, credential);
+
+    updateEmail(user, emailRef.current.value);
+    setEmail(user.email);
+
+    // tell them it is successful
+    alert(
+      "Email change successful. Your new email is: " + emailRef.current.value
+    );
+
+    // now sign them out.
+    signOut(auth);
+
+    // redirect them to log-in
+    navigate("/log-in");
   }
 
   console.log(image);
