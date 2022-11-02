@@ -5,6 +5,7 @@ import {
   reauthenticateWithCredential,
   signOut,
   updateEmail,
+  updatePassword,
 } from "firebase/auth";
 import {
   collection,
@@ -24,6 +25,7 @@ function AccountSettings() {
   const [image, setImage] = React.useState(null);
   const usernameRef = React.useRef(null);
   const emailRef = React.useRef(null);
+  const passwordRef = React.useRef(null);
   let navigate = useNavigate();
   const [username, setUsername] = React.useState(null);
   const [email, setEmail] = React.useState(null);
@@ -90,13 +92,43 @@ function AccountSettings() {
     const credential = EmailAuthProvider.credential(user.email, reAuthPassword);
     const result = await reauthenticateWithCredential(user, credential);
 
-    updateEmail(user, emailRef.current.value);
-    setEmail(user.email);
+    updateEmail(user, emailRef.current.value); // update the email in firebase
+    setEmail(user.email); // update the state for re-render
 
     // tell them it is successful
     alert(
       "Email change successful. Your new email is: " + emailRef.current.value
     );
+
+    // now sign them out.
+    signOut(auth);
+
+    // redirect them to log-in
+    navigate("/log-in");
+  }
+
+  async function resetPassword() {
+    const usersRef = collection(db, "users"); // get collection (users is a collection) and db is firestore
+    const q = query(usersRef, where("userID", "==", user.uid));
+    const qs = await getDocs(q); // gets documents matching query (parameters) and await = wait till get it
+    const usersRef1 = doc(db, "users", qs.docs[0].id); // database, collection, document id -> reference and qs.docs[0].id gets id of document since qs.docs is an array. And one object in it since only one matches the query/parameters.
+    console.log(qs.docs[0].data().firstName); // this data printing works
+    // updates document
+    await updateDoc(usersRef1, {
+      email: passwordRef.current.value, // field to update: new value
+    });
+
+    // need to reauthenticate user to get their credential in order to change their email.
+    // reauthenticate user credential with prompts
+    const reAuthPassword = prompt("Enter current password: ");
+    const credential = EmailAuthProvider.credential(user.email, reAuthPassword);
+    const result = await reauthenticateWithCredential(user, credential);
+
+    updatePassword(user, passwordRef.current.value);
+    // setEmail(user.email);
+
+    // tell them it is successful
+    alert("Password change successful.");
 
     // now sign them out.
     signOut(auth);
@@ -146,6 +178,8 @@ function AccountSettings() {
           <Button onClick={emailChange}>Change</Button>
 
           <Text>Reset Password</Text>
+          <Input ref={passwordRef}></Input>
+          <Button onClick={resetPassword}>Reset Password</Button>
         </VStack>
       </HStack>
     </VStack>
