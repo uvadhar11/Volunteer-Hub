@@ -19,6 +19,9 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, db } from "../firebase";
 import NavBar from "./navbar";
+import { storage } from "../firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { setDefaultEventParameters } from "firebase/analytics";
 
 function AccountSettings() {
   const user = auth.currentUser;
@@ -46,6 +49,24 @@ function AccountSettings() {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
     }
+  };
+
+  const handleSubmit = () => {
+    const imageRef = ref(storage, "image");
+    uploadBytes(imageRef, image)
+      .then(() => {
+        getDownloadURL(imageRef)
+          .then((url) => {
+            setDefaultEventParameters(url);
+          })
+          .catch((error) => {
+            console.log(error.message, "error getting the image url");
+          });
+        setImage(null);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
 
   async function usernameChange() {
@@ -162,8 +183,8 @@ function AccountSettings() {
           {/*padding -> padding the content in a div*/}
           {/* change profile picture */}
           <Text>Profile Picture</Text>
-          <input type="file"></input>
-          <Button onClick={handleImageChange}>Change Picture</Button>
+          <input type="file" onClick={handleImageChange}></input>
+          <Button onClick={handleSubmit}>Change Picture</Button>
 
           {/* change username */}
           <Text>Username</Text>
