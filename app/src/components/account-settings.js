@@ -1,4 +1,12 @@
-import { VStack, Text, HStack, Button, Divider, Input } from "@chakra-ui/react";
+import {
+  VStack,
+  Text,
+  HStack,
+  Button,
+  Divider,
+  Input,
+  Avatar,
+} from "@chakra-ui/react";
 import {
   EmailAuthCredential,
   EmailAuthProvider,
@@ -17,15 +25,16 @@ import {
 } from "firebase/firestore";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { auth, db } from "../firebase";
+import { auth, db, storage } from "../firebase";
 import NavBar from "./navbar";
-import { storage } from "../firebase";
+// import { storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { setDefaultEventParameters } from "firebase/analytics";
 
 function AccountSettings() {
   const user = auth.currentUser;
   const [image, setImage] = React.useState(null);
+  const [url, setUrl] = React.useState(null);
   const usernameRef = React.useRef(null);
   const emailRef = React.useRef(null);
   const passwordRef = React.useRef(null);
@@ -57,7 +66,9 @@ function AccountSettings() {
       .then(() => {
         getDownloadURL(imageRef)
           .then((url) => {
-            setDefaultEventParameters(url);
+            // setDefaultEventParameters(url);
+            setUrl(url);
+            console.log(url);
           })
           .catch((error) => {
             console.log(error.message, "error getting the image url");
@@ -159,6 +170,17 @@ function AccountSettings() {
   }
 
   console.log(image);
+  console.log(url);
+
+  // user.photoURL = url;
+  console.log(user.photoURL);
+  console.log(url);
+
+  if (url) {
+    user.photoURL = url;
+    console.log(user.photoURL);
+  }
+
   return (
     <VStack w="100%" h="100vh">
       <NavBar />
@@ -183,7 +205,8 @@ function AccountSettings() {
           {/*padding -> padding the content in a div*/}
           {/* change profile picture */}
           <Text>Profile Picture</Text>
-          <input type="file" onClick={handleImageChange}></input>
+          <Avatar src={url}></Avatar>
+          <input type="file" onChange={handleImageChange}></input>
           <Button onClick={handleSubmit}>Change Picture</Button>
 
           {/* change username */}

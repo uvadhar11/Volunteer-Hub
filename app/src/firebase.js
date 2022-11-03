@@ -18,6 +18,7 @@ const firebaseConfig = {
   messagingSenderId: "949286570426",
   appId: "1:949286570426:web:a05b0208f9ab36b7d33583",
   measurementId: "G-N346BNHXPS",
+  // storageBucket: "gs://volunteer-1856e.appspot.com",
 };
 
 // Initialize Firebase
