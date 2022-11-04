@@ -72,12 +72,12 @@ function Home() {
             </Button>
           </Link>
         </VStack>
-        <UserContext.Consumer>
-          {(user) => {
+        {/* <UserContext.Consumer> */}
+        {/* {(user) => {
             console.log(user.email);
             return <Text>Hello {user.email}!</Text>;
-          }}
-        </UserContext.Consumer>
+          }} */}
+        {/* </UserContext.Consumer> */}
         ;
         <Outlet />
         {/* content stuff */}

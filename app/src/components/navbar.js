@@ -47,6 +47,8 @@ function NavBar(props) {
   // console.log(user);
   // console.log(user?.email);
 
+  if (user) console.log(user.photoURL);
+
   getCurrentUserData();
 
   const { colorMode, toggleColorMode } = useColorMode();
@@ -169,8 +171,8 @@ function NavBar(props) {
         <MenuButton
           as={Avatar}
           aria-label="Profile"
-          name={user ? user.displayName : null} // maybe use the user data in firestore instead of display name in auth.
-          src={user.photoURL}
+          // name={user ? user.displayName : null} // maybe use the user data in firestore instead of display name in auth.
+          src={user ? user.photoURL : null}
           // pl={user ? "3" : "0"} // padding so the profile picture is centered. Padding offsets content.
           ml="2"
           mr="2"
