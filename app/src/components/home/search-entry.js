@@ -1,40 +1,65 @@
+import { chakra, HStack, Icon, Text, VStack } from "@chakra-ui/react";
 import React from "react";
 import {
-  chakra,
-  Text,
-  VStack,
-  HStack,
-  Center,
-  Input,
-  InputGroup,
-  InputRightElement,
-  IconButton,
-  Spacer,
-} from "@chakra-ui/react";
-import { FaSearch } from "react-icons/fa";
+  FaCalendar,
+  FaCameraRetro,
+  FaCaretRight,
+  FaMale,
+  FaMapMarkerAlt,
+  FaTimes,
+} from "react-icons/fa";
 
+// search card for each volunteer opportunity.
 function SearchEntry() {
-  const searchRef = React.useRef(null);
+  // creating an example volunteer opportunity object.
+  const volOpObject = {
+    name: "Volunteer Opportunity",
+    type: "Global",
+    location: "Global",
+    by: "John Doe", // might make user object here
+    timeframe: "On and Off",
+    hrsPerWk: "2 hours/week",
+    description: "This is a volunteer opportunity",
+  };
 
   return (
-    <VStack w="100%" h="calc(100vh-3em)">
-      {/* calc is a css property that can subtract stuff like the screen-navbar to get main content size */}
-      <Text fontSize="3xl">Find Volunteer Opportunities</Text>
-      {/* <Input w="80%"></Input> */}
-      <Spacer />
-      <InputGroup w="60%">
-        <Input
-          ref={searchRef}
-          placeholder="Find Volunter Opportunities..."
-        ></Input>
-        <InputRightElement>
-          <IconButton icon={<FaSearch />}></IconButton>
-        </InputRightElement>
-      </InputGroup>
-
-      <Spacer />
-
-      {/* make a search ui */}
+    <VStack
+      bg="whiteAlpha.800"
+      rounded="md"
+      w="-moz-fit-content"
+      alignItems="start"
+    >
+      {/* opportunity name */}
+      <Text color="black" fontSize="xl" pl="2" pr="2">
+        {volOpObject.name}
+      </Text>
+      {/* description (have max characters, then additional desc if a button is clicked on side) */}
+      <HStack pl="2" pr="2">
+        <Icon as={FaCaretRight} color="black"></Icon>
+        <Text color="black">{volOpObject.description}</Text>
+      </HStack>
+      {/* by */}
+      <HStack pl="2" pr="2">
+        <Icon as={FaMale} color="black"></Icon>
+        <Text color="black">{volOpObject.by}</Text>
+      </HStack>
+      {/* type/location - might want to do jut location and if its global then location will be that */}
+      <HStack pl="2" pr="2">
+        <Icon as={FaMapMarkerAlt} color="black"></Icon>
+        <Text color="black">
+          {volOpObject.type === volOpObject.location
+            ? volOpObject.type
+            : volOpObject.type | volOpObject.location}
+        </Text>
+      </HStack>
+      {/* timeframe, hrs per wk */}
+      <HStack pl="2" pr="2">
+        <Icon as={FaCalendar} color="black"></Icon>
+        <Text color="black">
+          {volOpObject.timeframe} | {volOpObject.hrsPerWk}
+        </Text>
+      </HStack>
+      {/* requirements and can use the FaRegListAlt icon for that. */}
     </VStack>
   );
 }
