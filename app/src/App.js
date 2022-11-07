@@ -20,6 +20,7 @@ import Notifications from "./components/notifications";
 import { UserContext, UserProvider } from "./components/context";
 import { auth } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import NotificationSettings from "./components/notification-settings";
 // import HomeSidebar from "./components/home-sidebar";
 
 function App() {
@@ -65,6 +66,10 @@ function App() {
           <Route path="help" element={<Help />} />
           <Route path="account-settings" element={<AccountSettings />} />
           <Route path="notifications" element={<Notifications />} />
+          <Route
+            path="notification-settings"
+            element={<NotificationSettings />}
+          />
           <Route path="*" element={<ErrorPage />} />{" "}
           {/* This error page route needs to be the last route!!! Star basically means all others*/}
         </Routes>

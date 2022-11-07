@@ -4,9 +4,11 @@ import {
   FaCalendar,
   FaCameraRetro,
   FaCaretRight,
+  FaDumpsterFire,
   FaMale,
   FaMapMarkerAlt,
   FaTimes,
+  FaUserFriends,
 } from "react-icons/fa";
 
 // search card for each volunteer opportunity.
@@ -20,6 +22,7 @@ function SearchEntry() {
     timeframe: "On and Off",
     hrsPerWk: "2 hours/week",
     description: "This is a volunteer opportunity",
+    memberNumber: 100,
   };
 
   return (
@@ -29,8 +32,8 @@ function SearchEntry() {
       w="-moz-fit-content"
       alignItems="start"
     >
-      {/* opportunity name */}
-      <Text color="black" fontSize="xl" pl="2" pr="2">
+      {/* opportunity name - might wanna add volunteer opportunity icon somewhere as well*/}
+      <Text color="black" fontSize="xl" pl="2" pr="2" pt="2">
         {volOpObject.name}
       </Text>
       {/* description (have max characters, then additional desc if a button is clicked on side) */}
@@ -58,6 +61,11 @@ function SearchEntry() {
         <Text color="black">
           {volOpObject.timeframe} | {volOpObject.hrsPerWk}
         </Text>
+      </HStack>
+      {/* Number of Members in the volunteer opportunity */}
+      <HStack pl="2" pr="2" pb="2">
+        <Icon as={FaUserFriends} color="black"></Icon>
+        <Text color="black">{volOpObject.memberNumber} Members</Text>
       </HStack>
       {/* requirements and can use the FaRegListAlt icon for that. */}
     </VStack>

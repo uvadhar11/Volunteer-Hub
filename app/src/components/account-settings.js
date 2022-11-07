@@ -8,6 +8,7 @@ import {
   Avatar,
 } from "@chakra-ui/react";
 import {
+  deleteUser,
   EmailAuthCredential,
   EmailAuthProvider,
   reauthenticateWithCredential,
@@ -140,16 +141,6 @@ function AccountSettings() {
   }
 
   async function resetPassword() {
-    const usersRef = collection(db, "users"); // get collection (users is a collection) and db is firestore
-    const q = query(usersRef, where("userID", "==", user.uid));
-    const qs = await getDocs(q); // gets documents matching query (parameters) and await = wait till get it
-    const usersRef1 = doc(db, "users", qs.docs[0].id); // database, collection, document id -> reference and qs.docs[0].id gets id of document since qs.docs is an array. And one object in it since only one matches the query/parameters.
-    console.log(qs.docs[0].data().firstName); // this data printing works
-    // updates document
-    await updateDoc(usersRef1, {
-      email: passwordRef.current.value, // field to update: new value
-    });
-
     // need to reauthenticate user to get their credential in order to change their email.
     // reauthenticate user credential with prompts
     const reAuthPassword = prompt("Enter current password: ");
@@ -167,6 +158,45 @@ function AccountSettings() {
 
     // redirect them to log-in
     navigate("/log-in");
+  }
+
+  async function deleteAccount() {
+    // const usersRef = collection(db, "users"); // get collection (users is a collection) and db is firestore
+    // const q = query(usersRef, where("userID", "==", user.uid));
+    // const qs = await getDocs(q); // gets documents matching query (parameters) and await = wait till get it
+    // const usersRef1 = doc(db, "users", qs.docs[0].id); // database, collection, document id -> reference and qs.docs[0].id gets id of document since qs.docs is an array. And one object in it since only one matches the query/parameters.
+    // console.log(qs.docs[0].data().firstName); // this data printing works
+    // // updates document
+    // await updateDoc(usersRef1, {
+    //   email: passwordRef.current.value, // field to update: new value
+    // });
+
+    // need to reauthenticate user to get their credential in order to change their email.
+    // reauthenticate user credential with prompts
+    const reAuthPassword = prompt("Enter current password: ");
+    const credential = EmailAuthProvider.credential(user.email, reAuthPassword);
+    const result = await reauthenticateWithCredential(user, credential);
+
+    let warning = prompt(
+      "Are you sure you want to delete your account? This action cannot be undone. If so, type yes"
+    );
+
+    if (warning === "yes") {
+      deleteUser(user)
+        .then(() => {
+          // user deleted
+          alert("Account was successfully deleted.");
+          // delete the document fields associated with the user id - using collection before user deletes.
+
+          // redirect them to log-in
+          navigate("/log-in");
+        })
+        .catch((error) => {
+          // An error occurred
+          console.log(error);
+          alert("Could not delete account!");
+        });
+    }
   }
 
   console.log(image);
@@ -188,9 +218,15 @@ function AccountSettings() {
       <HStack w="90%" pt="1%" alignItems="start">
         {/* Buttons */}
         <VStack w="13%">
-          <Button w="120%">Your Account</Button>
-          <Button w="120%">Notifications</Button>
-          <Button w="120%">Delete Account</Button>
+          <Button w="120%" onClick={navigate("/account-settings")}>
+            Your Account
+          </Button>
+          <Button w="120%" onClick={navigate("/notification-settings")}>
+            Notifications
+          </Button>
+          <Button w="120%" onClick={deleteAccount}>
+            Delete Account
+          </Button>
         </VStack>
 
         {/* Content */}
