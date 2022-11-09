@@ -12,6 +12,7 @@ import {
   Avatar,
   Wrap,
   WrapItem,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import {
   FaBars,
@@ -28,6 +29,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { UserContext } from "./context";
 import { collection, getDoc, getDocs, query, where } from "firebase/firestore";
+import { customTheme } from "./theme";
 
 async function getCurrentUserData() {
   const user = auth.currentUser;
@@ -47,7 +49,7 @@ function NavBar(props) {
   // console.log(user);
   // console.log(user?.email);
 
-  if (user) console.log(user.photoURL);
+  // if (user) console.log(user.photoURL);
 
   getCurrentUserData();
 
@@ -69,7 +71,14 @@ function NavBar(props) {
   };
 
   return (
-    <Flex w="100%" h="3em" bg="blackAlpha.600" pl="2" align="center">
+    <Flex
+      w="100%"
+      h="3em"
+      bg={useColorModeValue("gray.100", "red.100")}
+      pl="2"
+      align="center"
+    >
+      {/* blackAlpha.600 */}
       {/* Menu Button */}
       <Menu>
         <MenuButton

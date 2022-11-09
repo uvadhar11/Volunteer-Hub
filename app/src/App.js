@@ -21,11 +21,25 @@ import { UserContext, UserProvider } from "./components/context";
 import { auth } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import NotificationSettings from "./components/notification-settings";
+import {
+  ChakraProvider,
+  useColorMode,
+  useColorModeValue,
+} from "@chakra-ui/react";
+import { customTheme } from "./components/theme";
 // import HomeSidebar from "./components/home-sidebar";
 
 function App() {
   // context
   const [user, setUser] = React.useState(null);
+
+  // console.log(useColorModeValue);
+  // // console.log(useColorMode);
+
+  // const themeObject = {
+  //   light:
+  //   dark:
+  // }
 
   // get the current user value here so we can pass to context. Use a state with context.
   onAuthStateChanged(auth, (user) => {
@@ -39,43 +53,45 @@ function App() {
   });
 
   return (
-    <UserContext.Provider value={user}>
-      {/* <UserProvider value={user}> */}
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Features />} />
-          <Route path="home" element={<Home />}>
-            {/* <Route path="home-sidebar" element={<HomeSidebar />}> */}
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="search" element={<Search />} />
-            <Route path="your-stats" element={<YourStats />}></Route>
-            <Route path="your-awards" element={<YourAwards />}></Route>
-            {/* </Route> */}
-          </Route>
-          <Route
-            path="volunteer-opportunity"
-            element={<VolunteerOpportunity />}
-          >
-            <Route path="dashboard" element={<VODashboard />} />
-            <Route path="to-do" element={<VOToDo />} />
-            <Route path="announcements" element={<VOAnnouncements />} />
-            <Route path="messages" element={<VOMessages />} />
-          </Route>
-          <Route path="sign-up" element={<SignUp />} />
-          <Route path="log-in" element={<LogIn />} />
-          <Route path="help" element={<Help />} />
-          <Route path="account-settings" element={<AccountSettings />} />
-          <Route path="notifications" element={<Notifications />} />
-          <Route
-            path="notification-settings"
-            element={<NotificationSettings />}
-          />
-          <Route path="*" element={<ErrorPage />} />{" "}
-          {/* This error page route needs to be the last route!!! Star basically means all others*/}
-        </Routes>
-      </BrowserRouter>
-      {/* </UserProvider> */}
-    </UserContext.Provider>
+    <ChakraProvider theme={customTheme}>
+      <UserContext.Provider value={user}>
+        {/* <UserProvider value={user}> */}
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Features />} />
+            <Route path="home" element={<Home />}>
+              {/* <Route path="home-sidebar" element={<HomeSidebar />}> */}
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="search" element={<Search />} />
+              <Route path="your-stats" element={<YourStats />}></Route>
+              <Route path="your-awards" element={<YourAwards />}></Route>
+              {/* </Route> */}
+            </Route>
+            <Route
+              path="volunteer-opportunity"
+              element={<VolunteerOpportunity />}
+            >
+              <Route path="dashboard" element={<VODashboard />} />
+              <Route path="to-do" element={<VOToDo />} />
+              <Route path="announcements" element={<VOAnnouncements />} />
+              <Route path="messages" element={<VOMessages />} />
+            </Route>
+            <Route path="sign-up" element={<SignUp />} />
+            <Route path="log-in" element={<LogIn />} />
+            <Route path="help" element={<Help />} />
+            <Route path="account-settings" element={<AccountSettings />} />
+            <Route path="notifications" element={<Notifications />} />
+            <Route
+              path="notification-settings"
+              element={<NotificationSettings />}
+            />
+            <Route path="*" element={<ErrorPage />} />{" "}
+            {/* This error page route needs to be the last route!!! Star basically means all others*/}
+          </Routes>
+        </BrowserRouter>
+        {/* </UserProvider> */}
+      </UserContext.Provider>
+    </ChakraProvider>
   );
 }
 
