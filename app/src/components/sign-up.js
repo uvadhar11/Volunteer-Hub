@@ -69,12 +69,13 @@ function SignUp() {
           userCredential.user.displayName =
             firstNameRef.current.value + " " + lastNameRef.current.value;
           console.log("Document written with ID: ", docRef.id);
+          navigate("/log-in");
         } catch (error) {
           console.log("Error adding document: ", error);
         }
       } catch (error) {
         console.log(error);
-        console.log("User could not be created.");
+        alert("User could not be created.");
       }
     } else {
       // if password and confirm password aren't the same then probably display a message.

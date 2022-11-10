@@ -19,9 +19,16 @@ function Theme() {
     //     },
     //   },
     // },
-    brand: {
-      default: "red.100",
-      _dark: "whiteAlpha.100",
+    colors: {
+      brand: {
+        // default: "red.100",
+        // _dark: "red.100",
+        500: "#FFFFFF",
+      },
+      bg: {
+        default: "red.100",
+        _dark: "gray.100",
+      },
     },
   });
 

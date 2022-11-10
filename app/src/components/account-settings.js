@@ -18,6 +18,7 @@ import {
 } from "firebase/auth";
 import {
   collection,
+  deleteDoc,
   doc,
   getDocs,
   query,
@@ -161,10 +162,10 @@ function AccountSettings() {
   }
 
   async function deleteAccount() {
-    // const usersRef = collection(db, "users"); // get collection (users is a collection) and db is firestore
-    // const q = query(usersRef, where("userID", "==", user.uid));
-    // const qs = await getDocs(q); // gets documents matching query (parameters) and await = wait till get it
-    // const usersRef1 = doc(db, "users", qs.docs[0].id); // database, collection, document id -> reference and qs.docs[0].id gets id of document since qs.docs is an array. And one object in it since only one matches the query/parameters.
+    const usersRef = collection(db, "users"); // get collection (users is a collection) and db is firestore
+    const q = query(usersRef, where("userID", "==", user.uid));
+    const qs = await getDocs(q); // gets documents matching query (parameters) and await = wait till get it
+    const usersRef1 = doc(db, "users", qs.docs[0].id); // database, collection, document id -> reference and qs.docs[0].id gets id of document since qs.docs is an array. And one object in it since only one matches the query/parameters.
     // console.log(qs.docs[0].data().firstName); // this data printing works
     // // updates document
     // await updateDoc(usersRef1, {
@@ -187,6 +188,7 @@ function AccountSettings() {
           // user deleted
           alert("Account was successfully deleted.");
           // delete the document fields associated with the user id - using collection before user deletes.
+          deleteDoc(usersRef1);
 
           // redirect them to log-in
           navigate("/log-in");

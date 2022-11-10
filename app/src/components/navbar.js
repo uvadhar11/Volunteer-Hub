@@ -74,7 +74,8 @@ function NavBar(props) {
     <Flex
       w="100%"
       h="3em"
-      bg={useColorModeValue("gray.100", "red.100")}
+      // bg={useColorModeValue("gray.100", "#4A5568")} // dark, light
+      // bg={"bg"}
       pl="2"
       align="center"
     >
@@ -110,6 +111,9 @@ function NavBar(props) {
         <Button
           mr="3"
           size="md"
+          // colorScheme="facebook"
+          // color="#CBD5E0"
+          // textColor={"#EDF2F7"}
           colorScheme="facebook"
           onClick={() => navigate("/sign-up")}
         >
