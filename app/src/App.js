@@ -23,10 +23,11 @@ import { onAuthStateChanged } from "firebase/auth";
 import NotificationSettings from "./components/notification-settings";
 import {
   ChakraProvider,
+  extendTheme,
   useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { customTheme } from "./components/theme";
+import CreateVolunteerOpportunity from "./components/create-volunteer-opportunity";
 // import HomeSidebar from "./components/home-sidebar";
 
 function App() {
@@ -52,8 +53,49 @@ function App() {
     }
   });
 
+  // THEME
+
+  // TOKENS
+  const tokens = {
+    colors: {
+      light: {
+        "bg-default": "red.100",
+      },
+      dark: {
+        "bg-default": "whiteAlpha.100",
+      },
+    },
+  };
+
+  // SEMANTIC TOKENS
+  const semanticTokens = {
+    colors: {
+      "bg-default": {
+        default: tokens.colors.light["bg-default"],
+        _dark: tokens.colors.dark["bg-default"],
+      },
+    },
+  };
+
+  // GLOBAL STYLES
+  const styles = {
+    global: {
+      body: {
+        background: "bg-default",
+      },
+    },
+  };
+
+  // Can add changed components here then pass them in
+
+  // EXTEND THEME
+  const theme = extendTheme({
+    semanticTokens,
+    styles,
+  });
+
   return (
-    <ChakraProvider theme={customTheme}>
+    <ChakraProvider theme={theme}>
       <UserContext.Provider value={user}>
         {/* <UserProvider value={user}> */}
         <BrowserRouter>
@@ -84,6 +126,10 @@ function App() {
             <Route
               path="notification-settings"
               element={<NotificationSettings />}
+            />
+            <Route
+              path="create-volunteer-opportunity"
+              element={<CreateVolunteerOpportunity />}
             />
             <Route path="*" element={<ErrorPage />} />{" "}
             {/* This error page route needs to be the last route!!! Star basically means all others*/}

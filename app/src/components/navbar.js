@@ -29,7 +29,6 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { UserContext } from "./context";
 import { collection, getDoc, getDocs, query, where } from "firebase/firestore";
-import { customTheme } from "./theme";
 
 async function getCurrentUserData() {
   const user = auth.currentUser;
@@ -75,7 +74,7 @@ function NavBar(props) {
       w="100%"
       h="3em"
       // bg={useColorModeValue("gray.100", "#4A5568")} // dark, light
-      // bg={"bg"}
+      bg={"bg-default"}
       pl="2"
       align="center"
     >
@@ -86,6 +85,7 @@ function NavBar(props) {
           as={IconButton}
           aria-label="Menu Button"
           colorScheme="facebook"
+          // colorScheme="gray"
           icon={<FaBars />}
         />
         {/* only show up if user exists */}

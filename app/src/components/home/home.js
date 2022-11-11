@@ -1,7 +1,7 @@
 import { IconButton, VStack, HStack, Button, Text } from "@chakra-ui/react";
 import React from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { FaHome, FaGrinTears } from "react-icons/fa";
+import { FaHome, FaGrinTears, FaPlus } from "react-icons/fa";
 import NavBar from "../navbar";
 import { UserConsumer, UserContext } from "../context";
 
@@ -29,6 +29,7 @@ function Home() {
           alignSelf={"flex-start"}
           gap="1"
         >
+          {/* home button */}
           <Link to="dashboard">
             {" "}
             {/*embed JS example. Old: "home-sidebar*/}
@@ -41,11 +42,20 @@ function Home() {
             ></IconButton>
           </Link>
 
+          {/* volunteer opportunity button */}
           <IconButton
             aria-label="Volunteer Opportunity"
             colorScheme="facebook"
             onClick={() => navigate("/volunteer-opportunity/dashboard")}
             icon={<FaGrinTears />}
+          ></IconButton>
+
+          {/* create volunteer opportunity button */}
+          <IconButton
+            aria-label="Create Volunteer Opportunity Button"
+            colorScheme="facebook"
+            onClick={() => navigate("/create-volunteer-opportunity")}
+            icon={<FaPlus />}
           ></IconButton>
         </VStack>
         {/* side side bar / sidebar 2 (like channel bar) */}
