@@ -78,14 +78,15 @@ function NavBar(props) {
       pl="2"
       align="center"
     >
-      {/* blackAlpha.600 */}
       {/* Menu Button */}
       <Menu>
         <MenuButton
           as={IconButton}
           aria-label="Menu Button"
-          colorScheme="facebook"
+          // colorScheme="facebook"
           // colorScheme="gray"
+          // colorScheme="button-default"
+          textColor="button-default"
           icon={<FaBars />}
         />
         {/* only show up if user exists */}
@@ -107,6 +108,7 @@ function NavBar(props) {
       <Spacer />
 
       {/* would dynamically load the elements in here. */}
+      {/* SIGN UP BUTTON */}
       {props.signUp === "true" ? (
         <Button
           mr="3"
@@ -114,15 +116,19 @@ function NavBar(props) {
           // colorScheme="facebook"
           // color="#CBD5E0"
           // textColor={"#EDF2F7"}
-          colorScheme="facebook"
+          // colorScheme="button-default"
+          textColor="button-default"
           onClick={() => navigate("/sign-up")}
         >
           Sign Up
         </Button>
       ) : null}
+
+      {/* LOG IN BUTTON */}
       {props.logIn === "true" ? (
         <Button
-          colorScheme="facebook"
+          // colorScheme="button-default"
+          textColor="button-default"
           size="md"
           onClick={() => navigate("/log-in")}
           mr="3"
@@ -131,9 +137,11 @@ function NavBar(props) {
         </Button>
       ) : null}
 
+      {/* HELP BUTTON */}
       <IconButton
         aria-label="Help Button"
-        colorScheme="facebook"
+        // textColor="button-default"
+        textColor="button-default"
         onClick={() =>
           window.location.pathname == "/help"
             ? navigate("/")
@@ -148,11 +156,13 @@ function NavBar(props) {
         }
       ></IconButton>
 
+      {/* NOTIFICATION BUTTON */}
       <Menu>
         <MenuButton
           as={IconButton}
           aria-label="Notification Bell"
-          colorScheme="facebook"
+          // colorScheme="button-default"
+          textColor="button-default"
           ml="2"
           icon={<FaBell />}
         />
@@ -170,9 +180,11 @@ function NavBar(props) {
         ) : null}
       </Menu>
 
+      {/* THEME CHANGE BUTTON */}
       <IconButton
         aria-label="Theme Change"
-        colorScheme="facebook"
+        // colorScheme="button-default"
+        textColor="button-default"
         ml="2"
         icon={isDark ? <FaSun /> : <FaMoon />}
         onClick={toggleColorMode}
@@ -189,7 +201,8 @@ function NavBar(props) {
           // pl={user ? "3" : "0"} // padding so the profile picture is centered. Padding offsets content.
           ml="2"
           mr="2"
-          colorScheme="facebook"
+          // colorScheme="button-default"
+          textColor="button-default"
         />
 
         {/* Menu Selections */}

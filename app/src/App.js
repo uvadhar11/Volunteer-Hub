@@ -55,16 +55,18 @@ function App() {
 
   // THEME
 
-  // TOKENS
+  // TOKENS - uppercase hex letters make it not work. Must be lowercase.
   const tokens = {
     colors: {
       light: {
         "bg-default": "red.100",
-        "navbar-default": "#2c2c2c",
+        "navbar-default": "#718096",
+        "button-default": "#edf2f7",
       },
       dark: {
         "bg-default": "#1a202c",
-        "navbar-default": "#2c2c2c",
+        "navbar-default": "#4a5568",
+        "button-default": "#edf2f7",
       },
     },
   };
@@ -79,6 +81,10 @@ function App() {
       "navbar-default": {
         default: tokens.colors.light["navbar-default"],
         _dark: tokens.colors.dark["navbar-default"],
+      },
+      "button-default": {
+        default: tokens.colors.light["button-default"],
+        _dark: tokens.colors.light["button-default"],
       },
     },
   };
