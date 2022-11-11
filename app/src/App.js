@@ -60,9 +60,11 @@ function App() {
     colors: {
       light: {
         "bg-default": "red.100",
+        "navbar-default": "#2c2c2c",
       },
       dark: {
-        "bg-default": "whiteAlpha.100",
+        "bg-default": "#1a202c",
+        "navbar-default": "#2c2c2c",
       },
     },
   };
@@ -73,6 +75,10 @@ function App() {
       "bg-default": {
         default: tokens.colors.light["bg-default"],
         _dark: tokens.colors.dark["bg-default"],
+      },
+      "navbar-default": {
+        default: tokens.colors.light["navbar-default"],
+        _dark: tokens.colors.dark["navbar-default"],
       },
     },
   };

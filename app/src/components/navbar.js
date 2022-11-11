@@ -74,7 +74,7 @@ function NavBar(props) {
       w="100%"
       h="3em"
       // bg={useColorModeValue("gray.100", "#4A5568")} // dark, light
-      bg={"bg-default"}
+      bg={"navbar-default"}
       pl="2"
       align="center"
     >

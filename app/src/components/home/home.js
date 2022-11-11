@@ -9,7 +9,7 @@ function Home() {
   let navigate = useNavigate();
 
   return (
-    <VStack w="100%" h="100vh">
+    <VStack w="100%" h="100vh" bg="bg-default">
       {/* nav bar */}
       <NavBar />
 
