@@ -69,6 +69,8 @@ function NavBar(props) {
       });
   };
 
+  // load in the profile picture from cloud storage
+
   return (
     <Flex
       w="100%"

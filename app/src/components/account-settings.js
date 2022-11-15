@@ -15,6 +15,7 @@ import {
   signOut,
   updateEmail,
   updatePassword,
+  updateProfile,
 } from "firebase/auth";
 import {
   collection,
@@ -210,7 +211,17 @@ function AccountSettings() {
 
   if (url) {
     user.photoURL = url;
+    console.log("YESSIR IMO");
     // console.log(user.photoURL);
+    updateProfile(user, {
+      photoURL: url,
+    })
+      .then(() => {
+        console.log("URL SETTING WORKS");
+      })
+      .catch((error) => {
+        console.log("L", error);
+      });
   }
 
   return (
