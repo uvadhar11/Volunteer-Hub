@@ -201,16 +201,16 @@ function AccountSettings() {
     }
   }
 
-  console.log(image);
-  console.log(url);
+  // console.log(image);
+  // console.log(url);
 
-  // user.photoURL = url;
-  console.log(user.photoURL);
-  console.log(url);
+  // // user.photoURL = url;
+  // console.log(user.photoURL);
+  // console.log(url);
 
   if (url) {
     user.photoURL = url;
-    console.log(user.photoURL);
+    // console.log(user.photoURL);
   }
 
   return (
@@ -220,10 +220,22 @@ function AccountSettings() {
       <HStack w="90%" pt="1%" alignItems="start">
         {/* Buttons */}
         <VStack w="13%">
-          <Button w="120%" onClick={navigate("/account-settings")}>
+          <Button
+            w="120%"
+            onClick={() => {
+              navigate("/account-settings");
+            }}
+          >
+            {" "}
             Your Account
           </Button>
-          <Button w="120%" onClick={navigate("/notification-settings")}>
+          <Button
+            w="120%"
+            onClick={() => {
+              navigate("/notification-settings");
+            }}
+          >
+            {" "}
             Notifications
           </Button>
           <Button w="120%" onClick={deleteAccount}>
