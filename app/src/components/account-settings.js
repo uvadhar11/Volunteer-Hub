@@ -34,6 +34,10 @@ import NavBar from "./navbar";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { setDefaultEventParameters } from "firebase/analytics";
 
+// test user accounts:
+// johndoe1@gmail.com -> bobbajoe
+// helloguys@gmail.com -> password
+
 function AccountSettings() {
   const user = auth.currentUser;
   const [image, setImage] = React.useState(null);
