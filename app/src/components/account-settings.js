@@ -68,7 +68,7 @@ function AccountSettings() {
   };
 
   const handleSubmit = () => {
-    const imageRef = ref(storage, "image");
+    const imageRef = ref(storage, user.uid); // parameter 2 is the name of the file. Made it the uid for ez access.
     uploadBytes(imageRef, image)
       .then(() => {
         getDownloadURL(imageRef)
