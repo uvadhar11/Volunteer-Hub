@@ -28,6 +28,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import CreateVolunteerOpportunity from "./components/create-volunteer-opportunity";
+import ForgotPassword from "./components/forgot-password";
 // import HomeSidebar from "./components/home-sidebar";
 
 function App() {
@@ -143,6 +144,7 @@ function App() {
               path="create-volunteer-opportunity"
               element={<CreateVolunteerOpportunity />}
             />
+            <Route path="forgot-password" element={<ForgotPassword />} />
             <Route path="*" element={<ErrorPage />} />{" "}
             {/* This error page route needs to be the last route!!! Star basically means all others*/}
           </Routes>
