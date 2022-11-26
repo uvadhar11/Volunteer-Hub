@@ -166,6 +166,7 @@ function AccountSettings() {
     navigate("/log-in");
   }
 
+  // TO DO: WHEN ACCOUNT DELETED, DELETE IMAGES IN CLOUD STORAGE TOO. UPDATE THE STUFF HERE LATER ON LIKE IF A VOLUNTEER OPPORTUNITY OWNER DELETES ACCOUNT IT COULD PROMPT IF WANT TO DELETE OR NOT.
   async function deleteAccount() {
     const usersRef = collection(db, "users"); // get collection (users is a collection) and db is firestore
     const q = query(usersRef, where("userID", "==", user.uid));
