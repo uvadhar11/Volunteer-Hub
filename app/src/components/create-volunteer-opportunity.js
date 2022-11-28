@@ -18,9 +18,17 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import {
+  arrayUnion,
+  collection,
+  doc,
+  getDoc,
+  updateDoc,
+} from "firebase/firestore";
 import React from "react";
 import { FaMinus, FaPlus, FaPlusCircle, FaPlusSquare } from "react-icons/fa";
 import { Form } from "react-router-dom";
+import { db } from "../firebase";
 import NavBar from "./navbar";
 
 function CreateVolunteerOpportunity() {
@@ -57,73 +65,33 @@ function CreateVolunteerOpportunity() {
   };
 
   // generate a specific ID for the volunteer opportunity for saving and stuff
-  const generateID = () => {
-    // ID Params: 32 characters max
-    const characters = [
-      "0",
-      "1",
-      "2",
-      "3",
-      "4",
-      "5",
-      "6",
-      "7",
-      "8",
-      "9",
-      "a",
-      "A",
-      "b",
-      "B",
-      "c",
-      "C",
-      "d",
-      "D",
-      "e",
-      "E",
-      "f",
-      "F",
-      "g",
-      "G",
-      "h",
-      "H",
-      "i",
-      "I",
-      "j",
-      "J",
-      "k",
-      "K",
-      "l",
-      "L",
-      "m",
-      "M",
-      "n",
-      "N",
-      "o",
-      "O",
-      "p",
-      "P",
-      "q",
-      "Q",
-      "r",
-      "R",
-      "s",
-      "S",
-      "t",
-      "T",
-      "u",
-      "U",
-      "v",
-      "V",
-      "w",
-      "W",
-      "x",
-      "X",
-      "y",
-      "Y",
-      "z",
-      "Z",
-    ];
-  };
+  async function generateID() {
+    // JS integer limit: 15 digits
+    const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+    // get array from datastore with volunteer op IDs
+    // const managementRef = collection(db, "management");
+    const volOpIDArrayRef = doc(db, "management", "vol_op_IDs");
+    const volOpIDArraySnap = await getDoc(volOpIDArrayRef);
+
+    // deleted IDs array
+    const deletedVolOpIDArrayRef = doc(db, "management", "deleted_vol_op_IDs");
+    const deletedVolOpIDArraySnap = await getDoc(deletedVolOpIDArrayRef);
+
+    console.log(volOpIDArraySnap.data().VolOpIDArray["length"]); // gets the length
+    console.log(volOpIDArraySnap.data().VolOpIDArray[0]); // gets the first index place
+
+    const index = volOpIDArraySnap.data().VolOpIDArray["length"] - 1; // get the last index place in the array
+    const ID = volOpIDArraySnap.data().VolOpIDArray[index] + 1; // add one to the previous ID
+    console.log(ID);
+
+    // when a volunteer opportunity is deleted, I can add that ID to an array of deleted IDs then when assigning an ID, I check that array first and if its empty, I generate a new one by adding a number to the array.
+
+    // add one to the end one and that is the ID for this volunteer opportunity
+    await updateDoc(volOpIDArrayRef, {
+      VolOpIDArray: arrayUnion(ID),
+    });
+  }
 
   // data storing stuff when create button pressed
   const handleCreate = () => {
@@ -148,6 +116,8 @@ function CreateVolunteerOpportunity() {
       */}
 
       {/* Can use these input types even though not on chakra docs. INPUT TYPES: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input#input_types */}
+
+      <Button onClick={generateID}>Test Database</Button>
 
       <FormControl isRequired>
         {/* Volunteer Opportunity Icon */}
@@ -196,7 +166,7 @@ function CreateVolunteerOpportunity() {
             ></IconButton> */}
 
             {/* TEST */}
-            {index == 0 ? (
+            {index === 0 ? (
               <IconButton
                 onClick={() => handleNewContactInfo(true)}
                 icon={<FaPlus />}
