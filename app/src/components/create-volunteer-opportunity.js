@@ -19,6 +19,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import {
+  arrayRemove,
   arrayUnion,
   collection,
   doc,
@@ -67,27 +68,70 @@ function CreateVolunteerOpportunity() {
   // generate a specific ID for the volunteer opportunity for saving and stuff
   async function generateID() {
     // JS integer limit: 15 digits
-    const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-
     // get array from datastore with volunteer op IDs
     // const managementRef = collection(db, "management");
     const volOpIDArrayRef = doc(db, "management", "vol_op_IDs");
     const volOpIDArraySnap = await getDoc(volOpIDArrayRef);
 
+    // ID variable
+    let ID;
+
     // deleted IDs array
     const deletedVolOpIDArrayRef = doc(db, "management", "deleted_vol_op_IDs");
     const deletedVolOpIDArraySnap = await getDoc(deletedVolOpIDArrayRef);
+    const deletedIDsArray = deletedVolOpIDArraySnap.data().DeletedVolOpIdArray; // gets deleted ID array. Is it okay storing this data in variable where multiple clients can access and so will this variable have the most current data?
+
+    // get max variable
+    const VolOpIDVarsRef = doc(db, "management", "vol_op_ID_vars");
+    const VolOpIDVarsSnap = await getDoc(VolOpIDVarsRef);
+    console.log(VolOpIDVarsSnap.data().maxVolOpId);
 
     console.log(volOpIDArraySnap.data().VolOpIDArray["length"]); // gets the length
     console.log(volOpIDArraySnap.data().VolOpIDArray[0]); // gets the first index place
 
-    const index = volOpIDArraySnap.data().VolOpIDArray["length"] - 1; // get the last index place in the array
-    const ID = volOpIDArraySnap.data().VolOpIDArray[index] + 1; // add one to the previous ID
-    console.log(ID);
+    // check deleted array from IDs. Also
+    // Values in the array move if you delete an index place in the middle.
+    if (deletedIDsArray[0] !== null && deletedIDsArray[0] !== undefined) {
+      ID = deletedIDsArray[0];
+      console.log(ID);
+      // delete the ID from the deleted IDs array -> DOESN'T DELETE???
+      await updateDoc(deletedVolOpIDArrayRef, {
+        DeletedVolOpIdArray: arrayRemove(ID),
+      });
+    } else {
+      // if no IDs in deleted array then generate the ID
 
-    // when a volunteer opportunity is deleted, I can add that ID to an array of deleted IDs then when assigning an ID, I check that array first and if its empty, I generate a new one by adding a number to the array.
+      // generate ID from previous ID generated ONLY IF no ID in deleted array.
+      const index = volOpIDArraySnap.data().VolOpIDArray["length"] - 1; // get the last index place in the array
+      ID = volOpIDArraySnap.data().VolOpIDArray[index] + 1; // add one to the previous ID
+      console.log("ID: ", ID);
 
-    // add one to the end one and that is the ID for this volunteer opportunity
+      // max number checks with ID generated
+      const max = VolOpIDVarsSnap.data().maxVolOpId;
+      console.log("max: ", max);
+
+      if (max > ID) {
+        console.log("max > ID");
+        ID = max + 1;
+        // update max -> max = ID;
+        await updateDoc(VolOpIDVarsRef, {
+          maxVolOpId: ID,
+        });
+        console.log("ID", ID);
+      } else if (ID > max) {
+        console.log("ID > max");
+        // max = ID;
+        await updateDoc(VolOpIDVarsRef, {
+          maxVolOpId: ID,
+        });
+        console.log("ID", ID);
+      } else {
+        console.log("Max number equals ID!"); // this could happen when the just generated opportunity gets deleted so the max number could be the only ID in the deleted IDs array. So the max would equal the ID. So in that case, leaving it would be fine. TEST all possibilites including this to see if it works or not - it should I think.
+      }
+
+      // when a volunteer opportunity is deleted, I can add that ID to an array of deleted IDs then when assigning an ID, I check that array first and if its empty, I generate a new one by adding a number to the array.
+    }
+    // save the ID for this volunteer opportunity in the array
     await updateDoc(volOpIDArrayRef, {
       VolOpIDArray: arrayUnion(ID),
     });
