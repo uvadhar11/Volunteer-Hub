@@ -79,7 +79,7 @@ function CreateVolunteerOpportunity() {
     // deleted IDs array
     const deletedVolOpIDArrayRef = doc(db, "management", "deleted_vol_op_IDs");
     const deletedVolOpIDArraySnap = await getDoc(deletedVolOpIDArrayRef);
-    const deletedIDsArray = deletedVolOpIDArraySnap.data().DeletedVolOpIdArray; // gets deleted ID array. Is it okay storing this data in variable where multiple clients can access and so will this variable have the most current data?
+    const deletedIDsArray = deletedVolOpIDArraySnap.data().DeletedVolOpIdArray; // gets deleted ID array.
 
     // get max variable
     const VolOpIDVarsRef = doc(db, "management", "vol_op_ID_vars");
