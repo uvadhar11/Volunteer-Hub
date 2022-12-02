@@ -70,8 +70,8 @@ function CreateVolunteerOpportunity() {
     }
   };
 
-  // generate a specific ID for the volunteer opportunity for saving and stuff
-  async function generateID() {
+  // generate a specific ID for the volunteer opportunity for saving and stuff, save data
+  async function handleCreate() {
     // JS integer limit: 15 digits
     // get array from datastore with volunteer op IDs
     // ID variable
@@ -124,11 +124,6 @@ function CreateVolunteerOpportunity() {
     await updateDoc(VolOpNumberRef, { vol_op_num: Number(ID) });
   }
 
-  // data storing stuff when create button pressed
-  const handleCreate = () => {
-    console.log("fill in");
-  };
-
   return (
     <VStack w="100%" h="100vh">
       <NavBar />
@@ -147,8 +142,6 @@ function CreateVolunteerOpportunity() {
       */}
 
       {/* Can use these input types even though not on chakra docs. INPUT TYPES: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input#input_types */}
-
-      <Button onClick={generateID}>Test Database</Button>
 
       <FormControl isRequired>
         {/* Volunteer Opportunity Icon */}
