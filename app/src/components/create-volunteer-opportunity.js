@@ -24,6 +24,7 @@ import {
   collection,
   doc,
   getDoc,
+  setDoc,
   updateDoc,
 } from "firebase/firestore";
 import React from "react";
@@ -69,25 +70,26 @@ function CreateVolunteerOpportunity() {
   async function generateID() {
     // JS integer limit: 15 digits
     // get array from datastore with volunteer op IDs
-    // const managementRef = collection(db, "management");
-    const volOpIDArrayRef = doc(db, "management", "vol_op_IDs");
-    const volOpIDArraySnap = await getDoc(volOpIDArrayRef);
-
     // ID variable
-    let ID;
+    let ID = 1;
 
-    console.log(volOpIDArraySnap.data().VolOpIDArray["length"]); // gets the length
-    console.log(volOpIDArraySnap.data().VolOpIDArray[0]); // gets the first index place
+    const volRef = collection(db, "vol_ops");
+    console.log(volRef);
+    console.log(volRef._path.length); // found out its _path from printing volRef to console
 
-    // generate ID from previous ID generated ONLY IF no ID in deleted array.
-    const index = volOpIDArraySnap.data().VolOpIDArray["length"] - 1; // get the last index place in the array
-    ID = volOpIDArraySnap.data().VolOpIDArray[index] + 1; // add one to the previous ID
-    console.log("ID: ", ID);
+    ID = volRef._path.length + 1; // generate new ID
+    console.log(ID);
 
-    // save the ID for this volunteer opportunity in the array
-    await updateDoc(volOpIDArrayRef, {
-      VolOpIDArray: arrayUnion(ID),
-    });
+    // convert ID to a string since IDs must be numbers
+    ID = ID.toString();
+
+    // store data in the variable
+    // const data = {
+    //   firstName: 5,
+    //   bob: 6,
+    // };
+    // create the document for this volunteer opportunity in the vol_ops array and the data. And ID is the doc name.
+    await setDoc(doc(db, "vol_ops", ID), { hello: 1 }); // for some reason it doesn't like passing the ID in since its a number, NOT a string. So figure that issue out.
   }
 
   // data storing stuff when create button pressed
