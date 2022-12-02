@@ -75,17 +75,30 @@ function CreateVolunteerOpportunity() {
     // JS integer limit: 15 digits
     // get array from datastore with volunteer op IDs
     // ID variable
-    let ID = 1;
+    let ID;
 
-    const volRef = collection(db, "vol_ops");
-    console.log(volRef);
-    console.log(volRef._path.length); // found out its _path from printing volRef to console
-
-    ID = volRef._path.length + 1; // generate new ID
+    // const volRef = collection(db, "vol_ops");
+    const VolOpNumberRef = doc(db, "vol_ops", "vol_op_number");
+    const VolOpNumber = await getDoc(VolOpNumberRef);
+    // console.log(volRef);
+    // console.log(volRef._path.length); // found out its _path from printing volRef to console
+    console.log(VolOpNumber.data());
+    ID = VolOpNumber.data().vol_op_num + 1;
+    // ID = volRef._path.length + 1; // generate new ID
     console.log(ID);
 
     // convert ID to a string since IDs must be numbers
     ID = ID.toString();
+
+    // store values in the contactInfoArray
+    // TO DO: MIGHT NEED TO UPDATE THE CONTACT INFO IF ONE OF THE ON-PLATFORM USERS DELETES THEIR ACCOUNT AND MIGHT WANT TO ADD A CHECK FOR IF THE ON PLATFORM USERS ACTUALLY EXIST, AND MIGHT NEED TO SHOW THE UID FOR THE VOLUNTEERS ON THEIR PROFILE (MAKE ONE?) AND THEN ASK FOR THAT. OR, CAN MAKE A "PUBLIC USER ID" THAT FOLLOWS THE SAME ID GENERATION AS THE VOLUNTEERS OPPORTUNITIES IN CASE WE DON'T WANT TO MAKE THE UID PUBLIC FOR DATA BASE BEING SAFE AND STUFF.
+    for (let i = 0; i < newContactInfoValue; i++) {
+      const inp = document.querySelector(`.ContactInfo${i}`);
+      const inpType = document.querySelector(`.ContactInfo2${i}`);
+      contactInfoArray[i] = inp.value;
+      contactInfoTypeArray[i] = inpType.value;
+      // ^ need to make 2 arrays since nested arrays are not supported with firestore.
+    }
 
     // store data in the variable
     const data = {
@@ -93,7 +106,8 @@ function CreateVolunteerOpportunity() {
       description: descriptionRef.current.value,
       orgName: orgNameRef.current.value,
       // contact information stuff
-      contactInformation: contactInformationRef.current.value,
+      contactInformation: contactInfoArray,
+      contactInformationType: contactInfoTypeArray,
       // check location ref stuff
       location:
         locationValue === "Location/Area"
@@ -105,33 +119,14 @@ function CreateVolunteerOpportunity() {
     };
     // create the document for this volunteer opportunity in the vol_ops array and the data. And ID is the doc name.
     await setDoc(doc(db, "vol_ops", ID), data);
+
+    // then update the number of volunteer opportunities
+    await updateDoc(VolOpNumberRef, { vol_op_num: Number(ID) });
   }
 
   // data storing stuff when create button pressed
   const handleCreate = () => {
-    console.log("checks");
-    const contactInfoThing = document.querySelector(".ContactInfo1");
-    console.log(contactInfoThing);
-    console.log(contactInfoThing.value);
-  };
-
-  const test = (e) => {
-    console.log(e);
-    console.log(e.target.value);
-    console.log(e.target.className);
-    console.log(e.target.classList[1].includes("ContactInfo"));
-    const num = Number(e.target.classList[1].slice(11));
-    console.log(num);
-    contactInfoArray[num] = [e.target.value];
-    console.log(contactInfoArray);
-    // contactInfoArray[num] = [contactInfoArray[num], "Only"];
-    // console.log(contactInfoArray);
-  };
-
-  const test2 = (e) => {
-    const num = Number(e.target.classList[1].slice(12));
-    contactInfoTypeArray[num] = e.target.value;
-    console.log(contactInfoTypeArray);
+    console.log("fill in");
   };
 
   return (
@@ -194,9 +189,8 @@ function CreateVolunteerOpportunity() {
             <Input
               className={`ContactInfo${index}`}
               placeholder="Contact Information"
-              onChange={test}
             ></Input>
-            <Select className={`ContactInfo2${index}`} onChange={test2}>
+            <Select className={`ContactInfo2${index}`}>
               <option>On-Platform</option>
               <option>Off-Platform</option>
             </Select>
