@@ -45,10 +45,14 @@ function CreateVolunteerOpportunity() {
   const descriptionRef = React.useRef(null);
   const orgNameRef = React.useRef(null);
   // store contact information, usernames for people to contact
+  const contactInformationRef = React.useRef(null);
   const locationRef = React.useRef(null); // ONLY use when locationValue useState is not Global so check that when storing data
   const startRef = React.useRef(null);
   const endRef = React.useRef(null);
   const hoursWeekRef = React.useRef(null);
+
+  let contactInfoArray = [];
+  let contactInfoTypeArray = [];
 
   // FUNCTIONS
   // add/subtract to state value for number of contact informations
@@ -84,17 +88,50 @@ function CreateVolunteerOpportunity() {
     ID = ID.toString();
 
     // store data in the variable
-    // const data = {
-    //   firstName: 5,
-    //   bob: 6,
-    // };
+    const data = {
+      name: nameRef.current.value,
+      description: descriptionRef.current.value,
+      orgName: orgNameRef.current.value,
+      // contact information stuff
+      contactInformation: contactInformationRef.current.value,
+      // check location ref stuff
+      location:
+        locationValue === "Location/Area"
+          ? locationRef.current.value
+          : "Global",
+      start: startRef.current.value,
+      end: endRef.current.value,
+      hoursPerWeek: hoursWeekRef.current.value,
+    };
     // create the document for this volunteer opportunity in the vol_ops array and the data. And ID is the doc name.
-    await setDoc(doc(db, "vol_ops", ID), { hello: 1 }); // for some reason it doesn't like passing the ID in since its a number, NOT a string. So figure that issue out.
+    await setDoc(doc(db, "vol_ops", ID), data);
   }
 
   // data storing stuff when create button pressed
   const handleCreate = () => {
     console.log("checks");
+    const contactInfoThing = document.querySelector(".ContactInfo1");
+    console.log(contactInfoThing);
+    console.log(contactInfoThing.value);
+  };
+
+  const test = (e) => {
+    console.log(e);
+    console.log(e.target.value);
+    console.log(e.target.className);
+    console.log(e.target.classList[1].includes("ContactInfo"));
+    const num = Number(e.target.classList[1].slice(11));
+    console.log(num);
+    contactInfoArray[num] = [e.target.value];
+    console.log(contactInfoArray);
+    // contactInfoArray[num] = [contactInfoArray[num], "Only"];
+    // console.log(contactInfoArray);
+  };
+
+  const test2 = (e) => {
+    const num = Number(e.target.classList[1].slice(12));
+    contactInfoTypeArray[num] = e.target.value;
+    console.log(contactInfoTypeArray);
   };
 
   return (
@@ -154,17 +191,16 @@ function CreateVolunteerOpportunity() {
         {/* plus button that will add more input fields based on number. */}
         {Array.from({ length: newContactInfoValue }).map((_, index) => (
           <Flex key={index}>
-            <Input placeholder="Contact Information"></Input>
-            <Select>
+            <Input
+              className={`ContactInfo${index}`}
+              placeholder="Contact Information"
+              onChange={test}
+            ></Input>
+            <Select className={`ContactInfo2${index}`} onChange={test2}>
               <option>On-Platform</option>
               <option>Off-Platform</option>
             </Select>
-            {/* <IconButton
-              onClick={handleNewContactInfo}
-              icon={<FaPlus />}
-            ></IconButton> */}
 
-            {/* TEST */}
             {index === 0 ? (
               <IconButton
                 onClick={() => handleNewContactInfo(true)}
