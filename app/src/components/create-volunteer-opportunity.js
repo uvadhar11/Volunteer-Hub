@@ -17,6 +17,7 @@ import {
   Stack,
   Text,
   VStack,
+  Image,
 } from "@chakra-ui/react";
 import {
   arrayRemove,
@@ -27,25 +28,26 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import React from "react";
 import { FaMinus, FaPlus, FaPlusCircle, FaPlusSquare } from "react-icons/fa";
-import { Form } from "react-router-dom";
-import { db } from "../firebase";
+import { Form, useNavigate } from "react-router-dom";
+import { db, storage } from "../firebase";
 import NavBar from "./navbar";
 
 function CreateVolunteerOpportunity() {
+  let navigate = useNavigate();
   // STATES
   const [locationValue, setLocationValue] = React.useState(null);
   const [newContactInfoValue, setContactInfoValue] = React.useState(1);
   // store url stuff for the image
   const [image, setImage] = React.useState(null);
+  const [url, setUrl] = React.useState(null);
 
   // REFS
   const nameRef = React.useRef(null);
   const descriptionRef = React.useRef(null);
   const orgNameRef = React.useRef(null);
-  // store contact information, usernames for people to contact
-  const contactInformationRef = React.useRef(null);
   const locationRef = React.useRef(null); // ONLY use when locationValue useState is not Global so check that when storing data
   const startRef = React.useRef(null);
   const endRef = React.useRef(null);
@@ -70,8 +72,21 @@ function CreateVolunteerOpportunity() {
     }
   };
 
+  const handlePreviewImage = () => {
+    // test showing an image preview without uploading it to cloud storage
+    const reader = new FileReader(); // assuming this file reader reads the inputs with the type of file
+    reader.onload = function (e) {
+      // select the display image element
+      const displayImage = document.querySelector(".displayImage");
+      // change the display image src to the file uploaded/to display
+      displayImage.src = e.target.result;
+    };
+    reader.readAsDataURL(image);
+  };
+
   // generate a specific ID for the volunteer opportunity for saving and stuff, save data
   async function handleCreate() {
+    // TO DO: ADD A CHECK TO MAKE SURE ALL THE FIELDS ARE FILLED OUT BEFORE SUBMITTING.
     // JS integer limit: 15 digits
     // get array from datastore with volunteer op IDs
     // ID variable
@@ -100,6 +115,25 @@ function CreateVolunteerOpportunity() {
       // ^ need to make 2 arrays since nested arrays are not supported with firestore.
     }
 
+    // upload image to cloud storage
+    const imageName = `vol_op_icon_${ID}`; // generate imageName
+    const imageRef = ref(storage, imageName); // parameter 2 is the name of the file. Made it the uid for ez access.
+    uploadBytes(imageRef, image) // use the image state for the file which is updated when the file is uploaded which is why we don't have to change it with the file reader.
+      .then(() => {
+        getDownloadURL(imageRef)
+          .then((url) => {
+            setUrl(url);
+            console.log(url);
+          })
+          .catch((error) => {
+            console.log(error.message, "error getting the image url");
+          });
+        setImage(null);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+
     // store data in the variable
     const data = {
       name: nameRef.current.value,
@@ -116,12 +150,19 @@ function CreateVolunteerOpportunity() {
       start: startRef.current.value,
       end: endRef.current.value,
       hoursPerWeek: hoursWeekRef.current.value,
+      icon: imageName, // cloud storage name for the image file
     };
     // create the document for this volunteer opportunity in the vol_ops array and the data. And ID is the doc name.
     await setDoc(doc(db, "vol_ops", ID), data);
 
     // then update the number of volunteer opportunities
     await updateDoc(VolOpNumberRef, { vol_op_num: Number(ID) });
+
+    // say the opportunity was successfully made
+    alert("Volunteer opportunity successfully made!");
+
+    // then navigate them to home/or the opportunity home page
+    navigate("/home");
   }
 
   return (
@@ -146,12 +187,23 @@ function CreateVolunteerOpportunity() {
       <FormControl isRequired>
         {/* Volunteer Opportunity Icon */}
         <Flex direction={"column"}>
-          <Avatar mb="2"></Avatar>
+          {/* <Avatar mb="2" className="displayImage"></Avatar> */}
+          <Image
+            ml="5"
+            className="displayImage"
+            h="40vh"
+            w="350px"
+            fit={"contain"} // preserves the orginal aspect ratio of the image but scales it down to fit in the size set in the image.
+            fallbackSrc="/NoImageProvided.png"
+          ></Image>
           <input
             type="file"
             variant={"unstyled"}
             onChange={handleImageChange}
           ></input>
+          <Button onClick={handlePreviewImage} w="-webkit-fit-content">
+            Preview Image
+          </Button>
         </Flex>
 
         {/* Volunteer Opportunity Name */}
