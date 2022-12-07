@@ -134,6 +134,10 @@ function CreateVolunteerOpportunity() {
         console.log(error.message);
       });
 
+    // change local time
+    const startTime = new Date(startRef.current.value).toISOString();
+    const endTime = new Date(endRef.current.value).toISOString();
+
     // store data in the variable
     const data = {
       name: nameRef.current.value,
@@ -147,8 +151,8 @@ function CreateVolunteerOpportunity() {
         locationValue === "Location/Area"
           ? locationRef.current.value
           : "Global",
-      start: startRef.current.value,
-      end: endRef.current.value,
+      start: startTime,
+      end: endTime,
       hoursPerWeek: hoursWeekRef.current.value,
       icon: imageName, // cloud storage name for the image file
     };

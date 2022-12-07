@@ -4,6 +4,7 @@ import React from "react";
 import {
   FaCalendar,
   FaCaretRight,
+  FaClock,
   FaMale,
   FaMapMarkerAlt,
   FaUserFriends,
@@ -26,6 +27,10 @@ function SearchEntry(objProps) {
   console.log(objProps.objProps);
   console.log(objProps.objProps.data());
   const docData = objProps.objProps.data();
+
+  const startDate = new Date(docData.start).toLocaleString();
+  const endDate = new Date(docData.end).toLocaleString();
+
   return (
     <VStack
       bg="whiteAlpha.800"
@@ -57,12 +62,15 @@ function SearchEntry(objProps) {
           {docData.location}
         </Text>
       </HStack>
-      {/* timeframe, hrs per wk */}
+      {/* timeframe */}
       <HStack pl="2" pr="2">
         <Icon as={FaCalendar} color="black"></Icon>
-        <Text color="black">
-          {volOpObject.timeframe} | {volOpObject.hrsPerWk}
-        </Text>
+        <Text color="black">{`${startDate} - ${endDate}`}</Text>
+      </HStack>
+      {/* hours per week */}
+      <HStack pl="2" pr="2">
+        <Icon as={FaClock} color="black"></Icon>
+        <Text color="black">{`${docData.hoursPerWeek} hrs/wk`}</Text>
       </HStack>
       {/* Number of Members in the volunteer opportunity */}
       <HStack pl="2" pr="2" pb="2">
