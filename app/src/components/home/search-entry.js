@@ -24,6 +24,8 @@ function SearchEntry(objProps) {
     memberNumber: 100,
   };
   console.log(objProps.objProps);
+  console.log(objProps.objProps.data());
+  const docData = objProps.objProps.data();
   return (
     <VStack
       bg="whiteAlpha.800"
@@ -33,17 +35,17 @@ function SearchEntry(objProps) {
     >
       {/* opportunity name - might wanna add volunteer opportunity icon somewhere as well*/}
       <Text color="black" fontSize="xl" pl="2" pr="2" pt="2">
-        {objProps.objProps.name}
+        {docData.name}
       </Text>
       {/* description (have max characters, then additional desc if a button is clicked on side) */}
       <HStack pl="2" pr="2">
         <Icon as={FaCaretRight} color="black"></Icon>
-        <Text color="black">{objProps.objProps.description}</Text>
+        <Text color="black">{docData.description}</Text>
       </HStack>
       {/* by */}
       <HStack pl="2" pr="2">
         <Icon as={FaMale} color="black"></Icon>
-        <Text color="black">{objProps.objProps.orgName}</Text>
+        <Text color="black">{docData.orgName}</Text>
       </HStack>
       {/* type/location - might want to do jut location and if its global then location will be that */}
       <HStack pl="2" pr="2">
@@ -52,7 +54,7 @@ function SearchEntry(objProps) {
           {/* {volOpObject.type === volOpObject.location
             ? volOpObject.type
             : volOpObject.type | volOpObject.location} */}
-          {objProps.objProps.location}
+          {docData.location}
         </Text>
       </HStack>
       {/* timeframe, hrs per wk */}

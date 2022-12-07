@@ -32,7 +32,7 @@ async function volOpData() {
 
   querySnapshot.forEach((doc) => {
     console.log(doc.id, doc.data());
-    querySnap.push(doc.data());
+    querySnap.push(doc); // doc.data()
   });
   console.log(querySnap);
 
@@ -70,9 +70,11 @@ function Search() {
 
       {/* needs to be map because map allows you to return from it. Using docData (the state). */}
       {docData &&
-        docData.map((stuff) => {
-          console.log(stuff);
-          return <SearchEntry objProps={stuff}></SearchEntry>;
+        docData.map((document, index) => {
+          console.log(document);
+          return (
+            <SearchEntry key={index + 1} objProps={document}></SearchEntry>
+          );
         })}
     </VStack>
   );
