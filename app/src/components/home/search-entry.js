@@ -10,16 +10,6 @@ import {
 } from "react-icons/fa";
 import { db } from "../../firebase";
 
-// get data from firestore for the volunteer object
-async function volOpData() {
-  const volOpCollectionRef = collection(db, "vol_ops");
-  // ask about the search method.
-  console.log(volOpCollectionRef);
-
-  const querySnapshot = await getDocs(collection(db, "vol_ops"));
-  console.log(querySnapshot);
-}
-
 // search card for each volunteer opportunity. This is for ONE volunteer opportunity so pass the data in as a prop then put the data in each element. Then in the search.js file, apply the queries and pass data in and load the search entries in accordingly with an Array.from like in the create vol ops with contact info or something.
 function SearchEntry(objProps) {
   // creating an example volunteer opportunity object.
@@ -33,9 +23,7 @@ function SearchEntry(objProps) {
     description: "This is a volunteer opportunity",
     memberNumber: 100,
   };
-  console.log(objProps);
-  console.log(objProps);
-  console.log(objProps.numProps); // gets the num prop value
+  console.log(objProps.objProps);
   return (
     <VStack
       bg="whiteAlpha.800"
@@ -43,20 +31,19 @@ function SearchEntry(objProps) {
       w="-moz-fit-content"
       alignItems="start"
     >
-      {console.log(objProps)}
       {/* opportunity name - might wanna add volunteer opportunity icon somewhere as well*/}
       <Text color="black" fontSize="xl" pl="2" pr="2" pt="2">
-        {objProps.name}
+        {objProps.objProps.name}
       </Text>
       {/* description (have max characters, then additional desc if a button is clicked on side) */}
       <HStack pl="2" pr="2">
         <Icon as={FaCaretRight} color="black"></Icon>
-        <Text color="black">{objProps.description}</Text>
+        <Text color="black">{objProps.objProps.description}</Text>
       </HStack>
       {/* by */}
       <HStack pl="2" pr="2">
         <Icon as={FaMale} color="black"></Icon>
-        <Text color="black">{objProps.orgName}</Text>
+        <Text color="black">{objProps.objProps.orgName}</Text>
       </HStack>
       {/* type/location - might want to do jut location and if its global then location will be that */}
       <HStack pl="2" pr="2">
@@ -65,7 +52,7 @@ function SearchEntry(objProps) {
           {/* {volOpObject.type === volOpObject.location
             ? volOpObject.type
             : volOpObject.type | volOpObject.location} */}
-          {objProps.location}
+          {objProps.objProps.location}
         </Text>
       </HStack>
       {/* timeframe, hrs per wk */}
