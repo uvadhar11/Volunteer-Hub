@@ -72,9 +72,18 @@ function Search() {
       {docData &&
         docData.map((document, index) => {
           console.log(document);
-          return (
+          // only make a search entry for the documents that don't have vol_op_num -> also check if valid or not for start and end date.
+          const currentDT = new Date(); // gets current date, time in UTC
+
+          // made into dates to compare them and for comparisions
+          const sDT = new Date(document.data().start);
+          const eDT = new Date(document.data().end);
+          return !document.data()?.vol_op_num &&
+            sDT <= currentDT &&
+            eDT >= currentDT ? (
             <SearchEntry key={index + 1} objProps={document}></SearchEntry>
-          );
+          ) : null;
+          // vol op num, check whether date and time is in that range.
         })}
     </VStack>
   );

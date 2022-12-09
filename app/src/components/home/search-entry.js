@@ -1,18 +1,50 @@
-import { chakra, HStack, Icon, Text, VStack } from "@chakra-ui/react";
-import { collection, doc, getDocs } from "firebase/firestore";
-import React from "react";
 import {
+  Button,
+  ButtonGroup,
+  Center,
+  chakra,
+  HStack,
+  Icon,
+  Image,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
+import { collection, doc, getDocs } from "firebase/firestore";
+import { getDownloadURL, getStorage, ref } from "firebase/storage";
+import React, { useEffect } from "react";
+import {
+  FaAngleDown,
   FaCalendar,
   FaCaretRight,
+  FaCaretSquareDown,
   FaClock,
   FaMale,
   FaMapMarkerAlt,
   FaUserFriends,
 } from "react-icons/fa";
-import { db } from "../../firebase";
+import { db, storage } from "../../firebase";
+
+// sign up function
+function handleSignUp() {
+  console.log("hello");
+}
 
 // search card for each volunteer opportunity. This is for ONE volunteer opportunity so pass the data in as a prop then put the data in each element. Then in the search.js file, apply the queries and pass data in and load the search entries in accordingly with an Array.from like in the create vol ops with contact info or something.
 function SearchEntry(objProps) {
+  const [VOIcon, setVOIcon] = React.useState(null);
+  console.log(objProps.objProps.data());
+  const id = String(objProps.objProps.data().icon);
+  console.log(id);
+  function getImage() {
+    return getDownloadURL(ref(storage, objProps.objProps.data().icon));
+  }
+
+  // use effect so it runs on mount once
+  useEffect(() => {
+    getImage().then((val) => {
+      setVOIcon(val);
+    });
+  }, []);
   // creating an example volunteer opportunity object.
   const volOpObject = {
     name: "Volunteer Opportunity",
@@ -38,6 +70,15 @@ function SearchEntry(objProps) {
       w="-moz-fit-content"
       alignItems="start"
     >
+      {/* profile picture */}
+      <Image
+        src={VOIcon}
+        h="40vh"
+        w="350px"
+        fit={"contain"} // preserves the orginal aspect ratio of the image but scale it down
+        fallbackSrc="/NoImageProvided.png"
+      ></Image>
+
       {/* opportunity name - might wanna add volunteer opportunity icon somewhere as well*/}
       <Text color="black" fontSize="xl" pl="2" pr="2" pt="2">
         {docData.name}
@@ -75,9 +116,26 @@ function SearchEntry(objProps) {
       {/* Number of Members in the volunteer opportunity */}
       <HStack pl="2" pr="2" pb="2">
         <Icon as={FaUserFriends} color="black"></Icon>
-        <Text color="black">{volOpObject.memberNumber} Members</Text>
+        <Text color="black">{docData.members} Members</Text>
       </HStack>
-      {/* requirements and can use the FaRegListAlt icon for that. */}
+      {/* requirements and can use the FaRegListAlt icon for that as a later feature. */}
+
+      {/* more info */}
+      <Button colorScheme={"button-default"} rightIcon={<FaAngleDown />}>
+        Contact/More Info
+      </Button>
+
+      {/* join button */}
+      <Button
+        onClick={handleSignUp}
+        colorScheme={"blackAlpha"}
+        alignSelf="center"
+        fontSize={"xl"}
+        mb="2"
+        // disabled="true"
+      >
+        Sign-Up
+      </Button>
     </VStack>
   );
 }

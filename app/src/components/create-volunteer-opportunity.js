@@ -19,7 +19,9 @@ import {
   VStack,
   Image,
 } from "@chakra-ui/react";
+import { getAuth } from "firebase/auth";
 import {
+  addDoc,
   arrayRemove,
   arrayUnion,
   collection,
@@ -32,7 +34,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import React from "react";
 import { FaMinus, FaPlus, FaPlusCircle, FaPlusSquare } from "react-icons/fa";
 import { Form, useNavigate } from "react-router-dom";
-import { db, storage } from "../firebase";
+import { auth, db, storage } from "../firebase";
 import NavBar from "./navbar";
 
 function CreateVolunteerOpportunity() {
@@ -55,6 +57,8 @@ function CreateVolunteerOpportunity() {
 
   let contactInfoArray = [];
   let contactInfoTypeArray = [];
+
+  const currentUser = auth.currentUser;
 
   // FUNCTIONS
   // add/subtract to state value for number of contact informations
@@ -155,6 +159,7 @@ function CreateVolunteerOpportunity() {
       end: endTime,
       hoursPerWeek: hoursWeekRef.current.value,
       icon: imageName, // cloud storage name for the image file
+      members: 1,
     };
     // create the document for this volunteer opportunity in the vol_ops array and the data. And ID is the doc name.
     await setDoc(doc(db, "vol_ops", ID), data);
@@ -164,6 +169,14 @@ function CreateVolunteerOpportunity() {
 
     // say the opportunity was successfully made
     alert("Volunteer opportunity successfully made!");
+
+    // add this user to the volunteer opportunity
+    await addDoc(collection(db, "management"), {
+      // data. this collection is used for volunteers in what volunteer opportunity.
+      opp_id: Number(ID),
+      valid: true,
+      volunteer_uid: currentUser.uid,
+    });
 
     // then navigate them to home/or the opportunity home page
     navigate("/home");
