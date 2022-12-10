@@ -9,7 +9,16 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { collection, doc, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import React, { useEffect } from "react";
 import {
@@ -17,20 +26,19 @@ import {
   FaCalendar,
   FaCaretRight,
   FaCaretSquareDown,
+  FaChargingStation,
   FaClock,
   FaMale,
   FaMapMarkerAlt,
   FaUserFriends,
 } from "react-icons/fa";
-import { db, storage } from "../../firebase";
-
-// sign up function
-function handleSignUp() {
-  console.log("hello");
-}
+import { useNavigate } from "react-router-dom";
+import { auth, db, storage } from "../../firebase";
 
 // search card for each volunteer opportunity. This is for ONE volunteer opportunity so pass the data in as a prop then put the data in each element. Then in the search.js file, apply the queries and pass data in and load the search entries in accordingly with an Array.from like in the create vol ops with contact info or something.
 function SearchEntry(objProps) {
+  const user = auth.currentUser; // variables and stuff needs to be defined in a function/this functional component and you can put functions even async functions inside this react functional component.
+  let navigate = useNavigate();
   const [VOIcon, setVOIcon] = React.useState(null);
   console.log(objProps.objProps.data());
   const id = String(objProps.objProps.data().icon);
@@ -39,23 +47,36 @@ function SearchEntry(objProps) {
     return getDownloadURL(ref(storage, objProps.objProps.data().icon));
   }
 
+  // sign up function
+  async function handleSignUp() {
+    console.log("Signed Up");
+    const managementRef = collection(db, "management");
+    await addDoc(managementRef, {
+      opp_id: objProps.objProps.id,
+      valid: true,
+      volunteer_uid: user.uid,
+    });
+
+    // members += 1
+    const membersCount = objProps.objProps.data().members;
+    console.log(typeof membersCount);
+    console.log(objProps.objProps.id, typeof objProps.objProps.id);
+    await updateDoc(doc(db, "vol_ops", objProps.objProps.id), {
+      members: membersCount + 1,
+    });
+
+    // navigate to the vol op home page
+    navigate("/home");
+  }
+
   // use effect so it runs on mount once
   useEffect(() => {
     getImage().then((val) => {
       setVOIcon(val);
     });
   }, []);
-  // creating an example volunteer opportunity object.
-  const volOpObject = {
-    name: "Volunteer Opportunity",
-    type: "Global",
-    location: "Global",
-    by: "John Doe", // might make user object here
-    timeframe: "On and Off",
-    hrsPerWk: "2 hours/week",
-    description: "This is a volunteer opportunity",
-    memberNumber: 100,
-  };
+
+  console.log(user);
   console.log(objProps.objProps);
   console.log(objProps.objProps.data());
   const docData = objProps.objProps.data();
@@ -63,12 +84,17 @@ function SearchEntry(objProps) {
   const startDate = new Date(docData.start).toLocaleString();
   const endDate = new Date(docData.end).toLocaleString();
 
+  // check if user in this op so we can disable the button
+  // const signedUpDocs = userSignedUp();
+  // console.log(signedUpDocs);
+
   return (
     <VStack
       bg="whiteAlpha.800"
       rounded="md"
-      w="-moz-fit-content"
+      // w="-moz-fit-content"
       alignItems="start"
+      w="462px" // makes the widths the same for all the search entries/vol ops
     >
       {/* profile picture */}
       <Image
@@ -77,6 +103,7 @@ function SearchEntry(objProps) {
         w="350px"
         fit={"contain"} // preserves the orginal aspect ratio of the image but scale it down
         fallbackSrc="/NoImageProvided.png"
+        alignSelf={"center"} // makes images in the center
       ></Image>
 
       {/* opportunity name - might wanna add volunteer opportunity icon somewhere as well*/}
@@ -124,7 +151,6 @@ function SearchEntry(objProps) {
       <Button colorScheme={"button-default"} rightIcon={<FaAngleDown />}>
         Contact/More Info
       </Button>
-
       {/* join button */}
       <Button
         onClick={handleSignUp}
@@ -132,7 +158,6 @@ function SearchEntry(objProps) {
         alignSelf="center"
         fontSize={"xl"}
         mb="2"
-        // disabled="true"
       >
         Sign-Up
       </Button>
