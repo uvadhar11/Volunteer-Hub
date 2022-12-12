@@ -114,7 +114,7 @@ function Search() {
           );
           // only make a search entry for the documents that don't have vol_op_num -> also check if valid or not for start and end date.
           const currentDT = new Date(); // gets current date, time in UTC
-
+          console.log(document.id, typeof document.id);
           // made into dates to compare them and for comparisions
           const sDT = new Date(document.data().start);
           const eDT = new Date(document.data().end);
@@ -122,7 +122,11 @@ function Search() {
             sDT <= currentDT &&
             eDT >= currentDT &&
             signedUpIDs &&
-            !signedUpIDs.some((doc) => doc === document.id) ? (
+            !signedUpIDs.some((doc) => {
+              console.log(doc, typeof doc);
+              console.log(document.id, typeof document.id);
+              return doc === document.id;
+            }) ? (
             <SearchEntry key={index + 1} objProps={document}></SearchEntry>
           ) : null;
           // vol op num, check whether date and time is in that range.

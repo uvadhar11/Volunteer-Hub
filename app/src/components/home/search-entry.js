@@ -23,6 +23,7 @@ import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import React, { useEffect } from "react";
 import {
   FaAngleDown,
+  FaAngleRight,
   FaCalendar,
   FaCaretRight,
   FaCaretSquareDown,
@@ -40,6 +41,7 @@ function SearchEntry(objProps) {
   const user = auth.currentUser; // variables and stuff needs to be defined in a function/this functional component and you can put functions even async functions inside this react functional component.
   let navigate = useNavigate();
   const [VOIcon, setVOIcon] = React.useState(null);
+  const [contactInfo, setContactInfo] = React.useState(false);
   console.log(objProps.objProps.data());
   const id = String(objProps.objProps.data().icon);
   console.log(id);
@@ -148,9 +150,47 @@ function SearchEntry(objProps) {
       {/* requirements and can use the FaRegListAlt icon for that as a later feature. */}
 
       {/* more info */}
-      <Button colorScheme={"button-default"} rightIcon={<FaAngleDown />}>
+      <Button
+        colorScheme={"button-default"}
+        rightIcon={contactInfo ? <FaAngleRight /> : <FaAngleDown />}
+        // MUST MAKE IT AN ANONYMOUS FUNCTION with the parenthesis.
+        onClick={() =>
+          setContactInfo((prev) => {
+            return !prev;
+          })
+        }
+      >
         Contact/More Info
       </Button>
+
+      {/* display contact information */}
+      {contactInfo ? (
+        <HStack w="100%" justify={"space-evenly"}>
+          {/* contact info */}
+          <VStack w="40%">
+            {docData &&
+              docData.contactInformation.map((val, index) => {
+                return (
+                  <Text color={"black"} alignSelf="flex-start">
+                    {val}
+                  </Text>
+                );
+              })}
+          </VStack>
+          {/* platform type */}
+          <VStack w="40%">
+            {docData &&
+              docData.contactInformationType.map((val, index) => {
+                return (
+                  <Text color={"black"} alignSelf="flex-end">
+                    {val}
+                  </Text>
+                );
+              })}
+          </VStack>
+        </HStack>
+      ) : null}
+
       {/* join button */}
       <Button
         onClick={handleSignUp}
