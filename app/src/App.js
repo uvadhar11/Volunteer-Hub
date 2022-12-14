@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Dashboard from "./components/home/dashboard";
 import Features from "./components/features";
@@ -18,7 +18,7 @@ import Help from "./components/help";
 import AccountSettings from "./components/account-settings";
 import Notifications from "./components/notifications";
 import { UserContext, UserProvider } from "./components/context";
-import { auth } from "./firebase";
+import { auth, db } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import NotificationSettings from "./components/notification-settings";
 import {
@@ -29,11 +29,20 @@ import {
 } from "@chakra-ui/react";
 import CreateVolunteerOpportunity from "./components/create-volunteer-opportunity";
 import ForgotPassword from "./components/forgot-password";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 // import HomeSidebar from "./components/home-sidebar";
 
 function App() {
   // context
   const [user, setUser] = React.useState(null);
+  const [datas, setDatas] = React.useState(null);
 
   // console.log(useColorModeValue);
   // // console.log(useColorMode);
@@ -53,6 +62,27 @@ function App() {
       setUser(null);
     }
   });
+
+  // data function
+  async function data() {
+    let IDs = []; // stores IDs
+
+    if (user) {
+      // gets data for all vol ops the user is in
+      const managementRef = collection(db, "management");
+      const q = query(managementRef, where("volunteer_uid", "==", user.uid));
+      const querySnapshot = await getDocs(q);
+      console.log(querySnapshot);
+
+      // then gets data for each vol op the user is in
+      querySnapshot.forEach((doc) => {
+        IDs.push(doc);
+      });
+
+      console.log(IDs);
+      return IDs;
+    }
+  }
 
   // THEME
 
@@ -107,6 +137,14 @@ function App() {
     styles,
   });
 
+  // use effect
+  useEffect(() => {
+    data().then((val) => {
+      setDatas(val);
+      console.log(datas);
+    });
+  }, [datas]);
+
   return (
     <ChakraProvider theme={theme}>
       <UserContext.Provider value={user}>
@@ -144,6 +182,8 @@ function App() {
               path="create-volunteer-opportunity"
               element={<CreateVolunteerOpportunity />}
             />
+            {/* make a certain amount of routes */}
+            {}
             <Route path="forgot-password" element={<ForgotPassword />} />
             <Route path="*" element={<ErrorPage />} />{" "}
             {/* This error page route needs to be the last route!!! Star basically means all others*/}

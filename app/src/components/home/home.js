@@ -1,12 +1,88 @@
 import { IconButton, VStack, HStack, Button, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { FaHome, FaGrinTears, FaPlus } from "react-icons/fa";
 import NavBar from "../navbar";
 import { UserConsumer, UserContext } from "../context";
+import { auth, db } from "../../firebase";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 
 function Home() {
   let navigate = useNavigate();
+  const [currentUser, setCurrentUser] = React.useState(null);
+  const [userOps, setUserOps] = React.useState(null);
+  const [userOpData, setUserOpData] = React.useState(null);
+
+  onAuthStateChanged(auth, (user) => {
+    setCurrentUser(user);
+  });
+
+  async function getUserOps() {
+    // query for ops user is in. check if user is defined before running since takes a lil bit of time for user to load and this code might execute before that.
+    if (currentUser) {
+      let arr = [];
+      const managementRef = collection(db, "management");
+      console.log("yes");
+      console.log(currentUser.uid);
+      const q = query(
+        managementRef,
+        where("volunteer_uid", "==", currentUser.uid)
+      );
+      const querySnapshot = await getDocs(q);
+      console.log(querySnapshot);
+      querySnapshot.forEach((doc) => {
+        if (doc.data().valid) arr.push(doc.data().opp_id);
+        // if the opportunity is valid (prolly not deleted since only ops with current date inside their start-end date range will show up in the search), then push the opp_id (only thing we need since its the data of the op the user is in).
+      });
+      return arr;
+    }
+  }
+
+  // function to return the document since getting an error when generating a document reference in the for loop.
+  async function accessDoc(id) {
+    const docRef = doc(db, "vol_ops", id);
+    return getDoc(docRef);
+  }
+
+  async function getOpData() {
+    if (userOps) {
+      // get data for the volunteer opportunities
+      let arr = [];
+      // cant use await and async inside a forEach loop so lets use a for loop
+      console.log(userOps);
+      for (let i = 0; i < userOps.length; i++) {
+        const document = await accessDoc(userOps[i]);
+        arr.push(document);
+      }
+      console.log(arr);
+      console.log(arr[0].data());
+      return arr;
+    }
+  }
+
+  // runs when user auth state reloads.
+  useEffect(() => {
+    getUserOps().then((val) => {
+      console.log(val);
+      setUserOps(val); // set ops user is in
+    });
+  }, [currentUser]);
+
+  // runs when the ops user is signed up for reloads
+  useEffect(() => {
+    getOpData().then((val) => {
+      console.log(val);
+      setUserOpData(val);
+    });
+  }, [userOps]);
 
   return (
     <VStack w="100%" h="100vh" bg="bg-default">
@@ -22,7 +98,7 @@ function Home() {
       >
         <VStack
           w="4%"
-          bg="blue"
+          bg="navbar-default"
           h="100%"
           justify="flex-start"
           align="center"
@@ -50,6 +126,13 @@ function Home() {
             icon={<FaGrinTears />}
           ></IconButton>
 
+          {/* test */}
+          {userOpData &&
+            userOpData.map((doc, index) => {
+              // console.log("runs");
+              return <IconButton key={index} icon={<FaPlus />}></IconButton>;
+            })}
+
           {/* create volunteer opportunity button */}
           <IconButton
             aria-label="Create Volunteer Opportunity Button"
@@ -57,9 +140,11 @@ function Home() {
             onClick={() => navigate("/create-volunteer-opportunity")}
             icon={<FaPlus />}
           ></IconButton>
+
+          {/* come up with icon buttons */}
         </VStack>
         {/* side side bar / sidebar 2 (like channel bar) */}
-        <VStack width="10em" height="100%" bg="red.100">
+        <VStack width="10em" height="100%" bg="navbar-default">
           <Text fontSize="1xl">Channels</Text>
           <Link to="dashboard">
             <Button colorScheme={"facebook"} size="sm">
