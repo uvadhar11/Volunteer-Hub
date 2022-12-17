@@ -1,11 +1,15 @@
 import { IconButton, VStack, HStack, Button, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { FaHome, FaGrinTears } from "react-icons/fa";
 import NavBar from "./navbar";
 
-function VolunteerOpportunity() {
+function VolunteerOpportunity(props) {
   let navigate = useNavigate();
+  const [prop, setProp] = React.useState(props);
+  console.log(props);
+
+  console.log(prop);
 
   return (
     <VStack w="100%" h="100vh">

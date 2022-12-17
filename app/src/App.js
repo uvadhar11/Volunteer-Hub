@@ -40,49 +40,72 @@ import {
 // import HomeSidebar from "./components/home-sidebar";
 
 function App() {
-  // context
-  const [user, setUser] = React.useState(null);
-  const [datas, setDatas] = React.useState(null);
+  const [currentUser, setCurrentUser] = React.useState(null);
+  const [userOps, setUserOps] = React.useState(null);
+  const [userOpData, setUserOpData] = React.useState(null);
 
-  // console.log(useColorModeValue);
-  // // console.log(useColorMode);
-
-  // const themeObject = {
-  //   light:
-  //   dark:
-  // }
-
-  // get the current user value here so we can pass to context. Use a state with context.
   onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // user is signed in
-      setUser(user);
-    } else {
-      // user is not signed in
-      setUser(null);
-    }
+    setCurrentUser(user);
   });
 
-  // data function
-  async function data() {
-    let IDs = []; // stores IDs
-
-    if (user) {
-      // gets data for all vol ops the user is in
+  async function getUserOps() {
+    // query for ops user is in. check if user is defined before running since takes a lil bit of time for user to load and this code might execute before that.
+    if (currentUser) {
+      let arr = [];
       const managementRef = collection(db, "management");
-      const q = query(managementRef, where("volunteer_uid", "==", user.uid));
+      console.log("yes");
+      console.log(currentUser.uid);
+      const q = query(
+        managementRef,
+        where("volunteer_uid", "==", currentUser.uid)
+      );
       const querySnapshot = await getDocs(q);
       console.log(querySnapshot);
-
-      // then gets data for each vol op the user is in
       querySnapshot.forEach((doc) => {
-        IDs.push(doc);
+        if (doc.data().valid) arr.push(doc.data().opp_id);
+        // if the opportunity is valid (prolly not deleted since only ops with current date inside their start-end date range will show up in the search), then push the opp_id (only thing we need since its the data of the op the user is in).
       });
-
-      console.log(IDs);
-      return IDs;
+      return arr;
     }
   }
+
+  // function to return the document since getting an error when generating a document reference in the for loop.
+  async function accessDoc(id) {
+    const docRef = doc(db, "vol_ops", id);
+    return getDoc(docRef);
+  }
+
+  async function getOpData() {
+    if (userOps) {
+      // get data for the volunteer opportunities
+      let arr = [];
+      // cant use await and async inside a forEach loop so lets use a for loop
+      console.log(userOps);
+      for (let i = 0; i < userOps.length; i++) {
+        const document = await accessDoc(userOps[i]);
+        arr.push(document);
+      }
+      console.log(arr);
+      console.log(arr[0].data());
+      return arr;
+    }
+  }
+
+  // runs when user auth state reloads.
+  useEffect(() => {
+    getUserOps().then((val) => {
+      console.log(val);
+      setUserOps(val); // set ops user is in
+    });
+  }, [currentUser]);
+
+  // runs when the ops user is signed up for reloads
+  useEffect(() => {
+    getOpData().then((val) => {
+      console.log(val);
+      setUserOpData(val);
+    });
+  }, [userOps]);
 
   // THEME
 
@@ -137,17 +160,17 @@ function App() {
     styles,
   });
 
-  // use effect
-  useEffect(() => {
-    data().then((val) => {
-      setDatas(val);
-      console.log(datas);
-    });
-  }, [datas]);
+  // // use effect
+  // useEffect(() => {
+  //   data().then((val) => {
+  //     setDatas(val);
+  //     console.log(datas);
+  //   });
+  // }, [datas]);
 
   return (
     <ChakraProvider theme={theme}>
-      <UserContext.Provider value={user}>
+      <UserContext.Provider value={currentUser}>
         {/* <UserProvider value={user}> */}
         <BrowserRouter>
           <Routes>
@@ -183,7 +206,28 @@ function App() {
               element={<CreateVolunteerOpportunity />}
             />
             {/* make a certain amount of routes */}
-            {}
+            {/* {userOpData &&
+              userOpData.map((val, index) => {
+                console.log(val.data());
+                return (
+                  <Route
+                    key={val.data().id}
+                    path="volunteer-opportunity/:id"
+                    element={<VolunteerOpportunity objProps={val} />}
+                  />
+                );
+              })} */}
+            {userOps &&
+              userOps.map((id, index) => {
+                console.log(id);
+                return (
+                  <Route
+                    key={id}
+                    path="volunteer-opportunity/:id"
+                    element={<VolunteerOpportunity props={id} />}
+                  />
+                );
+              })}
             <Route path="forgot-password" element={<ForgotPassword />} />
             <Route path="*" element={<ErrorPage />} />{" "}
             {/* This error page route needs to be the last route!!! Star basically means all others*/}

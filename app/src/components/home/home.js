@@ -126,10 +126,9 @@ function Home() {
             icon={<FaGrinTears />}
           ></IconButton>
 
-          {/* test */}
+          {/* vol op buttons */}
           {userOpData &&
             userOpData.map((doc, index) => {
-              // console.log("runs");
               return <IconButton key={index} icon={<FaPlus />}></IconButton>;
             })}
 
