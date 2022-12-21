@@ -217,7 +217,7 @@ function App() {
                   />
                 );
               })} */}
-            {userOps &&
+            {/* {userOps &&
               userOps.map((id, index) => {
                 console.log(id);
                 return (
@@ -227,7 +227,7 @@ function App() {
                     element={<VolunteerOpportunity props={id} />}
                   />
                 );
-              })}
+              })} */}
             <Route path="forgot-password" element={<ForgotPassword />} />
             <Route path="*" element={<ErrorPage />} />{" "}
             {/* This error page route needs to be the last route!!! Star basically means all others*/}

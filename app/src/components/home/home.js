@@ -74,15 +74,20 @@ function Home() {
       console.log(val);
       setUserOps(val); // set ops user is in
     });
-  }, [currentUser]);
-
-  // runs when the ops user is signed up for reloads
-  useEffect(() => {
+    // test
     getOpData().then((val) => {
       console.log(val);
       setUserOpData(val);
     });
-  }, [userOps]);
+  }, [currentUser]);
+
+  // // runs when the ops user is signed up for reloads
+  // useEffect(() => {
+  //   getOpData().then((val) => {
+  //     console.log(val);
+  //     setUserOpData(val);
+  //   });
+  // }, [userOps]);
 
   return (
     <VStack w="100%" h="100vh" bg="bg-default">
@@ -129,6 +134,7 @@ function Home() {
           {/* vol op buttons */}
           {userOpData &&
             userOpData.map((doc, index) => {
+              console.log(userOpData);
               return <IconButton key={index} icon={<FaPlus />}></IconButton>;
             })}
 
