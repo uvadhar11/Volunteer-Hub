@@ -44,68 +44,68 @@ function App() {
   const [userOps, setUserOps] = React.useState(null);
   const [userOpData, setUserOpData] = React.useState(null);
 
-  onAuthStateChanged(auth, (user) => {
-    setCurrentUser(user);
-  });
+  // onAuthStateChanged(auth, (user) => {
+  //   setCurrentUser(user);
+  // });
 
-  async function getUserOps() {
-    // query for ops user is in. check if user is defined before running since takes a lil bit of time for user to load and this code might execute before that.
-    if (currentUser) {
-      let arr = [];
-      const managementRef = collection(db, "management");
-      console.log("yes");
-      console.log(currentUser.uid);
-      const q = query(
-        managementRef,
-        where("volunteer_uid", "==", currentUser.uid)
-      );
-      const querySnapshot = await getDocs(q);
-      console.log(querySnapshot);
-      querySnapshot.forEach((doc) => {
-        if (doc.data().valid) arr.push(doc.data().opp_id);
-        // if the opportunity is valid (prolly not deleted since only ops with current date inside their start-end date range will show up in the search), then push the opp_id (only thing we need since its the data of the op the user is in).
-      });
-      return arr;
-    }
-  }
+  // async function getUserOps() {
+  //   // query for ops user is in. check if user is defined before running since takes a lil bit of time for user to load and this code might execute before that.
+  //   if (currentUser) {
+  //     let arr = [];
+  //     const managementRef = collection(db, "management");
+  //     console.log("yes");
+  //     console.log(currentUser.uid);
+  //     const q = query(
+  //       managementRef,
+  //       where("volunteer_uid", "==", currentUser.uid)
+  //     );
+  //     const querySnapshot = await getDocs(q);
+  //     console.log(querySnapshot);
+  //     querySnapshot.forEach((doc) => {
+  //       if (doc.data().valid) arr.push(doc.data().opp_id);
+  //       // if the opportunity is valid (prolly not deleted since only ops with current date inside their start-end date range will show up in the search), then push the opp_id (only thing we need since its the data of the op the user is in).
+  //     });
+  //     return arr;
+  //   }
+  // }
 
-  // function to return the document since getting an error when generating a document reference in the for loop.
-  async function accessDoc(id) {
-    const docRef = doc(db, "vol_ops", id);
-    return getDoc(docRef);
-  }
+  // // function to return the document since getting an error when generating a document reference in the for loop.
+  // async function accessDoc(id) {
+  //   const docRef = doc(db, "vol_ops", id);
+  //   return getDoc(docRef);
+  // }
 
-  async function getOpData() {
-    if (userOps) {
-      // get data for the volunteer opportunities
-      let arr = [];
-      // cant use await and async inside a forEach loop so lets use a for loop
-      console.log(userOps);
-      for (let i = 0; i < userOps.length; i++) {
-        const document = await accessDoc(userOps[i]);
-        arr.push(document);
-      }
-      console.log(arr);
-      console.log(arr[0].data());
-      return arr;
-    }
-  }
+  // async function getOpData() {
+  //   if (userOps) {
+  //     // get data for the volunteer opportunities
+  //     let arr = [];
+  //     // cant use await and async inside a forEach loop so lets use a for loop
+  //     console.log(userOps);
+  //     for (let i = 0; i < userOps.length; i++) {
+  //       const document = await accessDoc(userOps[i]);
+  //       arr.push(document);
+  //     }
+  //     console.log(arr);
+  //     console.log(arr[0].data());
+  //     return arr;
+  //   }
+  // }
 
   // runs when user auth state reloads.
-  useEffect(() => {
-    getUserOps().then((val) => {
-      console.log(val);
-      setUserOps(val); // set ops user is in
-    });
-  }, [currentUser]);
+  // useEffect(() => {
+  //   getUserOps().then((val) => {
+  //     console.log(val);
+  //     setUserOps(val); // set ops user is in
+  //   });
+  // }, [currentUser]);
 
-  // runs when the ops user is signed up for reloads
-  useEffect(() => {
-    getOpData().then((val) => {
-      console.log(val);
-      setUserOpData(val);
-    });
-  }, [userOps]);
+  // // runs when the ops user is signed up for reloads
+  // useEffect(() => {
+  //   getOpData().then((val) => {
+  //     console.log(val);
+  //     setUserOpData(val);
+  //   });
+  // }, [userOps]);
 
   // THEME
 
@@ -171,42 +171,42 @@ function App() {
   return (
     <ChakraProvider theme={theme}>
       <UserContext.Provider value={currentUser}>
-        {/* <UserProvider value={user}> */}
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Features />} />
-            <Route path="home" element={<Home />}>
-              {/* <Route path="home-sidebar" element={<HomeSidebar />}> */}
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="search" element={<Search />} />
-              <Route path="your-stats" element={<YourStats />}></Route>
-              <Route path="your-awards" element={<YourAwards />}></Route>
-              {/* </Route> */}
-            </Route>
-            <Route
-              path="volunteer-opportunity"
-              element={<VolunteerOpportunity />}
-            >
-              <Route path="dashboard" element={<VODashboard />} />
-              <Route path="to-do" element={<VOToDo />} />
-              <Route path="announcements" element={<VOAnnouncements />} />
-              <Route path="messages" element={<VOMessages />} />
-            </Route>
-            <Route path="sign-up" element={<SignUp />} />
-            <Route path="log-in" element={<LogIn />} />
-            <Route path="help" element={<Help />} />
-            <Route path="account-settings" element={<AccountSettings />} />
-            <Route path="notifications" element={<Notifications />} />
-            <Route
-              path="notification-settings"
-              element={<NotificationSettings />}
-            />
-            <Route
-              path="create-volunteer-opportunity"
-              element={<CreateVolunteerOpportunity />}
-            />
-            {/* make a certain amount of routes */}
-            {/* {userOpData &&
+        <UserProvider value={currentUser}>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Features />} />
+              <Route path="home" element={<Home />}>
+                {/* <Route path="home-sidebar" element={<HomeSidebar />}> */}
+                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="search" element={<Search />} />
+                <Route path="your-stats" element={<YourStats />}></Route>
+                <Route path="your-awards" element={<YourAwards />}></Route>
+                {/* </Route> */}
+              </Route>
+              <Route
+                path="volunteer-opportunity"
+                element={<VolunteerOpportunity />}
+              >
+                <Route path="dashboard" element={<VODashboard />} />
+                <Route path="to-do" element={<VOToDo />} />
+                <Route path="announcements" element={<VOAnnouncements />} />
+                <Route path="messages" element={<VOMessages />} />
+              </Route>
+              <Route path="sign-up" element={<SignUp />} />
+              <Route path="log-in" element={<LogIn />} />
+              <Route path="help" element={<Help />} />
+              <Route path="account-settings" element={<AccountSettings />} />
+              <Route path="notifications" element={<Notifications />} />
+              <Route
+                path="notification-settings"
+                element={<NotificationSettings />}
+              />
+              <Route
+                path="create-volunteer-opportunity"
+                element={<CreateVolunteerOpportunity />}
+              />
+              {/* make a certain amount of routes */}
+              {/* {userOpData &&
               userOpData.map((val, index) => {
                 console.log(val.data());
                 return (
@@ -217,7 +217,7 @@ function App() {
                   />
                 );
               })} */}
-            {/* {userOps &&
+              {/* {userOps &&
               userOps.map((id, index) => {
                 console.log(id);
                 return (
@@ -228,12 +228,12 @@ function App() {
                   />
                 );
               })} */}
-            <Route path="forgot-password" element={<ForgotPassword />} />
-            <Route path="*" element={<ErrorPage />} />{" "}
-            {/* This error page route needs to be the last route!!! Star basically means all others*/}
-          </Routes>
-        </BrowserRouter>
-        {/* </UserProvider> */}
+              <Route path="forgot-password" element={<ForgotPassword />} />
+              <Route path="*" element={<ErrorPage />} />{" "}
+              {/* This error page route needs to be the last route!!! Star basically means all others*/}
+            </Routes>
+          </BrowserRouter>
+        </UserProvider>
       </UserContext.Provider>
     </ChakraProvider>
   );

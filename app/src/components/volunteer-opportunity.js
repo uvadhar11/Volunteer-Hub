@@ -6,10 +6,10 @@ import NavBar from "./navbar";
 
 function VolunteerOpportunity(props) {
   let navigate = useNavigate();
-  const [prop, setProp] = React.useState(props);
-  console.log(props);
+  // const [prop, setProp] = React.useState(props);
+  // console.log(props);
 
-  console.log(prop);
+  // console.log(prop);
 
   return (
     <VStack w="100%" h="100vh">

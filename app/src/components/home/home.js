@@ -25,6 +25,26 @@ function Home() {
     setCurrentUser(user);
   });
 
+  // runs when user auth state reloads.
+  useEffect(() => {
+    getUserOps().then((val) => {
+      console.log(val);
+      setUserOps(val); // set ops user is in
+    });
+    getOpData().then((val) => {
+      console.log(val);
+      setUserOpData(val);
+    });
+  }, [currentUser]);
+
+  // // runs when the ops user is signed up for reloads
+  // useEffect(() => {
+  //   getOpData().then((val) => {
+  //     console.log(val);
+  //     setUserOpData(val);
+  //   });
+  // }, []);
+
   async function getUserOps() {
     // query for ops user is in. check if user is defined before running since takes a lil bit of time for user to load and this code might execute before that.
     if (currentUser) {
@@ -68,26 +88,19 @@ function Home() {
     }
   }
 
-  // runs when user auth state reloads.
-  useEffect(() => {
-    getUserOps().then((val) => {
-      console.log(val);
-      setUserOps(val); // set ops user is in
-    });
-    // test
-    getOpData().then((val) => {
-      console.log(val);
-      setUserOpData(val);
-    });
-  }, [currentUser]);
-
-  // // runs when the ops user is signed up for reloads
-  // useEffect(() => {
-  //   getOpData().then((val) => {
-  //     console.log(val);
-  //     setUserOpData(val);
+  // if (currentUser) {
+  //   getUserOps().then((val) => {
+  //     console.log("user, ", val);
+  //     setUserOps(val);
   //   });
-  // }, [userOps]);
+  // }
+
+  // if (userOps) {
+  //   getOpData().then((val) => {
+  //     setUserOpData(val);
+  //     console.log("set user op data ", val);
+  //   });
+  // }
 
   return (
     <VStack w="100%" h="100vh" bg="bg-default">
@@ -132,11 +145,11 @@ function Home() {
           ></IconButton>
 
           {/* vol op buttons */}
-          {userOpData &&
+          {/* {userOpData &&
             userOpData.map((doc, index) => {
               console.log(userOpData);
               return <IconButton key={index} icon={<FaPlus />}></IconButton>;
-            })}
+            })} */}
 
           {/* create volunteer opportunity button */}
           <IconButton

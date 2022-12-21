@@ -62,7 +62,7 @@ function SearchEntry(objProps) {
     // members += 1
     const membersCount = objProps.objProps.data().members;
     console.log(typeof membersCount);
-    console.log(objProps.objProps.id, typeof objProps.objProps.id);
+    // console.log(objProps.objProps.id, typeof objProps.objProps.id);
     await updateDoc(doc(db, "vol_ops", objProps.objProps.id), {
       members: membersCount + 1,
     });
