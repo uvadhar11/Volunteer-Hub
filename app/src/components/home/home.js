@@ -17,25 +17,46 @@ import { onAuthStateChanged } from "firebase/auth";
 
 function Home() {
   let navigate = useNavigate();
-  const [currentUser, setCurrentUser] = React.useState(null);
+  // const [currentUser, setCurrentUser] = React.useState(null);
   const [userOps, setUserOps] = React.useState(null);
   const [userOpData, setUserOpData] = React.useState(null);
 
-  onAuthStateChanged(auth, (user) => {
-    setCurrentUser(user);
-  });
+  // onAuthStateChanged(auth, (user) => {
+  //   setCurrentUser(user);
+  //   getUserOps().then((val) => {
+  //     console.log(val);
+  //     setUserOps(val); // set ops user is in
+  //   });
+  //   getOpData().then((val) => {
+  //     console.log(val);
+  //     setUserOpData(val);
+  //   });
+  // });
+
+  // if (auth.currentUser) setCurrentUser(auth.currentUser);
+
+  // onAuthStateChanged(auth, (user) => {
+  //   getUserOps().then((val) => {
+  //     console.log(val);
+  //     setUserOps(val); // set ops user is in
+  //   });
+  //   getOpData().then((val) => {
+  //     console.log(val);
+  //     setUserOpData(val);
+  //   });
+  // });
 
   // runs when user auth state reloads.
-  useEffect(() => {
-    getUserOps().then((val) => {
-      console.log(val);
-      setUserOps(val); // set ops user is in
-    });
-    getOpData().then((val) => {
-      console.log(val);
-      setUserOpData(val);
-    });
-  }, [currentUser]);
+  // useEffect(() => {
+  //   getUserOps().then((val) => {
+  //     console.log(val);
+  //     setUserOps(val); // set ops user is in
+  //   });
+  //   getOpData().then((val) => {
+  //     console.log(val);
+  //     setUserOpData(val);
+  //   });
+  // }, []);
 
   // // runs when the ops user is signed up for reloads
   // useEffect(() => {
@@ -47,7 +68,8 @@ function Home() {
 
   async function getUserOps() {
     // query for ops user is in. check if user is defined before running since takes a lil bit of time for user to load and this code might execute before that.
-    if (currentUser) {
+    if (auth.currentUser) {
+      const currentUser = auth.currentUser;
       let arr = [];
       const managementRef = collection(db, "management");
       console.log("yes");
@@ -74,6 +96,7 @@ function Home() {
 
   async function getOpData() {
     if (userOps) {
+      console.log(userOps);
       // get data for the volunteer opportunities
       let arr = [];
       // cant use await and async inside a forEach loop so lets use a for loop
@@ -83,7 +106,7 @@ function Home() {
         arr.push(document);
       }
       console.log(arr);
-      console.log(arr[0].data());
+      // console.log(arr[0].data());
       return arr;
     }
   }
@@ -101,6 +124,17 @@ function Home() {
   //     console.log("set user op data ", val);
   //   });
   // }
+
+  onAuthStateChanged(auth, (user) => {
+    getUserOps().then((val) => {
+      console.log(val);
+      setUserOps(val); // set ops user is in
+    });
+    getOpData().then((val) => {
+      console.log(val);
+      setUserOpData(val);
+    });
+  });
 
   return (
     <VStack w="100%" h="100vh" bg="bg-default">

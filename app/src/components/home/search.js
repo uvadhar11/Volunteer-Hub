@@ -34,9 +34,11 @@ function Search() {
   const [signedUpIDs, setSignedUpIDs] = React.useState(null);
   const [user, setUser] = React.useState(null);
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) setUser(user);
-  });
+  // onAuthStateChanged(auth, (user) => {
+  //   if (user) setUser(user);
+  // });
+
+  // if (auth.currentUser) setUser(auth.currentUser);
 
   // get docs
   async function volOpData() {
