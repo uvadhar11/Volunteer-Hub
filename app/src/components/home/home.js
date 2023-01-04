@@ -125,16 +125,16 @@ function Home() {
   //   });
   // }
 
-  onAuthStateChanged(auth, (user) => {
-    getUserOps().then((val) => {
-      console.log(val);
-      setUserOps(val); // set ops user is in
-    });
-    getOpData().then((val) => {
-      console.log(val);
-      setUserOpData(val);
-    });
-  });
+  // onAuthStateChanged(auth, (user) => {
+  //   getUserOps().then((val) => {
+  //     console.log(val);
+  //     setUserOps(val); // set ops user is in
+  //   });
+  //   getOpData().then((val) => {
+  //     console.log(val);
+  //     setUserOpData(val);
+  //   });
+  // });
 
   return (
     <VStack w="100%" h="100vh" bg="bg-default">
