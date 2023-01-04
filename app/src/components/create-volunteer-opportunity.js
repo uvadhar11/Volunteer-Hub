@@ -173,7 +173,7 @@ function CreateVolunteerOpportunity() {
     // add this user to the volunteer opportunity
     await addDoc(collection(db, "management"), {
       // data. this collection is used for volunteers in what volunteer opportunity.
-      opp_id: Number(ID),
+      opp_id: ID, // this should be a string and not a number I'm pretty sure. Was a number.
       valid: true,
       volunteer_uid: currentUser.uid,
     });

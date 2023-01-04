@@ -17,54 +17,8 @@ import { onAuthStateChanged } from "firebase/auth";
 
 function Home() {
   let navigate = useNavigate();
-  // const [currentUser, setCurrentUser] = React.useState(null);
   const [userOps, setUserOps] = React.useState(null);
   const [userOpData, setUserOpData] = React.useState(null);
-
-  // onAuthStateChanged(auth, (user) => {
-  //   setCurrentUser(user);
-  //   getUserOps().then((val) => {
-  //     console.log(val);
-  //     setUserOps(val); // set ops user is in
-  //   });
-  //   getOpData().then((val) => {
-  //     console.log(val);
-  //     setUserOpData(val);
-  //   });
-  // });
-
-  // if (auth.currentUser) setCurrentUser(auth.currentUser);
-
-  // onAuthStateChanged(auth, (user) => {
-  //   getUserOps().then((val) => {
-  //     console.log(val);
-  //     setUserOps(val); // set ops user is in
-  //   });
-  //   getOpData().then((val) => {
-  //     console.log(val);
-  //     setUserOpData(val);
-  //   });
-  // });
-
-  // runs when user auth state reloads.
-  // useEffect(() => {
-  //   getUserOps().then((val) => {
-  //     console.log(val);
-  //     setUserOps(val); // set ops user is in
-  //   });
-  //   getOpData().then((val) => {
-  //     console.log(val);
-  //     setUserOpData(val);
-  //   });
-  // }, []);
-
-  // // runs when the ops user is signed up for reloads
-  // useEffect(() => {
-  //   getOpData().then((val) => {
-  //     console.log(val);
-  //     setUserOpData(val);
-  //   });
-  // }, []);
 
   async function getUserOps() {
     // query for ops user is in. check if user is defined before running since takes a lil bit of time for user to load and this code might execute before that.
@@ -110,31 +64,6 @@ function Home() {
       return arr;
     }
   }
-
-  // if (currentUser) {
-  //   getUserOps().then((val) => {
-  //     console.log("user, ", val);
-  //     setUserOps(val);
-  //   });
-  // }
-
-  // if (userOps) {
-  //   getOpData().then((val) => {
-  //     setUserOpData(val);
-  //     console.log("set user op data ", val);
-  //   });
-  // }
-
-  // onAuthStateChanged(auth, (user) => {
-  //   getUserOps().then((val) => {
-  //     console.log(val);
-  //     setUserOps(val); // set ops user is in
-  //   });
-  //   getOpData().then((val) => {
-  //     console.log(val);
-  //     setUserOpData(val);
-  //   });
-  // });
 
   return (
     <VStack w="100%" h="100vh" bg="bg-default">
@@ -219,21 +148,7 @@ function Home() {
             </Button>
           </Link>
         </VStack>
-        {/* <UserContext.Consumer> */}
-        {/* {(user) => {
-            console.log(user.email);
-            return <Text>Hello {user.email}!</Text>;
-          }} */}
-        {/* </UserContext.Consumer> */}
-        ;
         <Outlet />
-        {/* content stuff */}
-        {/* <UserContext.Consumer>
-          {(username) => {
-            <Text>Hello {username}!</Text>;
-          }}
-        </UserContext.Consumer>
-        ;<Outlet /> */}
       </HStack>
     </VStack>
   );

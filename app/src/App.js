@@ -178,7 +178,7 @@ function App() {
               <Route path="home" element={<Home />}>
                 {/* <Route path="home-sidebar" element={<HomeSidebar />}> */}
                 <Route path="dashboard" element={<Dashboard />} />
-                {/* <Route path="search" element={<Search />} /> */}
+                <Route path="search" element={<Search />} />
                 <Route path="your-stats" element={<YourStats />}></Route>
                 <Route path="your-awards" element={<YourAwards />}></Route>
                 {/* </Route> */}
