@@ -34,11 +34,10 @@ function Search() {
   const [signedUpIDs, setSignedUpIDs] = React.useState(null);
   const [user, setUser] = React.useState(null);
 
+  // update user state when user is logged in
   onAuthStateChanged(auth, (user) => {
     if (user) setUser(user);
   });
-
-  // if (auth.currentUser) setUser(auth.currentUser);
 
   // get docs
   async function volOpData() {
@@ -87,7 +86,7 @@ function Search() {
     userSignedUp().then((val) => {
       setSignedUpIDs(val);
     });
-  }, [user]); // old: user inside the brackets
+  }, [user]); // user in brackets so it runs when the user state changes, which is updated by onAuthStateChanged.
 
   return (
     <VStack w="100%" h="calc(100vh-3em)">

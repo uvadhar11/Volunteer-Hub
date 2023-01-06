@@ -1,5 +1,5 @@
 import { IconButton, VStack, HStack, Button, Text } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { FaHome, FaGrinTears, FaPlus } from "react-icons/fa";
 import NavBar from "../navbar";
@@ -17,21 +17,30 @@ import { onAuthStateChanged } from "firebase/auth";
 
 function Home() {
   let navigate = useNavigate();
-  const [userOps, setUserOps] = React.useState(null);
-  const [userOpData, setUserOpData] = React.useState(null);
+  const [user, setUser] = React.useState(null);
+  // const [userOps, setUserOps] = React.useState(null);
+  // const [userOpData, setUserOpData] = React.useState(null);
+  // let userOps;
+  const userOps = React.useRef(null);
 
+  // update user state when user is logged in
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log("auth state changed runs...");
+      setUser(user);
+    }
+  });
+
+  // could move this inside the useEffect or add the eslint-disable-next-line comment to ignore it
   async function getUserOps() {
     // query for ops user is in. check if user is defined before running since takes a lil bit of time for user to load and this code might execute before that.
-    if (auth.currentUser) {
-      const currentUser = auth.currentUser;
+    if (user) {
+      // const currentUser = auth.currentUser;
       let arr = [];
       const managementRef = collection(db, "management");
       console.log("yes");
-      console.log(currentUser.uid);
-      const q = query(
-        managementRef,
-        where("volunteer_uid", "==", currentUser.uid)
-      );
+      // console.log(currentUser.uid);
+      const q = query(managementRef, where("volunteer_uid", "==", user.uid));
       const querySnapshot = await getDocs(q);
       console.log(querySnapshot);
       querySnapshot.forEach((doc) => {
@@ -64,6 +73,35 @@ function Home() {
       return arr;
     }
   }
+
+  // use effect
+  // useEffect(() => {
+  //   getUserOps().then((val) => {
+  //     console.log(val);
+  //     setUserOps(val);
+  //   });
+  // }, [user]);
+  // getUserOps().then((val) => {
+  //   console.log(val);
+  //   userOps = val;
+  // });
+  // the problem that was making it crash was it was in an infinite loop because useEffect happens when the component re-renders and I was updating a state which makes the componenet re-render, getting it stuck in an infinite loop. So instead of a state to store the ops the user is in, I could store it in a variable, since this won't need to be updated -> the only way the user can update this is by leaving the page to join an opportunity or create one and anyways when they get back to this page, the function will have been called again and the array will have the right IDs.
+
+  useEffect(() => {
+    getUserOps().then((val) => {
+      console.log(val);
+      userOps.current = val;
+      console.log(userOps);
+      console.log(userOps.current);
+      console.log(typeof userOps.current);
+      console.log("use effect runs...");
+    });
+  }, [user]);
+
+  // rewriting the code to get ops user is in, data for those ops -> maybe query the vol op collection based on the IDs that the user is in from the management collection instead of having to loop through the array of the IDs the user is in.
+  // async function userData() {
+  //   // 1. get the opportunity IDs of the vol ops the user is in
+  // }
 
   return (
     <VStack w="100%" h="100vh" bg="bg-default">
@@ -113,6 +151,23 @@ function Home() {
               console.log(userOpData);
               return <IconButton key={index} icon={<FaPlus />}></IconButton>;
             })} */}
+
+          {/* TEST */}
+          {/* {console.log(userOps)} */}
+          {/* {userOps &&
+            userOps.map((val, _, array) => {
+              console.log(array);
+              return <IconButton key={val} icon={<FaPlus />}></IconButton>;
+            })} */}
+
+          {/* Attempt again */}
+          {userOps &&
+            Array.from(userOps.current).map((val) => {
+              console.log("hello");
+              return <IconButton key={val} icon={<FaPlus />}></IconButton>;
+            })}
+
+          {/* set up -> basically each vol op icon for each volunteer opportunity the user is in will have  */}
 
           {/* create volunteer opportunity button */}
           <IconButton

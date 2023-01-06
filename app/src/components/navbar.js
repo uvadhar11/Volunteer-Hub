@@ -44,13 +44,19 @@ async function getCurrentUserData() {
 }
 
 function NavBar(props) {
-  const user = auth.currentUser;
+  const [user, setUser] = React.useState(null);
+
+  // making this a state and onAuthStateChanged makes sure the user's profile picture updates when the user loads in (since it takes some time for the user to load in - its not immediate) so then the component re-renders so the user profile picture is updated.
+  onAuthStateChanged(auth, (currentUser) => {
+    setUser(currentUser);
+  });
+  // const user = auth.currentUser;
   // console.log(user);
   // console.log(user?.email);
 
   // if (user) console.log(user.photoURL);
 
-  getCurrentUserData();
+  // getCurrentUserData();
 
   const { colorMode, toggleColorMode } = useColorMode();
   const isDark = colorMode === "dark"; // the value is this boolean expression so the value technically doesn't change but the evaluation true/false doesn't change.
